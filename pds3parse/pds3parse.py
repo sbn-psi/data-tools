@@ -7,7 +7,7 @@ import sys
 
 def p_label(p):
   'label : statements END'
-  p[0] = (p[1], 'END')
+  p[0] = p[1]
   
 def p_statements(p):
   '''statements : statements statement
@@ -27,19 +27,19 @@ def p_statement(p):
                 
 def p_assignment_statement(p):
   'attribute_statement : IDENT EQUALS value'
-  p[0] = (p[1], p[3])
+  p[0] = {'type':'attribute', 'name':p[1], 'value':p[3]}
   
 def p_pointer_statement(p):
   'pointer_statement : POINTER IDENT EQUALS value'
-  p[0] = ('^' + p[2], p[4])
+  p[0] = {'type':'pointer', 'name': '^' + p[2], 'value': p[4]}
   
 def p_object_statement(p):
   'object_statement : OBJECT EQUALS IDENT statements END_OBJECT EQUALS IDENT'
-  p[0] = (p[3], p[4])
+  p[0] = {'type':'object', 'name': p[3], 'value': p[4]}
   
 def p_group_statement(p):
   'group_statement : GROUP EQUALS IDENT statements END_GROUP EQUALS IDENT'
-  p[0] = (p[3], p[4])
+  p[0] = {'type':'group', 'name': p[3], 'value': p[4]}
   
 def p_value(p):
   '''value : scalar_value
@@ -49,7 +49,7 @@ def p_value(p):
            
 def p_scalar_value(p):
   '''scalar_value : numeric_value
-                  | DATE_TIME_VAL
+                  | date_time_val
                   | text_string_value
                   | symbol_value'''
   p[0] = p[1]
@@ -59,9 +59,9 @@ def p_numeric_value(p):
                    | BASED_INT optional_units_expression
                    | REAL optional_units_expression'''
   if (p[2]):
-    p[0] = (p[1], p[2])
+    p[0] = {"scalar": p[1], "unit": p[2] }
   else:
-    p[0] = p[1]
+    p[0] = {"scalar": p[1]}
                   
 def p_optional_units_expression(p):
   '''optional_units_expression : 
@@ -90,14 +90,19 @@ def p_mult_op(p):
             | DIVIDE'''
   p[0] = p[1]  
   
+def p_date_time_val(p):
+  '''date_time_val : DATE_TIME_VAL'''
+  p[0] = {"scalar": p[1]}
+  
+  
 def p_text_string_value(p):
   '''text_string_value : STRING'''
-  p[0] = p[1]  
+  p[0] = {"scalar": p[1]}
   
 def p_symbol_value(p):
   '''symbol_value : IDENT 
                   | SYMBOL'''
-  p[0] = p[1]
+  p[0] = {"scalar": p[1]}
     
 def p_sequence_value(p):
   '''sequence_value : sequence_1d 
@@ -130,11 +135,11 @@ def p_error(p):
   print('syntax_error: %s' % p.lineno)
   print(p)
   
+parser = yacc.yacc()
+  
 def main(argv=None):
   if argv is None:
     argv = sys.argv
-    
-  parser = yacc.yacc()
   
   with open(argv[1]) as f:
     data = f.read()
