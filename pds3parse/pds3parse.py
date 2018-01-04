@@ -3,6 +3,8 @@ import ply.yacc as yacc
 from pds3tokens import tokens
 import pds3lex
 
+import sys
+
 def p_label(p):
   'label : statements END'
   p[0] = (p[1], 'END')
@@ -128,9 +130,16 @@ def p_error(p):
   print('syntax_error: %s' % p.lineno)
   print(p)
   
-parser = yacc.yacc()
+def main(argv=None):
+  if argv is None:
+    argv = sys.argv
+    
+  parser = yacc.yacc()
   
-with open('cdr_f_20050911_20050929.lbl.txt') as f:
-  data = f.read()
-  result = parser.parse(data)
-  print(result)
+  with open(argv[1]) as f:
+    data = f.read()
+    result = parser.parse(data)
+    print(result)
+  
+if __name__ == '__main__':
+  sys.exit(main())
