@@ -1,6 +1,7 @@
 #module: pds3tokens.py
 import ply.lex as lex
 from ply.lex import TOKEN
+import re
 
 tokens = (
   'EQUALS',
@@ -101,7 +102,11 @@ def t_IDENT(t):
     
   return t
 
-t_STRING = quoted_text
+@TOKEN(quoted_text)
+def t_STRING(t):
+  t.value = re.sub('[" \n]+', ' ', t.value)
+  return t
+  
 t_SYMBOL = quoted_symbol
 
 t_ignore = ' ' 
