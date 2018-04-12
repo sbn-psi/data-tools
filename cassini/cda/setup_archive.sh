@@ -8,7 +8,7 @@ then
 fi
 
 VOLUME_ID=$1
-ARCHIVE_DIR=/dsk1/www/html/archive/cocda/
+ARCHIVE_DIR=/dsk1/www/archive/pds3/cassini/cda/
 ARCHIVE_FILE=${VOLUME_ID}.tar.gz 
 SCRIPT_DIR=$(dirname $0)
 
