@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 '''
 A script that will compare two Dawn IMG files.
 '''
