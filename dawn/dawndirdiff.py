@@ -30,10 +30,14 @@ def compare_directories(directory1, directory2):
     dirlist1 = get_dir_list(directory1)
     dirlist2 = get_dir_list(directory2)
 
-    compare_contents(directory1, directory2, dirlist1)
+    dirdict1 = dict(dirlist1)
 
-def compare_contents(directory1, directory2, dirlist):
-    for (dirname, filenames) in dirlist:
+    compare_contents(directory1, directory2, dirdict1)
+
+
+def compare_contents(directory1, directory2, dirdict):
+    for dirname in dirdict.keys():
+        filenames = dirdict[dirname]
         for filename in filenames:
             file1 = os.path.join(directory1, dirname, filename)
             file2 = os.path.join(directory2, dirname, filename)
