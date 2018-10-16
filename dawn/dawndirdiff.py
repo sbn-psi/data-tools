@@ -38,7 +38,14 @@ def compare_contents(directory1, directory2, dirlist):
             file1 = os.path.join(directory1, dirname, filename)
             file2 = os.path.join(directory2, dirname, filename)
 
-            dawn.compare_files(file1, file2)
+            if os.path.exists(file1) and os.path.exists(file2):
+                dawn.compare_files(file1, file2)
+            elif os.path.exists(file1):
+                print(file1 + " <- " + file2)
+            elif os.path.exists(file2):
+                print(file1 + " -> " + file2)
+            else:
+                print("No files exist")
 
 
 def is_dawn(filename):
