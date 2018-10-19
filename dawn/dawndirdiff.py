@@ -31,16 +31,38 @@ def compare_directories(directory1, directory2):
     dirlist2 = get_dir_list(directory2)
 
     dirdict1 = dict(dirlist1)
+    dirdict2 = dict(dirlist2)
 
-    compare_contents(directory1, directory2, dirdict1)
+    merged_dict = merge_dicts(dirdict1, dirdict2)
 
+    compare_contents(directory1, directory2, merged_dict)
+
+def strip_version(filename):
+    return filename[:-5]    
+
+def merge_dicts(dirdict1, dirdict2):
+    result = {}
+    for dirname in dirdict1.keys() + dirdict2.keys():
+        if dirname in dirdict1 and dirname in dirdict2:
+            filedict1 = dict([(strip_version(x), x) for x in dirdict1[dirname]])
+            filedict2 = dict([(strip_version(x), x) for x in dirdict2[dirname]])
+
+            result[dirname] = dict([
+                (filedict1[x], filedict2[x]) 
+                for x in filedict1.keys() 
+                if x in filedict1 and x in filedict2
+            ])
+    return result
+            
 
 def compare_contents(directory1, directory2, dirdict):
     for dirname in dirdict.keys():
-        filenames = dirdict[dirname]
-        for filename in filenames:
-            file1 = os.path.join(directory1, dirname, filename)
-            file2 = os.path.join(directory2, dirname, filename)
+        filepairs = dirdict[dirname]
+        
+        for filename1 in filepairs.keys():
+            filename2 = filepairs[filename1]
+            file1 = os.path.join(directory1, dirname, filename1)
+            file2 = os.path.join(directory2, dirname, filename2)
 
             if os.path.exists(file1) and os.path.exists(file2):
                 dawn.compare_files(file1, file2)
