@@ -93,4 +93,4 @@ def read_data(file_name, header_size, data_size):
     '''
     with open(file_name, 'rb') as infile:
         contents = infile.read()
-        return contents[header_size : header_size + data_size]
+        return contents[-data_size:]
