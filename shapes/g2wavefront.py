@@ -19,8 +19,8 @@ def convert_file(infilename, outfilename):
     
     outfile = open(outfilename, "w")
     
-    outfile.writelines( (to_vertex(line) + "\n" for line in lines[1:vertices+1]) )
-    outfile.writelines( (to_face(line) + "\n" for line in lines[vertices+1:]) )
+    outfile.writelines( (to_vertex(line) + "\n" for line in lines[1:vertices+1] if line.strip()))
+    outfile.writelines( (to_face(line) + "\n" for line in lines[vertices+2:] if line.strip()))
     outfile.close()
     
 if __name__ == "__main__":
