@@ -12,8 +12,6 @@ def main(argv=None):
 
     q, v = read_vertices_from_file(filename)
 
-    print (6*(q+1)**2, 12*q**2)
-
     n = [[[0 for x in range(0, 7)] for y in range(0, q+1)] for z in range(0, q+1)]
     
 
