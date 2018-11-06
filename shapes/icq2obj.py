@@ -89,7 +89,7 @@ def calc_coordinate(n, v, f, c1, c2):
 def read_vertices_from_file(filename):
     lines = open(filename).readlines()
     q = int(lines[0].strip())
-    vertices = [[float(f) for f in x.strip().split()] for x in lines[1:-1]]
+    vertices = [[float(f) for f in x.strip().split()] for x in lines[1:] if x.strip()]
     return q, vertices
 
 if __name__ == '__main__':
