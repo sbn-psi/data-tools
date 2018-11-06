@@ -9,8 +9,11 @@ def main(argv=None):
         argv = sys.argv
 
     filename = argv[1]
+    outfilename = argv[2]
+    outfile = open(outfilename, 'w')
 
     q, v = read_vertices_from_file(filename)
+    
 
     n = [[[0 for x in range(0, 7)] for y in range(0, q+1)] for z in range(0, q+1)]
     
@@ -20,7 +23,7 @@ def main(argv=None):
         for j in range(0, q+1):
             for i in range(0, q+1):
                 vindex += 1
-                print ('v', v[vindex-1][0],v[vindex-1][1],v[vindex-1][2])
+                write_vertex(outfile, v[vindex-1])
                 n[i][j][f] = vindex
 
     for i in range(1, q):
@@ -56,7 +59,6 @@ def main(argv=None):
     n[q][q][5] = n[0][q][4]
     n[q][q][6] = n[0][q][4]
 
-    findex = 0
     for f in range(1,7):
         for i in range(0,q):
             for j in range(0,q):
@@ -71,20 +73,24 @@ def main(argv=None):
                 z1=w1[0]**2+w1[1]**2+w1[2]**2
                 z2=w2[0]**2+w2[1]**2+w2[2]**2
                 if (z1 <= z2):
-                    print('f', n[i][j][f], n[i+1][j+1][f], n[i+1][j][f])
-                    print('f', n[i][j][f], n[i][j+1][f], n[i+1][j+1][f])
+                    write_facet(outfile, n[i][j][f], n[i+1][j+1][f], n[i+1][j][f])
+                    write_facet(outfile, n[i][j][f], n[i][j+1][f], n[i+1][j+1][f])
                 else:
-                    findex += 1
-                    print ('f', n[i][j][f], n[i][j+1][f], n[i+1][j][f])
-                    
-                    findex += 1
-                    print ('f', n[i+1][j][f], n[i][j+1][f], n[i+1][j+1][f])
+                    write_facet(outfile, n[i][j][f], n[i][j+1][f], n[i+1][j][f])
+                    write_facet(outfile, n[i+1][j][f], n[i][j+1][f], n[i+1][j+1][f])
 
 def calc_coordinate(n, v, f, c1, c2):
     i1,j1,v1 = c1
     i2,j2,v2 = c2
     return v[n[i1][j1][f]][v1] * v[n[i2][j2][f]][v2] - v[n[i1][j1][f]][v2] * v[n[i2][j2][f]][v1]
     
+def write_vertex(outfile, c):
+    c2 = [str(t) for t in c]
+    outfile.write('v ' + ' '.join(c2) + '\r\n')
+
+def write_facet(outfile, f1, f2, f3):
+    outfile.write('f ' + ' '.join([str(x) for x in [f1,f2,f3]]) + '\r\n')
+ 
 
 def read_vertices_from_file(filename):
     lines = open(filename).readlines()
