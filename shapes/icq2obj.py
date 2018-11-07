@@ -26,7 +26,7 @@ def main(argv=None):
                 n[i][j][f] = vindex
 
     for i in range(1, q):
-        n[i][q][6] = n[q-1][q][4]
+        n[i][q][6] = n[q-i][q][4]
         n[i][0][6] = n[i][q][2]
         n[i][0][5] = n[q][q-i][1]
         n[i][0][4] = n[q-i][0][1]
