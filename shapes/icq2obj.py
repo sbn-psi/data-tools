@@ -29,6 +29,10 @@ def main(argv=None):
     share_edges(n, q)
     share_corners(n, q)
 
+    for (f1,f2,f3) in get_facets(n,v,q):
+        write_facet(outfile, f1, f2, f3)
+
+def get_facets(n,v,q):
     for f in range(1,7):
         for i in range(0,q):
             for j in range(0,q):
@@ -43,11 +47,12 @@ def main(argv=None):
                 z1=w1[0]**2+w1[1]**2+w1[2]**2
                 z2=w2[0]**2+w2[1]**2+w2[2]**2
                 if (z1 <= z2):
-                    write_facet(outfile, n[i][j][f], n[i+1][j+1][f], n[i+1][j][f])
-                    write_facet(outfile, n[i][j][f], n[i][j+1][f], n[i+1][j+1][f])
+                    yield(n[i][j][f], n[i+1][j+1][f], n[i+1][j][f])
+                    yield(n[i][j][f], n[i][j+1][f], n[i+1][j+1][f])
                 else:
-                    write_facet(outfile, n[i][j][f], n[i][j+1][f], n[i+1][j][f])
-                    write_facet(outfile, n[i+1][j][f], n[i][j+1][f], n[i+1][j+1][f])
+                    yield(n[i][j][f], n[i][j+1][f], n[i+1][j][f])
+                    yield(n[i+1][j][f], n[i][j+1][f], n[i+1][j+1][f])
+
 
 def share_edges(n, q):
     for i in range(1, q):
