@@ -8,7 +8,8 @@ FORMATS = {"UnsignedMSB2":">H",
            "SignedLSB2":"<h",
            "SignedMSB4":">i",
            "SignedLSB4":"<i",
-           "UnsignedByte":">B" 
+           "UnsignedByte":">B",
+           "IEEE754LSBDouble": "<d"
  }
 
 class Field:
@@ -17,6 +18,10 @@ class Field:
         self.location = location
         self.length = length
         self.datatype = datatype
+
+        if datatype not in FORMATS:
+            raise(Exception("Invalid data type: {} for field: {}".format(datatype, name)))
+
 
     def extract(self, record):
         fbytes = record[self.location-1:self.location+self.length-1]
