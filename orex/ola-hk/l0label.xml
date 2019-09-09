@@ -1,0 +1,1061 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.sch" schematypens="http://purl.oclc.org/dsdl/schematron" ?>
+<Product_Observational
+    xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation=
+    "http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:sample:datal0:sample</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>State of Health (L0) Sample</title>
+        <information_model_version>1.7.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2019-02-01</modification_date>
+                <version_id>1.0</version_id>
+                <description>Initial version.</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>2019-02-12T23:59:58.393Z</start_date_time>
+            <stop_date_time>2019-02-13T07:00:09.270Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Engineering</purpose>
+            <processing_level>Raw</processing_level>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>OSIRIS-REx</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.orex</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <name>OSIRIS-REx Laser Altimeter (OLA)</name>
+            <Observing_System_Component>
+                <name>OSIRIS-REx</name>
+                <type>Spacecraft</type>
+                <description>Origins, Spectral Interpretation, Resource Identification, Security - Regolith Explorer Spacecraft</description>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.orex</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>OLA</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:ola.orex</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Housekeeping</name>
+            <type>Equipment</type>
+        </Target_Identification>
+    </Observation_Area>
+    <File_Area_Observational>
+        <File>
+            <file_name>sample.dat</file_name>
+            <creation_date_time>2019-08-09T16:56:54.004Z</creation_date_time>
+            <file_size unit="byte">58486968</file_size>
+        </File>
+        <Table_Binary>
+            <name>engl0</name>
+            <offset unit="byte">0</offset>
+            <records>252099</records>
+            <Record_Binary>
+                <fields>104</fields>
+                <groups>0</groups>
+                <record_length unit="byte">232</record_length>
+                <Field_Binary>
+                    <name>ola_pwrup_counter</name>
+                    <field_number>1</field_number>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Power Cycle counter. Incremented by 1 for every Power On Self Test.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>partition</name>
+                    <field_number>2</field_number>
+                    <field_location unit="byte">3</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Integer that defines spacecraft clock partition employed for processing.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>t0_seconds</name>
+                    <field_number>3</field_number>
+                    <field_location unit="byte">5</field_location>
+                    <data_type>UnsignedLSB4</data_type>
+                    <field_length unit="byte">4</field_length>
+                    <field_format>%10d</field_format>
+                    <unit>s</unit>
+                    <description>Time of generation of SoH record in 32-bit seconds since 2000-01-01 00:00:00 UTC.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>t0_subseconds</name>
+                    <field_number>4</field_number>
+                    <field_location unit="byte">9</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <unit>s</unit>
+                    <description>Time of generation of SoH record in subsecond counts. 1/(2**16) seconds per count.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>spare1</name>
+                    <field_number>5</field_number>
+                    <field_location unit="byte">11</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Spare column</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>time_ref_seconds</name>
+                    <field_number>6</field_number>
+                    <field_location unit="byte">13</field_location>
+                    <data_type>UnsignedLSB4</data_type>
+                    <field_length unit="byte">4</field_length>
+                    <field_format>%10d</field_format>
+                    <unit>s</unit>
+                    <description>Most recent time update received from spacecraft in 32-bit seconds since 2000-01-01 00:00:00 UTC.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>time_ref_subseconds</name>
+                    <field_number>7</field_number>
+                    <field_location unit="byte">17</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <unit>s</unit>
+                    <description>Most recent time update in subsecond counts. 1/(2**16) seconds per count.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>spare2</name>
+                    <field_number>8</field_number>
+                    <field_location unit="byte">19</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Spare column</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>mrtu_ref_delta</name>
+                    <field_number>9</field_number>
+                    <field_location unit="byte">21</field_location>
+                    <data_type>UnsignedLSB4</data_type>
+                    <field_length unit="byte">4</field_length>
+                    <field_format>%10d</field_format>
+                    <unit>microseconds</unit>
+                    <description>Time offset between OLA Time and spacecraft time per most recent time update command.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>spare3</name>
+                    <field_number>10</field_number>
+                    <field_location unit="byte">25</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Spare column</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>last_idp_msg_instance</name>
+                    <field_number>11</field_number>
+                    <field_location unit="byte">27</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Most recent command instance received from spacecraft.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>last_idp_msg_id</name>
+                    <field_number>12</field_number>
+                    <field_location unit="byte">29</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>ID of most recent command instance received from spacecraft.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>cmd_exe_cnt</name>
+                    <field_number>13</field_number>
+                    <field_location unit="byte">31</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Counter for the number of commands executed (excluding Time Update command).</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>last_cmd_exe_instance</name>
+                    <field_number>14</field_number>
+                    <field_location unit="byte">33</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Instance index of the last executed instrument command, excluding time update and noop commands.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>last_cmd_exe_id</name>
+                    <field_number>15</field_number>
+                    <field_location unit="byte">35</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Command ID (IDP) of the last executed instrument command (excluding Time Update and NOOP commands).</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>cmd_rjct_cnt</name>
+                    <field_number>16</field_number>
+                    <field_location unit="byte">37</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Counter for the number of commands rejected.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>noop_cnt</name>
+                    <field_number>17</field_number>
+                    <field_location unit="byte">39</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Number of NOOP commands received since OLA Powerup, with rollover at 65535.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>state</name>
+                    <field_number>18</field_number>
+                    <field_location unit="byte">41</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Indication of state of OLA software. (1: idle, 2: standby, 3: armed, 4: operate, 5: diagnostic)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>helt_power</name>
+                    <field_number>19</field_number>
+                    <field_location unit="byte">43</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>HELT power status.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>lelt_power</name>
+                    <field_number>20</field_number>
+                    <field_location unit="byte">45</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>LELT power status. (0: off, 1: on)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>spare4</name>
+                    <field_number>21</field_number>
+                    <field_location unit="byte">47</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Spare column</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>current_min_range</name>
+                    <field_number>22</field_number>
+                    <field_location unit="byte">49</field_location>
+                    <data_type>UnsignedLSB4</data_type>
+                    <field_length unit="byte">4</field_length>
+                    <field_format>%10d</field_format>
+                    <unit>cm</unit>
+                    <description>When scan command is active, returns the current minimum valid range.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>current_avg_range</name>
+                    <field_number>23</field_number>
+                    <field_location unit="byte">53</field_location>
+                    <data_type>UnsignedLSB4</data_type>
+                    <field_length unit="byte">4</field_length>
+                    <field_format>%10d</field_format>
+                    <unit>cm</unit>
+                    <description>When scan command is active, return the average running valid range.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>msg_sent</name>
+                    <field_number>24</field_number>
+                    <field_location unit="byte">57</field_location>
+                    <data_type>UnsignedLSB4</data_type>
+                    <field_length unit="byte">4</field_length>
+                    <field_format>%10d</field_format>
+                    <description>Count of messages sent to spacecraft, excluding state of health messages.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>duration_last_scan</name>
+                    <field_number>25</field_number>
+                    <field_location unit="byte">61</field_location>
+                    <data_type>UnsignedLSB4</data_type>
+                    <field_length unit="byte">4</field_length>
+                    <field_format>%10d</field_format>
+                    <unit>s</unit>
+                    <description>Time (duration) of last scan completed.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>time_upd_timeout</name>
+                    <field_number>26</field_number>
+                    <field_location unit="byte">65</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Indication that a valid Time Update command has not been received for greater than or equal to 30 seconds. (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>time_tick_timeout</name>
+                    <field_number>27</field_number>
+                    <field_location unit="byte">67</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Indication that a valid time tick has not been received for greater than or equal to 30 seconds. (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>msg_rej_wrong_block_len_msg</name>
+                    <field_number>28</field_number>
+                    <field_location unit="byte">69</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Wrong block length. (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>msg_rej_bad_cmd_id</name>
+                    <field_number>29</field_number>
+                    <field_location unit="byte">71</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Bad command ID. (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>msg_rej_bad_checksum</name>
+                    <field_number>30</field_number>
+                    <field_location unit="byte">73</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Bad checksum. (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>msg_rej_invalid_cmd_data</name>
+                    <field_number>31</field_number>
+                    <field_location unit="byte">75</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Invalid command data received vs ICD. (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>msg_rej_invalid_state</name>
+                    <field_number>32</field_number>
+                    <field_location unit="byte">77</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Command not valid in current OLA state. (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>msg_rej_per_active_fault</name>
+                    <field_number>33</field_number>
+                    <field_location unit="byte">79</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Command rejected due to active fault. (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>invalid_az_scan_ang_spacing</name>
+                    <field_number>34</field_number>
+                    <field_location unit="byte">81</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Invalid azimuth scan angular spacing. (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>invalid_el_scan_ang_spacing</name>
+                    <field_number>35</field_number>
+                    <field_location unit="byte">83</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Invalid elevation scan angular spacing. (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>invalid_window_size</name>
+                    <field_number>36</field_number>
+                    <field_location unit="byte">85</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Invalid window size. (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>invalid_window_center_pos</name>
+                    <field_number>37</field_number>
+                    <field_location unit="byte">87</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Invalid window center position. (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>invalid_scan_pattern</name>
+                    <field_number>38</field_number>
+                    <field_location unit="byte">89</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Invalid scan pattern. (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>invalid_scan_type</name>
+                    <field_number>39</field_number>
+                    <field_location unit="byte">91</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Invalid scan type. (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>invalid_raw_scan_data_req</name>
+                    <field_number>40</field_number>
+                    <field_location unit="byte">93</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Invalid raw scan data request. (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>sel_laser_not_on</name>
+                    <field_number>41</field_number>
+                    <field_location unit="byte">95</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Laser component is not powered (it should be turned on prior to the Scan Start command).  (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>invalid_input_check</name>
+                    <field_number>42</field_number>
+                    <field_location unit="byte">97</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Invalid combination of scan window size and center position. (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>file_cmd_err</name>
+                    <field_number>43</field_number>
+                    <field_location unit="byte">99</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Invalid load file command (e.g. invalid file ID, block  out of order, byte count out of range, etc.) or invalid Store File command or invalid Reboot command. (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>scanning_az_outside_fov</name>
+                    <field_number>44</field_number>
+                    <field_location unit="byte">101</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Flag indicating detection of scanning azimuth outside the Field of View (FOV). (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>scanning_el_outside_fov</name>
+                    <field_number>45</field_number>
+                    <field_location unit="byte">103</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Flag indicating detection of scanning elevation outside the Field of View (FOV). (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>idp_udp_hdr_err</name>
+                    <field_number>46</field_number>
+                    <field_location unit="byte">105</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Flag indicating error detected in IP or UDP Header. (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>cip_hdr_err</name>
+                    <field_number>47</field_number>
+                    <field_location unit="byte">107</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Flag indicating error detected in CIP Header. (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>idp_err</name>
+                    <field_number>48</field_number>
+                    <field_location unit="byte">109</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Flag indicating error detected in IDP. (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>scan_buffer_overflow</name>
+                    <field_number>49</field_number>
+                    <field_location unit="byte">111</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Flag indicating OLA scan buffer overflow. (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>generic_sw_err</name>
+                    <field_number>50</field_number>
+                    <field_location unit="byte">113</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>General software exception. (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>laser_check_failure</name>
+                    <field_number>51</field_number>
+                    <field_location unit="byte">115</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Flag indicating laser power on condition detected from an unpowered laser. (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>laser_power_failure</name>
+                    <field_number>52</field_number>
+                    <field_location unit="byte">117</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Flag indicating power not applied or uncommanded loss of laser power after commanded. (0: no fail, 1: fail)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>active_flash_write</name>
+                    <field_number>53</field_number>
+                    <field_location unit="byte">119</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Flag indicating OLA is currently writing data to Flash. ( 0: inactive, 1: active)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>dmod_heater_status</name>
+                    <field_number>54</field_number>
+                    <field_location unit="byte">121</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Status of OLA command of DMOD heater. (0: off, 1: on)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>comm_err</name>
+                    <field_number>55</field_number>
+                    <field_location unit="byte">123</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Communication error (e.g. framing, parity, etc). (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>spare5</name>
+                    <field_number>56</field_number>
+                    <field_location unit="byte">125</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Spare column</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>scan_data_buf_util</name>
+                    <field_number>57</field_number>
+                    <field_location unit="byte">127</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <unit>Pcnt</unit>
+                    <description>Percent utilization of Scan Data Overflow buffer.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>missed_time_tick_counter</name>
+                    <field_number>58</field_number>
+                    <field_location unit="byte">129</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <unit>s</unit>
+                    <description>Count of seconds since the most recently received Time Tick.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>missed_time_update_counter</name>
+                    <field_number>59</field_number>
+                    <field_location unit="byte">131</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <unit>s</unit>
+                    <description>Count of seconds since the most recently received valid Time Update.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>scan_completion_status</name>
+                    <field_number>60</field_number>
+                    <field_location unit="byte">133</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Status of most recently executed (or currently executing) scan. (0: ok, 1: FIFO overflow, 2: send/receive thread sync timeout)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>laser_rep_rate</name>
+                    <field_number>61</field_number>
+                    <field_location unit="byte">135</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Calculated laser pulse rate from the TIM/PEAK board in units of pulse/100 ms.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>laser_over_temp</name>
+                    <field_number>62</field_number>
+                    <field_location unit="byte">137</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Laser over temperature flag monitor. (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>laser_under_temp</name>
+                    <field_number>63</field_number>
+                    <field_location unit="byte">139</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Laser under temperature flag monitor. (0: no fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>laser_ready_helt</name>
+                    <field_number>64</field_number>
+                    <field_location unit="byte">141</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Laser input current monitor for HELT, (0: off, 1: on)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>laser_ready_lelt</name>
+                    <field_number>65</field_number>
+                    <field_location unit="byte">143</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Laser input current monitor for LELT. (0: off, 1: on)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>dmod_temperature_failure</name>
+                    <field_number>66</field_number>
+                    <field_location unit="byte">145</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Failure of sensor head demodulator chassis temperature sensor. (0: no Fault, 1: fault)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>spare6</name>
+                    <field_number>67</field_number>
+                    <field_location unit="byte">147</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Spare column</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>hw_status_word2</name>
+                    <field_number>68</field_number>
+                    <field_location unit="byte">149</field_location>
+                    <data_type>UnsignedLSB4</data_type>
+                    <field_length unit="byte">4</field_length>
+                    <field_format>%10d</field_format>
+                    <description>Spare column</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>spare8</name>
+                    <field_number>69</field_number>
+                    <field_location unit="byte">153</field_location>
+                    <data_type>UnsignedLSB4</data_type>
+                    <field_length unit="byte">4</field_length>
+                    <field_format>%10d</field_format>
+                    <description>Spare column</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>mirror_therm</name>
+                    <field_number>70</field_number>
+                    <field_location unit="byte">157</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>Mirror Temperature.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>case_therm</name>
+                    <field_number>71</field_number>
+                    <field_location unit="byte">159</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>Main electronics temperature sensor.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>sensor_therm</name>
+                    <field_number>72</field_number>
+                    <field_location unit="byte">161</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>Sensor Head position temperature sensor.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>sh_temp_1</name>
+                    <field_number>73</field_number>
+                    <field_location unit="byte">163</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>Sensor Head Chassis temperature sensor 1.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>sh_temp_2</name>
+                    <field_number>74</field_number>
+                    <field_location unit="byte">165</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>Sensor Head Chassis temperature sensor 2.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>sh_temp_3</name>
+                    <field_number>75</field_number>
+                    <field_location unit="byte">167</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>Sensor Head Chassis temperature sensor 3.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>rx_apd_temp</name>
+                    <field_number>76</field_number>
+                    <field_location unit="byte">169</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>ADP Temperature sensor.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>dmod_temp</name>
+                    <field_number>77</field_number>
+                    <field_location unit="byte">171</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>DMOD Temperature sensor.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>helt_tec_diode_temp</name>
+                    <field_number>78</field_number>
+                    <field_location unit="byte">173</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>High Power Laser (TEC) temperature sensor 1.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>helt_tec_crystal_temp</name>
+                    <field_number>79</field_number>
+                    <field_location unit="byte">175</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>High Power Laser (TEC) temperature sensor 2.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>lelt_tec_diode_temp</name>
+                    <field_number>80</field_number>
+                    <field_location unit="byte">177</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>Low Power Laser (TEC) temperature sensor 1.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>lelt_tec_crystal_temp</name>
+                    <field_number>81</field_number>
+                    <field_location unit="byte">179</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>Low Power Laser (TEC) temperature sensor 2.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>adc_bias_pos_ref_volt</name>
+                    <field_number>82</field_number>
+                    <field_location unit="byte">181</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>ADC Bias positive reference voltage.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>adc_bias_neg_ref_volt</name>
+                    <field_number>83</field_number>
+                    <field_location unit="byte">183</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>ADC Bias negative reference voltage</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>spare_ad590_temp</name>
+                    <field_number>84</field_number>
+                    <field_location unit="byte">185</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>Spare AD590 temperature sensor.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>tim_pk_temp</name>
+                    <field_number>85</field_number>
+                    <field_location unit="byte">187</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>TIM/Peak board temperature.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>io_brd_temp1</name>
+                    <field_number>86</field_number>
+                    <field_location unit="byte">189</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>IO Board CCA Temp 1.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>io_brd_temp2</name>
+                    <field_number>87</field_number>
+                    <field_location unit="byte">191</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>IO Board CCA Temp 2.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>helt_chassis_temp_plus_y</name>
+                    <field_number>88</field_number>
+                    <field_location unit="byte">193</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>Sensor Head HELT Chassis temperature sensor in the +Y direction.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>helt_chassis_temp_neg_y</name>
+                    <field_number>89</field_number>
+                    <field_location unit="byte">195</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>Sensor Head HELT Chassis temperature sensor in the -Y direction.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>plus_5v_rail</name>
+                    <field_number>90</field_number>
+                    <field_location unit="byte">197</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>Voltage monitor of the +5V input rail.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>minus_5v_rail</name>
+                    <field_number>91</field_number>
+                    <field_location unit="byte">199</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>Voltage monitor of the -5V input rail.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>plus_15v_rail</name>
+                    <field_number>92</field_number>
+                    <field_location unit="byte">201</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>Voltage monitor of the +15V input rail.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>minus_15v_rail</name>
+                    <field_number>93</field_number>
+                    <field_location unit="byte">203</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>Voltage monitor of the -15V input rail</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>plus_16_5v_rail</name>
+                    <field_number>94</field_number>
+                    <field_location unit="byte">205</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>Voltage monitor of the +16.5V input rail</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>ground_ref</name>
+                    <field_number>95</field_number>
+                    <field_location unit="byte">207</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>Voltage monitor of the ground reference.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>mir_pos_acs_az_plus_5v</name>
+                    <field_number>96</field_number>
+                    <field_location unit="byte">209</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>Last reading of the Mirror Position Sensor Azimuth ADC auto-calibration +5V gain.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>mir_pos_acs_el_plus_5v</name>
+                    <field_number>97</field_number>
+                    <field_location unit="byte">211</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>Last reading of the Mirror Position Sensor Elevation ADC auto-calibration +5V gain.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>mir_pos_acs_az_minus_5v</name>
+                    <field_number>98</field_number>
+                    <field_location unit="byte">213</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>Last reading of the Mirror Position Sensor Azimuth ADC auto-calibration -5V gain.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>mir_pos_acs_el_minus_5v</name>
+                    <field_number>99</field_number>
+                    <field_location unit="byte">215</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>Last reading of the Mirror Position Sensor Elevation ADC auto-calibration -5V gain.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>mir_pos_acs_az_ground</name>
+                    <field_number>100</field_number>
+                    <field_location unit="byte">217</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>Last reading of the Mirror Position Sensor Azimuth ADC auto-calibration ground reference</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>mir_pos_acs_el_ground</name>
+                    <field_number>101</field_number>
+                    <field_location unit="byte">219</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>DN</unit>
+                    <description>Last reading of the Mirror Position Sensor Elevation ADC auto-calibration ground reference.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>reserved1</name>
+                    <field_number>102</field_number>
+                    <field_location unit="byte">221</field_location>
+                    <data_type>UnsignedLSB4</data_type>
+                    <field_length unit="byte">4</field_length>
+                    <field_format>%10d</field_format>
+                    <description>OLA reserved word.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>reserved2</name>
+                    <field_number>103</field_number>
+                    <field_location unit="byte">225</field_location>
+                    <data_type>UnsignedLSB4</data_type>
+                    <field_length unit="byte">4</field_length>
+                    <field_format>%10d</field_format>
+                    <description>OLA reserved word.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>reserved3</name>
+                    <field_number>104</field_number>
+                    <field_location unit="byte">229</field_location>
+                    <data_type>UnsignedLSB4</data_type>
+                    <field_length unit="byte">4</field_length>
+                    <field_format>%10d</field_format>
+                    <description>OLA reserved word.</description>
+                </Field_Binary>
+            </Record_Binary>
+        </Table_Binary>
+    </File_Area_Observational>
+</Product_Observational>

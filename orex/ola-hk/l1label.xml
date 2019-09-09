@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.sch" schematypens="http://purl.oclc.org/dsdl/schematron" ?>
+<Product_Observational
+    xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation=
+    "http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:sample:datal1:sample</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>State of Health (L1) Sample</title>
+        <information_model_version>1.7.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2019-02-01</modification_date>
+                <version_id>1.0</version_id>
+                <description>Initial version.</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>2019-02-12T23:59:58.393Z</start_date_time>
+            <stop_date_time>2019-02-13T07:00:09.270Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Engineering</purpose>
+            <processing_level>Calibrated</processing_level>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>OSIRIS-REx</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.orex</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <name>OSIRIS-REx Laser Altimeter (OLA)</name>
+            <Observing_System_Component>
+                <name>OSIRIS-REx</name>
+                <type>Spacecraft</type>
+                <description>Origins, Spectral Interpretation, Resource Identification, Security - Regolith Explorer Spacecraft</description>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.orex</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>OLA</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:ola.orex</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Housekeeping</name>
+            <type>Equipment</type>
+        </Target_Identification>
+    </Observation_Area>
+    <File_Area_Observational>
+        <File>
+            <file_name>sample.dat</file_name>
+            <creation_date_time>2019-08-09T16:34:29.003Z</creation_date_time>
+            <file_size unit="byte">83696868</file_size>
+        </File>
+        <Table_Binary>
+            <name>engl1</name>
+            <offset unit="byte">0</offset>
+            <records>252099</records>
+            <Record_Binary>
+                <fields>39</fields>
+                <groups>0</groups>
+                <record_length unit="byte">332</record_length>
+                <Field_Binary>
+                    <name>met</name>
+                    <field_number>1</field_number>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">18</field_length>
+                    <field_format>%18s</field_format>
+                    <unit>s/c_ticks</unit>
+                    <description>Spacecraft clock time</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>soh_ola_date</name>
+                    <field_number>2</field_number>
+                    <field_location unit="byte">19</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">24</field_length>
+                    <field_format>%24s</field_format>
+                    <description>UTC Time (yyyy-doyThh:mm:ss.ssssss)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>soh_ola_time</name>
+                    <field_number>3</field_number>
+                    <field_location unit="byte">43</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>s</unit>
+                    <description>Ola Time tag for this SOH record.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>ola_pwrup_counter</name>
+                    <field_number>4</field_number>
+                    <field_location unit="byte">51</field_location>
+                    <data_type>UnsignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%5d</field_format>
+                    <description>Power Cycle counter. Incremented by 1 for every Power On Self Test.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>current_min_range_x</name>
+                    <field_number>5</field_number>
+                    <field_location unit="byte">53</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>cm</unit>
+                    <description>When scan command is active, returns the current minimum valid range.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>current_avg_range_x</name>
+                    <field_number>6</field_number>
+                    <field_location unit="byte">61</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>cm</unit>
+                    <description>When scan command is active, return the average running valid range.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>duration_last_scan_x</name>
+                    <field_number>7</field_number>
+                    <field_location unit="byte">69</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>s</unit>
+                    <description>Time (duration) of last scan completed.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>mirror_therm_x</name>
+                    <field_number>8</field_number>
+                    <field_location unit="byte">77</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>degC</unit>
+                    <description>Mirror Temperature.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>case_therm_x</name>
+                    <field_number>9</field_number>
+                    <field_location unit="byte">85</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>degC</unit>
+                    <description>Main electronics temperature sensor.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>sensor_therm_x</name>
+                    <field_number>10</field_number>
+                    <field_location unit="byte">93</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>degC</unit>
+                    <description>Sensor Head position temperature sensor.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>sh_temp_1_x</name>
+                    <field_number>11</field_number>
+                    <field_location unit="byte">101</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>degC</unit>
+                    <description>Sensor Head Chassis temperature sensor 1.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>sh_temp_2_x</name>
+                    <field_number>12</field_number>
+                    <field_location unit="byte">109</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>degC</unit>
+                    <description>Sensor Head Chassis temperature sensor 2.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>sh_temp_3_x</name>
+                    <field_number>13</field_number>
+                    <field_location unit="byte">117</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>degC</unit>
+                    <description>Sensor Head Chassis temperature sensor 3.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>rx_apd_temp_x</name>
+                    <field_number>14</field_number>
+                    <field_location unit="byte">125</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>degC</unit>
+                    <description>ADP Temperature sensor.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>dmod_temp_x</name>
+                    <field_number>15</field_number>
+                    <field_location unit="byte">133</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>degC</unit>
+                    <description>DMOD Temperature sensor.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>helt_tec_diode_temp_x</name>
+                    <field_number>16</field_number>
+                    <field_location unit="byte">141</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>degC</unit>
+                    <description>High Power Laser (TEC) temperature sensor 1.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>helt_tec_crystal_temp_x</name>
+                    <field_number>17</field_number>
+                    <field_location unit="byte">149</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>degC</unit>
+                    <description>High Power Laser (TEC) temperature sensor 2.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>lelt_tec_diode_temp_x</name>
+                    <field_number>18</field_number>
+                    <field_location unit="byte">157</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>degC</unit>
+                    <description>Low Power Laser (TEC) temperature sensor 1.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>lelt_tec_crystal_temp_x</name>
+                    <field_number>19</field_number>
+                    <field_location unit="byte">165</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>degC</unit>
+                    <description>Low Power Laser (TEC) temperature sensor 2.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>adc_bias_pos_ref_volt_x</name>
+                    <field_number>20</field_number>
+                    <field_location unit="byte">173</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>V</unit>
+                    <description>ADC bias positive reference voltage.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>adc_bias_neg_ref_volt_x</name>
+                    <field_number>21</field_number>
+                    <field_location unit="byte">181</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>V</unit>
+                    <description>ADC bias negative reference voltage.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>spare_ad590_temp_x</name>
+                    <field_number>22</field_number>
+                    <field_location unit="byte">189</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>degC</unit>
+                    <description>Spare AD590 temperature sensor.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>tim_pk_temp_x</name>
+                    <field_number>23</field_number>
+                    <field_location unit="byte">197</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>degC</unit>
+                    <description>TIM/Peak board temperature.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>io_brd_temp1_x</name>
+                    <field_number>24</field_number>
+                    <field_location unit="byte">205</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>degC</unit>
+                    <description>IO Board CCA Temp 1.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>io_brd_temp2_x</name>
+                    <field_number>25</field_number>
+                    <field_location unit="byte">213</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>degC</unit>
+                    <description>IO Board CCA Temp 2.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>helt_chassis_temp_plus_y_x</name>
+                    <field_number>26</field_number>
+                    <field_location unit="byte">221</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>degC</unit>
+                    <description>Sensor Head HELT chassis Temperature in the +Y direction.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>helt_chassis_temp_neg_y_x</name>
+                    <field_number>27</field_number>
+                    <field_location unit="byte">229</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>degC</unit>
+                    <description>Sensor Head HELT chassis temperature in the –Y direction.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>plus_5v_rail_x</name>
+                    <field_number>28</field_number>
+                    <field_location unit="byte">237</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>V</unit>
+                    <description>Voltage monitor of the +5V input rail.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>minus_5v_rail_x</name>
+                    <field_number>29</field_number>
+                    <field_location unit="byte">245</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>V</unit>
+                    <description>Voltage monitor of the -5V input rail.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>plus_15v_rail_x</name>
+                    <field_number>30</field_number>
+                    <field_location unit="byte">253</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>V</unit>
+                    <description>Voltage monitor of the +15V input rail.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>minus_15v_rail_x</name>
+                    <field_number>31</field_number>
+                    <field_location unit="byte">261</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>V</unit>
+                    <description>Voltage monitor of the -15V input rail</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>plus_16_5v_rail_x</name>
+                    <field_number>32</field_number>
+                    <field_location unit="byte">269</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>V</unit>
+                    <description>Voltage monitor of the +16.5V input rail</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>ground_ref_x</name>
+                    <field_number>33</field_number>
+                    <field_location unit="byte">277</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>V</unit>
+                    <description>Voltage monitor of the ground reference.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>mir_pos_acs_az_plus_5v_x</name>
+                    <field_number>34</field_number>
+                    <field_location unit="byte">285</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>V</unit>
+                    <description>Last reading of the Mirror Position Sensor Azimuth ADC auto-calibration +5V gain.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>mir_pos_acs_el_plus_5v_x</name>
+                    <field_number>35</field_number>
+                    <field_location unit="byte">293</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>V</unit>
+                    <description>Last reading of the Mirror Position Sensor Elevation ADC auto-calibration +5V gain.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>mir_pos_acs_az_minus_5v_x</name>
+                    <field_number>36</field_number>
+                    <field_location unit="byte">301</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>V</unit>
+                    <description>Last reading of the Mirror Position Sensor Azimuth ADC auto-calibration -5V gain.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>mir_pos_acs_el_minus_5v_x</name>
+                    <field_number>37</field_number>
+                    <field_location unit="byte">309</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>V</unit>
+                    <description>Last reading of the Mirror Position Sensor Elevation ADC auto-calibration -5V gain.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>mir_pos_acs_az_ground_x</name>
+                    <field_number>38</field_number>
+                    <field_location unit="byte">317</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>V</unit>
+                    <description>Last reading of the Mirror Position Sensor Azimuth ADC auto-calibration ground reference</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>mir_pos_acs_el_ground_x</name>
+                    <field_number>39</field_number>
+                    <field_location unit="byte">325</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>V</unit>
+                    <description>Last reading of the Mirror Position Sensor Elevation ADC auto-calibration ground reference.</description>
+                </Field_Binary>
+            </Record_Binary>
+        </Table_Binary>
+    </File_Area_Observational>
+</Product_Observational>
