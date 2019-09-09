@@ -1,10 +1,10 @@
 import sys
 
 from bs4 import BeautifulSoup
-from field import Field
+import field
 
 def to_field(tag):
-    return Field(
+    return field.Field(
         tag.find("name").string, 
         int(tag.field_location.string),
         int(tag.field_length.string),
@@ -16,8 +16,10 @@ class Extractor:
         with open(labelfile) as infile:
             soup = BeautifulSoup(infile, "lxml-xml")
 
-        self.fields = [to_field(tag) for tag in soup.find_all("Field_Binary")]
+        self.fields = [to_field(tag) for tag in soup.find_all("Field_Binary") if tag.data_type.string in field.FORMATS.keys()]
         self.record_length = int(soup.find("record_length").string)
+
+        print(",".join([f.name for f in self.fields]))
 
     def keys(self):
         return [x[:-2] for x in self.fields if x.endswith("_x")]
