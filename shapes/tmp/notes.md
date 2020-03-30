@@ -1,0 +1,6 @@
+- What is the difference between `SURFACE_NAME` and `CENTER_NAME`?
+    - For small bodies, are these the same thing?
+- What is `REF_FRAME_NAME`?
+- Can `DATA_CLASS` be derived from a label (PDS3/PDS4)? Or is it intuitive based on the shape of the object?
+- `INPUT_DATA_UNITS` doesn't appear to be a formal element in labels
+- `COORDINATE_SYSTEM` also not tracked in labels
