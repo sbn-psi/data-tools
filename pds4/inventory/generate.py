@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import sys
 import itertools
 import os
+import xml.etree.ElementTree
 
 def main(argv=None):
     if not argv:
@@ -15,17 +16,18 @@ def main(argv=None):
 
 def build_inventory(dirname, outfilename):
     filenames = get_product_filenames(dirname)
-    lidvids = [extract_lidvid(filename) for filename in filenames]
-    records = ["P," + lidvid for lidvid in sorted(set(lidvids))]
+    lidvids = (iter_extract_lidvid(filename) for filename in filenames)
+    records = ("P," + lidvid for lidvid in lidvids)
 
     with open(outfilename,"w") as f:
-        f.write("\r\n".join(records))
+        for r in records:
+            f.write(r + "\r\n")
 
 def get_product_filenames(dirname):
     files = itertools.chain.from_iterable(
         (os.path.join(path, filename) for filename in filenames) for (path,_,filenames) in os.walk(dirname)
     )
-    files = [x for x in files if is_product(x)]
+    files = (x for x in files if is_product(x))
     return files
 
 def is_product(filename):
@@ -33,13 +35,14 @@ def is_product(filename):
     return filename.endswith('.xml') and not basename.startswith('collection') and not basename.startswith('bundle')
 
 
-def extract_lidvid(filename):
-    with open(filename) as f:
-        soup = BeautifulSoup(f, "lxml-xml")
-    identification_area = soup.find("Identification_Area")
-    lid = identification_area.logical_identifier.string
-    vid = identification_area.version_id.string
-    return lid + "::" + vid
+def iter_extract_lidvid(filename):
+    lid=""
+    for (event, elem) in xml.etree.ElementTree.iterparse(filename):
+        #print (elem.text)
+        if elem.tag=="{http://pds.nasa.gov/pds4/pds/v1}logical_identifier":
+            lid=elem.text
+        if elem.tag=="{http://pds.nasa.gov/pds4/pds/v1}version_id":
+            return lid + "::" + elem.text
 
 if __name__ == '__main__':
     main()
