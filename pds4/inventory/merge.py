@@ -9,6 +9,8 @@ import sys
 import re
 from bs4 import BeautifulSoup
 
+import inventory
+
 RECORDS_REGEX=r"\<records\>\d*\<\/records\>"
 
 def main(argv=None):
@@ -51,7 +53,7 @@ def invmerge(win_func, *invs):
     '''
     Merge two inventories together, using win_func to pick the version that wins
     '''
-    dicts = [inventory_to_dict(inv) for inv in invs]
+    dicts = [inventory.inventory_to_dict(inv) for inv in invs]
     keys = set().union(*[set(d.keys()) for d in dicts])
     
     merged = dict(
@@ -67,19 +69,6 @@ def fetch(func, key, *dicts):
     '''
     return func(x[key] for x in (dicts) if key in x)
 
-def inventory_to_dict(inventory):
-    '''
-    Convert a list of inventory lines to a dictionary of LID to (VID, member_type)
-    '''
-    return dict(invline_to_tuple(x) for x in inventory)
-
-def invline_to_tuple(invline):
-    '''
-    Convert an inventory line to a tuple of (LID, (VID, member_type))
-    '''
-    member_type, lidvid = [x.strip() for x in invline.split(',')]
-    lid, vid = [x.strip() for x in lidvid.split('::')]
-    return (lid, (vid, member_type))
 
 if __name__ == "__main__":
     sys.exit(main())
