@@ -13,17 +13,18 @@ def main(argv=None):
     args = parser.parse_args()
 
     provided_inventory = read_inventory(args.inventory)
-    inventory_lidvids = set(k + "::" + provided_inventory[k][0] for k in provided_inventory.keys() if provided_inventory[k][1] == 'P')
+    primary_lidvids = set(k + "::" + provided_inventory[k][0] for k in provided_inventory.keys() if provided_inventory[k][1] == 'P')
+    all_lidvids = set(k + "::" + provided_inventory[k][0] for k in provided_inventory.keys())
 
     filenames = inventory.get_product_filenames(args.directory)
     discovered_lidvids = set(inventory.iter_extract_lidvid(filename) for filename in filenames)
 
     print("Discovered, but not in inventory:")
-    for x in discovered_lidvids - inventory_lidvids:
+    for x in discovered_lidvids - all_lidvids:
         print(x) 
 
     print("In inventory, but not discovered:")
-    for x in inventory_lidvids - discovered_lidvids:
+    for x in primary_lidvids - discovered_lidvids:
         print(x) 
 
 
