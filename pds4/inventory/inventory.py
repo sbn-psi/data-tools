@@ -15,7 +15,7 @@ def _is_product(filename):
     return filename.endswith('.xml') and not basename.startswith('collection') and not basename.startswith('bundle')
 
 
-def _iter_extract_lidvid(filename):
+def iter_extract_lidvid(filename):
     lid=""
     for (event, elem) in xml.etree.ElementTree.iterparse(filename):
         #print (elem.text)
