@@ -12,7 +12,14 @@ def get_product_filenames(dirname):
 
 def _is_product(filename):
     basename = os.path.basename(filename)
-    return filename.endswith('.xml') and not basename.startswith('collection') and not basename.startswith('bundle')
+    return filename.endswith('.xml') and not extract_product_type(filename) in ('Product_Collection','Product_Bundle')
+
+
+def extract_product_type(filename):
+    for (_, elem) in xml.etree.ElementTree.iterparse(filename):
+        if elem.tag.startswith("{http://pds.nasa.gov/pds4/pds/v1}Product"):
+            print (elem.tag)
+            return elem.tag.replace("{http://pds.nasa.gov/pds4/pds/v1}","")
 
 
 def iter_extract_lidvid(filename):
