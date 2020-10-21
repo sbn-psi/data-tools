@@ -1,0 +1,33 @@
+[
+    {
+        "bundle_id":"sample-bundle",
+        "bundle_title":"Sample Bundle",
+        "bundle_description":"ancillary",
+        "author_list":"Author, A.A.; Another, B.",
+        "doi":"sampledoi",
+        "collections": [
+            {
+                "collection_id":"document",
+                "collection_title":"Document Collection",
+                "collection_description": "Documents for bundle.",
+                "collection_type":"Document",
+                "reference_type":"bundle_has_document_collection"
+            },
+            {
+                "collection_id":"miscellaneous",
+                "collection_title":"Miscellaneous Collection",
+                "collection_description": "Miscellaneous files for the bundle",
+                "collection_type":"Miscellaneous",
+                "reference_type":"bundle_has_member_collection"
+            }
+            ,
+            {
+                "collection_id":"Data",
+                "collection_title":"Data Collection",
+                "collection_description": "Data files for the bundle",
+                "collection_type":"Discellaneous",
+                "reference_type":"bundle_has_member_collection"
+            }            
+        ]       
+    }
+]
