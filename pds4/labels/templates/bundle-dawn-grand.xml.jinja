@@ -76,33 +76,18 @@
             </Observing_System_Component>
         </Observing_System>
 
+        {% for target in targets %}
         <Target_Identification>
-            <name>(1) Ceres</name>
-            <type>Dwarf Planet</type>
+            <name>{{ target.name }}</name>
+            <type>{{ target.type }}</type>
+            {% if target.lid %}
             <Internal_Reference>
-                <lid_reference>urn:nasa:pds:context:target:dwarf_planet.1_ceres</lid_reference>
+                <lid_reference>{{ target.lid }}</lid_reference>
                 <reference_type>bundle_to_target</reference_type>
             </Internal_Reference>
+            {% endif %}
         </Target_Identification>
-
-        <Target_Identification>
-            <name>(4) Vesta</name>
-            <type>Asteroid</type>
-            <Internal_Reference>
-                <lid_reference>urn:nasa:pds:context:target:asteroid.4_vesta</lid_reference>
-                <reference_type>bundle_to_target</reference_type>
-            </Internal_Reference>
-        </Target_Identification>
-
-        <Target_Identification>
-            <name>Mars</name>
-            <type>Planet</type>
-            <Internal_Reference>
-                <lid_reference>urn:nasa:pds:context:target:planet.mars</lid_reference>
-                <reference_type>bundle_to_target</reference_type>
-            </Internal_Reference>
-        </Target_Identification>
-
+        {% endfor %}
     </Context_Area>
 
     <Bundle>
