@@ -3,13 +3,17 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 import json
 import os
+import sys
 
 ENVIRONMENT=Environment(loader=FileSystemLoader('templates'), lstrip_blocks=True, trim_blocks=True)
 BUNDLE_TEMPLATE=ENVIRONMENT.get_template("bundle-dawn-grand.xml.jinja")
 COLLECTION_TEMPLATE=ENVIRONMENT.get_template("collection.xml.jinja")
 
 def main():
-    bundles = json.load(open("bundles.json"))
+    bundle_file = sys.argv[1]
+    if not bundle_file:
+        sys.exit("No bundle file provided")
+    bundles = json.load(open(bundle_file))
 
     for bundle in bundles:
         process_bundle(bundle)
