@@ -45,35 +45,19 @@
             {% endif %}
         </Time_Coordinates>
 
-        <Investigation_Area>
-            <name>DAWN Mission to Vesta and Ceres</name>
-            <type>Mission</type>
-            <Internal_Reference>
-                <lid_reference>urn:nasa:pds:context:investigation:mission.dawn_mission_to_vesta_and_ceres</lid_reference>
-                <reference_type>bundle_to_investigation</reference_type>
-            </Internal_Reference>
-        </Investigation_Area>
-
         <Observing_System>
+            {% for component in observing_system %}
             <Observing_System_Component>
-                <name>DAWN</name>
-                <type>Spacecraft</type>
-                <description>
-                    The Dawn spacecraft is an ion-propelled spacecraft capable of visiting and stopping at multiple targets in the Main Asteroid Belt. Most of the spacecraft design was provided by Orbital Sciences Corporation (Orbital), and the Jet Propulsion Laboratory (JPL) provided the ion propulsion system (IPS) and parts of the electrical power system and telecommunications system. Orbital was responsible for overall assembly, including integration of instruments, system-level tests, and launch operations. JPL is responsible for mission operations. The IPS is an expanded version of the system operated extensively on Deep Space 1 (DS1). The spacecraft design benefits from inheritance from previous projects at Orbital and the JPL. The mechanical design is based on Orbital's Star-2 series, and the avionics draw from the LEOStar-2 series. There is significant redundancy throughout the design, and the mission can be accomplished in the presence of most credible single faults. A complete description of the Dawn spacecraft may be found in Rayman et al. (2006), from which most of the information in this file was taken.                   
-                </description>
+                <name>{{ component.component_name }}</name>
+                <type>{{ component.component_type }}</type>
+                {% if component.component_lid %}
                 <Internal_Reference>
-                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.dawn</lid_reference>
-                    <reference_type>is_instrument_host</reference_type>
+                    <lid_reference>{{ component.component_lid }}</lid_reference>
+                    <reference_type>{{ component.lid_type }}</reference_type>
                 </Internal_Reference>
+                {% endif %}
             </Observing_System_Component>
-            <Observing_System_Component>
-                <name>GAMMA-RAY AND NEUTRON DETECTOR for DAWN</name>
-                <type>Instrument</type>
-                <Internal_Reference>
-                    <lid_reference>urn:nasa:pds:context:instrument:dawn.grand</lid_reference>
-                    <reference_type>is_instrument</reference_type>
-                </Internal_Reference>
-            </Observing_System_Component>
+            {% endfor %}
         </Observing_System>
 
         {% for target in targets %}
