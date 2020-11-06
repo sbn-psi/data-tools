@@ -45,6 +45,24 @@
         </Time_Coordinates>
         {% endif %}
 
+        {% if collection.purpose %}
+        <Primary_Result_Summary>
+            <purpose>{{ collection.purpose }}</purpose>
+            <processing_level>{{ collection.processing_level }}</processing_level>
+        </Primary_Result_Summary>
+        {% endif %}
+
+        {% if bundle.investigation %}
+        <Investigation_Area>
+            <name>{{ bundle.investigation.name }}</name>
+            <type>{{ bundle.investigation.type }}</type>
+            <Internal_Reference>
+                <lid_reference>{{ bundle.investigation.lid }}</lid_reference>
+                <reference_type>collection_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        {% end if %}
+
         <Observing_System>
             {% for component in bundle.observing_system %}
             <Observing_System_Component>

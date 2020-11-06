@@ -45,6 +45,17 @@
             {% endif %}
         </Time_Coordinates>
 
+        {% if investigation %}
+        <Investigation_Area>
+            <name>{{ investigation.name }}</name>
+            <type>{{ investigation.type }}</type>
+            <Internal_Reference>
+                <lid_reference>{{ investigation.lid }}</lid_reference>
+                <reference_type>bundle_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        {% end if %}
+
         <Observing_System>
             {% for component in observing_system %}
             <Observing_System_Component>
