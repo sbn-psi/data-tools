@@ -14,9 +14,11 @@
         <Citation_Information>
             <author_list>{{ author_list }}</author_list>
             <publication_year>2020</publication_year>
+            {% if doi %}
             <doi>{{ doi }}</doi>
+            {% endif %}
             <description>
-                This bundle collects the {{ bundle_description }} products for the GRaND instrument on the DAWN mission.
+                {{ bundle_description }}
             </description>
         </Citation_Information>
 
@@ -45,17 +47,20 @@
             {% endif %}
         </Time_Coordinates>
 
-        {% if investigation %}
+        {% for investigation in investigations %}
         <Investigation_Area>
             <name>{{ investigation.name }}</name>
             <type>{{ investigation.type }}</type>
+            {% if investigation.lid %}
             <Internal_Reference>
                 <lid_reference>{{ investigation.lid }}</lid_reference>
                 <reference_type>bundle_to_investigation</reference_type>
             </Internal_Reference>
+            {% endif %}
         </Investigation_Area>
-        {% end if %}
+        {% endfor %}
 
+        {% for observing_system in observing_systems %}
         <Observing_System>
             {% for component in observing_system %}
             <Observing_System_Component>
@@ -70,6 +75,7 @@
             </Observing_System_Component>
             {% endfor %}
         </Observing_System>
+        {% endfor %}
 
         {% for target in targets %}
         <Target_Identification>
