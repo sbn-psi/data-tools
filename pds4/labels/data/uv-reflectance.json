@@ -1,0 +1,437 @@
+[
+    {
+        "bundle_id": "ast.uv.reflectance-spectra",
+        "bundle_title": "UV spectra of asteroids from various instruments",
+        "bundle_description": "This archive package includes UV spectra for a number of asteroid targets from several sources: International Ultraviolet Explorer (Hendrix), Hubble Space Telescope (Li), and ground-based data from MMT (Vilas). For detailed information, access the corresponding collections directly. Further datasets and sources will be added in future versions of the collections.",
+        "author_list": "Hendrix, A.R.; Li J.-Y., ;Vilas, F.",
+        "bundle_start_date": "1978-05-21T14:24:00Z",
+        "bundle_stop_date": "2013-06-18T11:04:56Z",
+        "investigations": [
+            {
+                "name": "None",
+                "type": "Other Investigation",
+                "lid": "urn:nasa:pds:context:investigation:individual.none"
+            }
+        ],
+        "observing_systems": [
+            [
+                {
+                    "component_name": "International Ultraviolet Explorer",
+                    "component_type": "Spacecraft",
+                    "component_lid": "urn:nasa:pds:context:instrument_host:spacecraft.iue",
+                    "lid_type": "is_instrument_host"
+                },
+                {
+                    "component_name": "LONG-WAVELENGTH PRIME for IUE",
+                    "component_type": "Instrument",
+                    "component_lid": "urn:nasa:pds:context:instrument:lwp.iue",
+                    "lid_type": "is_instrument"
+                }
+            ],
+            [
+                {
+                    "component_name": "Hubble Space Telescope",
+                    "component_type": "Spacecraft",
+                    "component_lid": "urn:nasa:pds:context:instrument_host:spacecraft.hst",
+                    "lid_type": "is_instrument_host"
+                },
+                {
+                    "component_name": "Advance Camera For Surveys",
+                    "component_type": "Instrument",
+                    "component_lid": "urn:nasa:pds:context:instrument:hstacs.hst",
+                    "lid_type": "is_instrument"
+                }
+            ],
+            [
+                {
+                    "component_name": "6.5-m Single Mirror (MMT)",
+                    "component_type": "Telescope",
+                    "component_lid": "urn:nasa:pds:context:telescope:mmt.single_mirror6m5",
+                    "lid_type": "is_telescope"
+                },
+                {
+                    "component_name": "MMT Observatory",
+                    "component_type": "Observatory",
+                    "component_lid": "urn:nasa:pds:context:facility:observatory.mmt",
+                    "lid_type": "is_facility"
+                },
+                {
+                    "component_name": "MMT Blue Channel Spectrograph",
+                    "component_type": "Instrument",
+                    "component_lid": "urn:nasa:pds:context:instrument:mmt.single_mirror6m5.bluespec",
+                    "lid_type": "is_instrument"
+                }
+            ]
+        ],
+        "targets": [
+            {
+                "name": "(1) Ceres",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(349) Dembowska",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(4179) Toutatis",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(324) Bamberga",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(88) Thisbe",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(42) Isis",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(18) Melpomene",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(21) Lutetia",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(23) Thalia",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(54) Alexandra",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(16) Psyche",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(308) Polyxo",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(471) Papagena",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(511) Davida",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(51) Nemausa",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(654) Zelinda",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(704) Interamnia",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(44) Nysa",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(433) Eros",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(40) Harmonia",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(9) Metis",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(10) Hygiea",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(15) Eunomia",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(20) Massalia",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(354) Eleonora",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(63) Ausonia",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(8) Flora",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(135) Hertha",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(532) Herculina",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(1620) Geographos",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(27) Euterpe",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(129) Antigone",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(12) Victoria",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(75) Eurydike",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(410) Chloris",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(29) Amphitrite",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(216) Kleopatra",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(41) Daphne",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(14) Irene",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(1566) Icarus",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(163249) 2002 GT",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(3507) Vilas",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(89) Julia",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(42) Isis",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(18) Melpomene",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(1270) Datura",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(41) Daphne",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(54) Alexandra",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(253) Mathilde",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(471) Papagena",
+                "type": "Asteroid"
+            },
+            {
+                "name": "Taylor SA 93-101",
+                "type": "Star"
+            },
+            {
+                "name": "Taylor SA 107-998",
+                "type": "Star"
+            },
+            {
+                "name": "(250322) 2003 SC7",
+                "type": "Asteroid"
+            },
+            {
+                "name": "SAO 93936",
+                "type": "Star"
+            },
+            {
+                "name": "(81550) 2000 HU23",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(118208) 1995 TH10",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(10783) 1991 RB9",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(93690) 2000 VE21",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(150781) 2001 QO282",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(165) Loreley",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(326) Tamara",
+                "type": "Asteroid"
+            },
+            {
+                "name": "HR 2208",
+                "type": "Star"
+            },
+            {
+                "name": "HR 3626",
+                "type": "Star"
+            },
+            {
+                "name": "(20) Massalia",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(7341) 1991 VK",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(5407) 1992 AX",
+                "type": "Asteroid"
+            },
+            {
+                "name": "GSPC P177-D",
+                "type": "Star"
+            },
+            {
+                "name": "Landolt SA 115-271",
+                "type": "Star"
+            },
+            {
+                "name": "SAO 94114",
+                "type": "Star"
+            },
+            {
+                "name": "(28) Bellona",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(93632) 2000 UE79",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(14627) Emilkowalski",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(363305) 2002 NV16",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(40) Harmonia",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(7) Iris",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(23) Thalia",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(6) Hebe",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(85350) 1995 UN13",
+                "type": "Asteroid"
+            },
+            {
+                "name": "(3) Juno",
+                "type": "Asteroid"
+            },
+            {
+                "name": "Landolt SA 110-361",
+                "type": "Star"
+            },
+            {
+                "name": "Landolt SA 115-271",
+                "type": "Star"
+            }
+        ],
+        "collections": [
+            {
+                "collection_id": "document_iue",
+                "collection_title": "IUE Document Collection",
+                "collection_description": "Documents for bundle.",
+                "collection_type": "Document",
+                "reference_type": "bundle_has_document_collection"
+            },
+            {
+                "collection_id": "data_iue",
+                "collection_title": "IUE Data Collection",
+                "collection_description": "Data files for the bundle",
+                "collection_type": "Discellaneous",
+                "reference_type": "bundle_has_member_collection"
+            },
+            {
+                "collection_id": "document_mmt",
+                "collection_title": "Document Collection",
+                "collection_description": "Documents for bundle.",
+                "collection_type": "Document",
+                "reference_type": "bundle_has_document_collection"
+            },
+            {
+                "collection_id": "data_mmt",
+                "collection_title": "Data Collection",
+                "collection_description": "Data files for the bundle",
+                "collection_type": "Discellaneous",
+                "reference_type": "bundle_has_member_collection"
+            },
+            {
+                "collection_id": "document_hst",
+                "collection_title": "Document Collection",
+                "collection_description": "Documents for bundle.",
+                "collection_type": "Document",
+                "reference_type": "bundle_has_document_collection"
+            },
+            {
+                "collection_id": "data_hst",
+                "collection_title": "Data Collection",
+                "collection_description": "Data files for the bundle",
+                "collection_type": "Discellaneous",
+                "reference_type": "bundle_has_member_collection"
+            }
+        ]
+    }
+]
