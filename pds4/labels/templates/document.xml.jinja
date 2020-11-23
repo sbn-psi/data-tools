@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Document xmlns="http://pds.nasa.gov/pds4/pds/v1"
+	xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A00.xsd">
+    
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:{{ bundle.bundle_id }}:document:{{ product_id }}</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>{{ product_title }}</title>
+        <information_model_version>1.A.0.0</information_model_version>
+        <product_class>Product_Document</product_class>
+        
+        <Citation_Information>
+            <author_list>{{ author_list }}</author_list>
+            <publication_year>2015</publication_year>
+            <description>
+                {{ description }}
+            </description>
+        </Citation_Information>
+        
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>{{ modification_date }}</modification_date>
+                <version_id>1.0</version_id>
+                <description>Initial creation of PDS label for this document</description>
+            </Modification_Detail>
+        </Modification_History>  
+    </Identification_Area>
+    
+    <Context_Area>
+        {% for investigation in bundle.investigations %}
+        <Investigation_Area>
+            <name>{{ investigation.name }}</name>
+            <type>{{ investigation.type }}</type>
+            {% if investigation.lid %}
+            <Internal_Reference>
+                <lid_reference>{{ investigation.lid }}</lid_reference>
+                <reference_type>bundle_to_investigation</reference_type>
+            </Internal_Reference>
+            {% endif %}
+        </Investigation_Area>
+        {% endfor %}
+        
+        {% for observing_system in bundle.observing_systems %}
+        <Observing_System>
+            {% for component in observing_system %}
+            <Observing_System_Component>
+                <name>{{ component.component_name }}</name>
+                <type>{{ component.component_type }}</type>
+                {% if component.component_lid %}
+                <Internal_Reference>
+                    <lid_reference>{{ component.component_lid }}</lid_reference>
+                    <reference_type>{{ component.lid_type }}</reference_type>
+                </Internal_Reference>
+                {% endif %}
+            </Observing_System_Component>
+            {% endfor %}
+        </Observing_System>
+        {% endfor %}
+    </Context_Area>
+    
+    <Document>
+        <publication_date>{{ publication_date }}</publication_date>
+        <description>
+            The PDF version of the document.
+        </description>
+        <Document_Edition>
+            <edition_name>PDF/A</edition_name>
+            <language>English</language>
+            <files>1</files>
+            <description>
+                This document is conformant to PDF/A.
+            </description>
+            <Document_File>
+                <file_name>{{ file_name }}</file_name>
+                <document_standard_id>PDF/A</document_standard_id>
+            </Document_File>
+        </Document_Edition>
+    </Document>
+</Product_Document>
