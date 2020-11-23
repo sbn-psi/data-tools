@@ -63,8 +63,9 @@
         </Investigation_Area>
         {% endif %}
 
+        {% for observing_system in bundle.observing_systems %}
         <Observing_System>
-            {% for component in bundle.observing_system %}
+            {% for component in observing_system %}
             <Observing_System_Component>
                 <name>{{ component.component_name }}</name>
                 <type>{{ component.component_type }}</type>
@@ -77,6 +78,7 @@
             </Observing_System_Component>
             {% endfor %}
         </Observing_System>
+        {% endfor %}
 
         {% for target in bundle.targets %}
         <Target_Identification>
