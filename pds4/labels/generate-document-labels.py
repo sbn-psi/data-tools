@@ -17,7 +17,7 @@ def main():
     bundle = bundles[0]
     document_filename = os.path.basename(args.document_file)
     document_extension = document_filename.split(".")[-1]
-    product_id = "urn:nasa:pds:" + bundle["bundle_id"] + ":document:" + filename_to_id(document_filename)
+    product_id = filename_to_id(document_filename)
     label_filename = args.document_file.replace(document_extension, "xml")
     
     with open(label_filename, "w") as output_file:
@@ -27,6 +27,7 @@ def main():
                                                  description=args.description,
                                                  modification_date=args.modification_date,
                                                  publication_date=args.publication_date,
+                                                 publication_year=args.publication_date[:4],
                                                  file_name=document_filename,
                                                  product_id=product_id))
 
@@ -42,7 +43,7 @@ def build_parser():
     return parser
 
 def filename_to_id(filename):
-    return filename
+    return filename.lower()
 
 if __name__ == "__main__":
     main()
