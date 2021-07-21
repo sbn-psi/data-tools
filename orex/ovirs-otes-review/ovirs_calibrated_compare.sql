@@ -1,3 +1,9 @@
+/*
+Indicates whether the redelivered data tables in the ovirs calibrated files match the existing data tables.
+Because the redelivered files have times that don't match, this script uses any file within 60ms of the original
+delivery as the basis for comparison.
+*/
+
 select 
         ed.filepath as "Delivered File", 
         ed.local_id as "Delivered Id",
