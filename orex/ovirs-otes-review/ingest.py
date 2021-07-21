@@ -1,4 +1,8 @@
 #! /usr/bin/env python3
+'''
+Adds the checksums for the files to a database for further analysis.
+'''
+
 import argparse
 import sys
 import datetime
