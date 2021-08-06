@@ -45,6 +45,13 @@ Compiles the information about a specific part of the product.
 x is the xml element that describes the part of the product (such as a specific header or table entry)
 '''
 def analyze_segment(x, data_file):
+    names = x.find_all("name")
+    exclude_bytes = []
+
+    for y in names:
+        if "sclk" in y.text:
+            exclude_bytes.append(found_time(y))
+    
     name = x.name
     offset = int(x.find("offset").text)
     local_identifier = get_local_identifier(x)
@@ -58,6 +65,14 @@ def analyze_segment(x, data_file):
         "local_identifier": local_identifier, 
         "size":size, 
         "sha-256": checksum
+    }
+
+def found_time(element):
+    field_location = int(element.find_next("field_location").text)
+    field_length = int(element.find_next("field_length").text)
+    return {
+        "start_byte": field_location,
+        "end_byte": field_location + field_length
     }
 
 '''
