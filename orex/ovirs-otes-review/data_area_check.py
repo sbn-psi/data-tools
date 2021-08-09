@@ -56,11 +56,13 @@ def analyze_segment(x, data_file):
     offset = int(x.find("offset").text)
     local_identifier = get_local_identifier(x)
     size = get_size(x)
-
-    checksum = get_checksum(data_file, offset, size)
+    record_length = int(x.find("record_length").text)
+    records = int(x.find("records").text)
+    
+    checksum = get_checksum(data_file, offset, size, record_length, records, exclude_bytes)
 
     return {
-        "section": name, 
+        "section": "ModifiedComponent", 
         "offset":offset, 
         "local_identifier": local_identifier, 
         "size":size, 
@@ -78,13 +80,25 @@ def found_time(element):
 '''
 Calculates the checksum of a section of the file.
 '''
-def get_checksum(data_file, offset, size):
-    if size:
-        data_file.seek(offset)
-        m = hashlib.sha256()
-        m.update(data_file.read(size))
-        return m.hexdigest()
-    return None
+def get_checksum(data_file, offset, size, record_length, records, exclude_bytes):
+    start = None
+    end = None
+
+    for index in exclude_bytes:
+        if start == None or index["start_byte"] < start:
+            start = index["start_byte"]
+        if end == None or index["end_byte"] > end:
+            end = index["end_byte"]
+
+    m = hashlib.sha256()
+    contents = data_file.read()
+    section = contents[offset:offset+(records*record_length)] # because these are bytes!
+    
+    for i in range(0,len(section),record_length):
+        record = section[i:i+record_length]
+        line2 = record[:start] + record[end:]
+        m.update(line2)
+    return m.hexdigest()
 
 '''
 Gets the value of the local_identifier attribute for a component of the product,
