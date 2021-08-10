@@ -12,6 +12,7 @@ import hashlib
 import os.path
 import operator
 import functools
+import base64
 
 
 def main():
@@ -56,8 +57,8 @@ def analyze_segment(x, data_file):
     offset = int(x.find("offset").text)
     local_identifier = get_local_identifier(x)
     size = get_size(x)
-    record_length = int(x.find("record_length").text)
-    records = int(x.find("records").text)
+    record_length = get_record_length(x)
+    records = get_records(x)
     
     checksum = get_checksum(data_file, offset, size, record_length, records, exclude_bytes)
 
@@ -68,6 +69,18 @@ def analyze_segment(x, data_file):
         "size":size, 
         "sha-256": checksum
     }
+
+def get_record_length(x):
+    if x.find("record_length") != None:
+        return int(x.find("record_length").text)
+    else:
+        return None
+
+def get_records(x):
+    if x.find("records") != None:
+        return int(x.find("records").text)
+    else:
+        return None
 
 def found_time(element):
     field_location = int(element.find_next("field_location").text)
@@ -84,21 +97,28 @@ def get_checksum(data_file, offset, size, record_length, records, exclude_bytes)
     start = None
     end = None
 
-    for index in exclude_bytes:
-        if start == None or index["start_byte"] < start:
-            start = index["start_byte"]
-        if end == None or index["end_byte"] > end:
-            end = index["end_byte"]
-
     m = hashlib.sha256()
     contents = data_file.read()
-    section = contents[offset:offset+(records*record_length)] # because these are bytes!
     
-    for i in range(0,len(section),record_length):
-        record = section[i:i+record_length]
-        line2 = record[:start] + record[end:]
-        m.update(line2)
-    return m.hexdigest()
+    if records != None and record_length != None and len(exclude_bytes) > 0:
+        for index in exclude_bytes:
+            if start == None or index["start_byte"] < start:
+                start = index["start_byte"]
+            if end == None or index["end_byte"] > end:
+                end = index["end_byte"]
+
+        section = contents[offset:offset+(records*record_length)] # because these are bytes!
+        
+        for i in range(0,len(section),record_length):
+            record = section[i:i+record_length]
+            line2 = record[:start] + record[end:]
+            m.update(line2)
+        return m.hexdigest()
+    else:
+        data_file.seek(offset)
+        m.update(data_file.read(size))
+        return m.hexdigest()
+
 
 '''
 Gets the value of the local_identifier attribute for a component of the product,
