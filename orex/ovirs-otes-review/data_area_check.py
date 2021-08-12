@@ -13,11 +13,12 @@ import os.path
 import operator
 import functools
 import base64
-
+import struct
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--label", help="", required=True)
+    parser.add_argument("--label", help="The path to the PDS4 label file.", required=True)
+    parser.add_argument("--output", help="The path to the output CSV file.", required=True)
     args = parser.parse_args()
     label_dir = os.path.dirname(args.label)
     
@@ -99,26 +100,31 @@ def get_checksum(data_file, offset, size, record_length, records, exclude_bytes)
 
     m = hashlib.sha256()
     contents = data_file.read()
-    
-    if records != None and record_length != None and len(exclude_bytes) > 0:
-        for index in exclude_bytes:
-            if start == None or index["start_byte"] < start:
-                start = index["start_byte"]
-            if end == None or index["end_byte"] > end:
-                end = index["end_byte"]
+    with open('test.csv','w') as file:
+        if records != None and record_length != None and len(exclude_bytes) > 0:
+            # for index in exclude_bytes:
+            #     if start == None or index["start_byte"] < start:
+            #         start = index["start_byte"]
+            #     if end == None or index["end_byte"] > end:
+            #         end = index["end_byte"]
 
-        section = contents[offset:offset+(records*record_length)] # because these are bytes!
-        
-        for i in range(0,len(section),record_length):
-            record = section[i:i+record_length]
-            line2 = record[:start] + record[end:]
-            m.update(line2)
-        return m.hexdigest()
-    else:
-        data_file.seek(offset)
-        m.update(data_file.read(size))
-        return m.hexdigest()
+            section = contents[offset:offset+(records*record_length)] # because these are bytes!
+            
+            for i in range(0,len(section),record_length):
+                record = section[i:i+record_length]
+                fmt = '<IHHH' + ('f' * 349) + 'ff' + ('f' * 349)
+                unpacked_record = struct.unpack(fmt , record)
+                write_to_file(unpacked_record,file)
+                line2 = record[:start] + record[end:]
+                m.update(line2)
+            return m.hexdigest()
+        else:
+            data_file.seek(offset)
+            m.update(data_file.read(size))
+            return m.hexdigest()
 
+def write_to_file(line,file):
+    file.write(str(line) + "\n")
 
 '''
 Gets the value of the local_identifier attribute for a component of the product,
