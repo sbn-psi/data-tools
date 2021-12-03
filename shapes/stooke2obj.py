@@ -20,8 +20,8 @@ def main():
         for (x,y,z) in carts:
             print("v", x, y, z)
 
-    for a in range(0,73):
-        for b in range(0,37):
+    for a in range(0,72):
+        for b in range(0,36):
             v1 = pos(a, b)
             v2 = pos(a, b+1)
             v3 = pos(a+1, b)
