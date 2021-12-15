@@ -2,7 +2,7 @@ import ply.yacc as yacc
 
 from pds3tokens import tokens
 import pds3lex
-
+import json
 import sys
 
 def p_label(p):
@@ -144,7 +144,7 @@ def main(argv=None):
   with open(argv[1]) as f:
     data = f.read()
     result = parser.parse(data)
-    print(result)
+    print(json.dumps(result,indent=1))
   
 if __name__ == '__main__':
   sys.exit(main())

@@ -46,16 +46,16 @@ t_POINTER = r'\^'
 
 sign = '[+-]'
 unsigned_integer = '\d+'
-integer = sign + '?' + unsigned_integer
 
 extended_digit = '[A-Za-z0-9]'
 radix = unsigned_integer
 based_int = radix + r'\#' + sign + extended_digit + r'\#'
 
 unscaled_real = '((' + unsigned_integer + r'\.(' + unsigned_integer + ')?' + ')|(' + r'\.' + unsigned_integer + '))'
+integer = sign + '?' + unsigned_integer
 exponent = '((E' + integer + ')|(e' + integer + '))'
 scaled_real = unscaled_real + exponent
-real = '((' + sign + '?' + unscaled_real + ')|(' + sign + '?' + scaled_real + '))'
+real = '((' + sign + '?' + scaled_real + ')|(' + sign + '?' + unscaled_real + '))'
 
 year = unsigned_integer
 month = unsigned_integer
