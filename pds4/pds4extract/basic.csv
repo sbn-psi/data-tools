@@ -1,0 +1,5 @@
+"lid","/pds:Product_Observational/pds:Identification_Area/pds:logical_identifier"
+"vid","/pds:Product_Observational/pds:Identification_Area/pds:version_id"
+"title","/pds:Product_Observational/pds:Identification_Area/pds:title"
+"startdate","/pds:Product_Observational/pds:Observation_Area/pds:Time_Coordinates/pds:start_date_time"
+"stopdate","/pds:Product_Observational/pds:Observation_Area/pds:Time_Coordinates/pds:stop_date_time"
