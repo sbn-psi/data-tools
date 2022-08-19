@@ -5,7 +5,7 @@ import xml.etree.ElementTree
 
 def get_product_filenames(dirname):
     files = itertools.chain.from_iterable(
-        (os.path.join(path, filename) for filename in filenames) for (path,_,filenames) in os.walk(dirname)
+        (os.path.join(path, filename) for filename in filenames) for (path,_,filenames) in os.walk(dirname) if not 'SUPERSEDED' in path
     )
     files = (x for x in files if _is_product(x))
     return files
@@ -18,7 +18,6 @@ def _is_product(filename):
 def extract_product_type(filename):
     for (_, elem) in xml.etree.ElementTree.iterparse(filename):
         if elem.tag.startswith("{http://pds.nasa.gov/pds4/pds/v1}Product"):
-            print (elem.tag)
             return elem.tag.replace("{http://pds.nasa.gov/pds4/pds/v1}","")
 
 
