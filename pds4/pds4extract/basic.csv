@@ -5,7 +5,7 @@
 "stopdate","/pds:Product_Observational/pds:Observation_Area/pds:Time_Coordinates/pds:stop_date_time"
 "purpose","/pds:Product_Observational/pds:Observation_Area/pds:Primary_Result_Summary/pds:purpose"
 "processing_level","/pds:Product_Observational/pds:Observation_Area/pds:Primary_Result_Summary/pds:processing_level"
-"processing_level","/pds:Product_Observational/pds:Observation_Area/pds:Primary_Result_Summary/pds:Science_Facets/pds:facet1"
+"facet","/pds:Product_Observational/pds:Observation_Area/pds:Primary_Result_Summary/pds:Science_Facets/pds:facet1"
 "mission","/pds:Product_Observational/pds:Observation_Area/pds:Investigation_Area/pds:name"
 "telescope","/pds:Product_Observational/pds:Observation_Area/pds:Observing_System/pds:Observing_System_Component[pds:type='Telescope']/pds:name"
 "spacecraft","/pds:Product_Observational/pds:Observation_Area/pds:Observing_System/pds:Observing_System_Component[pds:type='Spacecraft']/pds:name"
