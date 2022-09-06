@@ -9,7 +9,9 @@ This utility will allow you to query a batch of xml labels for information all a
 `pds4extract.py [--include-filename] [--spec specfile] file(s)`
 
 `--include-filename` will make the name of the label file the first column of the output
-`--spec` will will allow you to supply your own csv file containing a list of column names and their associated xpath queries. Without this, only basic information will be provided.
+
+`--spec` will will allow you to supply your own csv file containing a list of column names and their associated xpath queries. Without this, only basic information such as LID and start/stop date will be provided.
+
 `file(s)` is the list of label files from which you want to extract information
 
 ## About the spec file
