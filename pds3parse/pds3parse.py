@@ -167,7 +167,9 @@ def main(argv=None):
     with open(filepath) as f:
       data = f.read()
       parsed = parser.parse(data)
-      result.append(toDict(parsed))
+      parsed_dict = toDict(parsed)
+      parsed_dict['meta.filepath'] = filepath
+      result.append(parsed_dict)
   print(result)
   headers = set(itertools.chain.from_iterable([x.keys() for x in result]))
   with (open('out.csv', 'w')) as outfile:
