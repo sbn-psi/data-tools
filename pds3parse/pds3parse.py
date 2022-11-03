@@ -119,7 +119,7 @@ def p_scalar_values(p):
   if (len(p) > 3):
     p[0] = p[1] + [p[3]]
   else:
-    p[0] + [p[1]]
+    p[0] = [p[1]]
   
 def p_sequence_2d(p):
   'sequence_2d : L_PAREN sequence_1ds R_PAREN'
