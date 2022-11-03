@@ -111,7 +111,7 @@ def p_sequence_value(p):
     
 def p_sequence_1d(p):
   'sequence_1d : L_PAREN scalar_values R_PAREN'
-  p[0] = p[1]
+  p[0] = p[2]
   
 def p_scalar_values(p):
   '''scalar_values : scalar_value 
