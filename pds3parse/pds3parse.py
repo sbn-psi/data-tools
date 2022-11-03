@@ -4,6 +4,8 @@ from pds3tokens import tokens
 import pds3lex
 import json
 import sys
+import csv
+import itertools
 
 def p_label(p):
   'label : statements END'
@@ -111,7 +113,7 @@ def p_sequence_value(p):
     
 def p_sequence_1d(p):
   'sequence_1d : L_PAREN scalar_values R_PAREN'
-  p[0] = p[1]
+  p[0] = p[2]
   
 def p_scalar_values(p):
   '''scalar_values : scalar_value 
@@ -119,7 +121,7 @@ def p_scalar_values(p):
   if (len(p) > 3):
     p[0] = p[1] + [p[3]]
   else:
-    p[0] + [p[1]]
+    p[0] = [p[1]]
   
 def p_sequence_2d(p):
   'sequence_2d : L_PAREN sequence_1ds R_PAREN'
@@ -136,15 +138,44 @@ def p_error(p):
   print(p)
   
 parser = yacc.yacc()
-  
+
+def toDict(parsed, context=""):
+  result = {}
+  for entry in parsed:
+    if entry['type'] in ('attribute', 'pointer'):
+      values = entry['value']
+      if isinstance(values, dict) and 'scalar' in values:
+        result[context + entry['name']] = values['scalar'].strip()
+      elif isinstance(values, list):
+        result[context + entry['name']] = ';'.join([x['scalar'].strip() for x in values])
+      else:
+        print(entry)
+    elif entry['type'] == 'object':
+      subresult = toDict(entry['value'], context + entry['name'] + ".")
+      result.update(subresult)
+    else:
+      print(entry)
+      
+  return result
+
 def main(argv=None):
   if argv is None:
     argv = sys.argv
   
-  with open(argv[1]) as f:
-    data = f.read()
-    result = parser.parse(data)
-    print(json.dumps(result,indent=1))
+  result = []
+  for filepath in argv[1:]:
+    with open(filepath) as f:
+      data = f.read()
+      parsed = parser.parse(data)
+      result.append(toDict(parsed))
+  print(result)
+  headers = set(itertools.chain.from_iterable([x.keys() for x in result]))
+  with (open('out.csv', 'w')) as outfile:
+    csvout = csv.DictWriter(outfile, headers)
+    csvout.writeheader()
+    csvout.writerows(result)
+
+
   
 if __name__ == '__main__':
   sys.exit(main())
