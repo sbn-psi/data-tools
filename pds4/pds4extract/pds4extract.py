@@ -7,7 +7,9 @@ from typing import Dict
 #import xml.etree
 from lxml import etree
 import itertools
+import functools
 import os
+from multiprocessing import Pool
 
 
 DISCIPLINE_ABBREVIATIONS = ["pds", "cart", "disp", "ebt", "geom", "img", "img_surface", "ml", "msn", "msn_surface", "msss_cam_mh", "multi", "nucspec", "particle", "proc", "radar", "rings", "speclib", "sp", "survey"]
@@ -26,6 +28,7 @@ DEFAULT_PATHS = {
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--include-filename", action="store_true")
+    parser.add_argument("--processes", default=1, type=int)
     parser.add_argument("--spec")
     parser.add_argument("--directory")
     parser.add_argument("labels", nargs="*")
@@ -35,13 +38,15 @@ def main():
     paths = extract_paths(args.spec) if args.spec else DEFAULT_PATHS
     dir_labels = find_labels(args.directory) if args.directory else []
 
-    labels = itertools.chain.from_iterable((dir_labels, args.labels)) #find_labels(args.directory) + args.labels if args.directory else args.labels
+    labels = itertools.chain.from_iterable((dir_labels, args.labels))
 
     if labels:
-        result = (extract_xml(label, paths, args.include_filename) for label in labels)    
-        w = csv.DictWriter(sys.stdout, fieldnames=get_keys(paths, args.include_filename))
-        w.writeheader()
-        w.writerows(result)
+        extractor = functools.partial(extract_xml, paths, args.include_filename)
+        with Pool(args.processes) as p:
+            result = p.map(extractor, labels)
+            w = csv.DictWriter(sys.stdout, fieldnames=get_keys(paths, args.include_filename))
+            w.writeheader()
+            w.writerows(result)
     else:
         parser.print_usage()
         print("Must supply either a directory or list of label filenames")
@@ -67,7 +72,7 @@ def get_keys(paths, include_filename):
     keys = list(paths.keys())
     return ["filename"] + keys if include_filename else keys
 
-def extract_xml(filename, paths, include_filename):
+def extract_xml(paths, include_filename, filename):
     doc = etree.parse(filename)
     result = extract_values(doc, paths)
     if (include_filename):
