@@ -177,7 +177,7 @@ def main(argv=None):
       parsed_dict = toDict(parsed)
       parsed_dict['meta.filepath'] = filepath
       result.append(parsed_dict)
-  print(result)
+  #print(result)
   headers = set(itertools.chain.from_iterable([x.keys() for x in result]))
   with (open('out.csv', 'w')) as outfile:
     csvout = csv.DictWriter(outfile, headers)
