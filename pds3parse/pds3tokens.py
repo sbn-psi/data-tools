@@ -75,7 +75,7 @@ hour_min_sec = hour + ':' + minute + '(:' + second + ')?'
 zoned_time = hour_min_sec + zone_offset
 utc_time = hour_min_sec + 'Z'
 local_time = hour_min_sec
-time = '((' + local_time + ')|(' + utc_time + ')|(' + zoned_time + '))'
+time = '((' + utc_time + ')|(' + zoned_time + ')|(' + local_time + '))'
 
 date_time = date + 'T' + time
 date_time_val = '((' + date_time + ')|(' + date + ')|(' + time + '))'
