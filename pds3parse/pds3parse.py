@@ -8,6 +8,7 @@ import json
 import sys
 import csv
 import itertools
+import argparse
 
 def p_label(p):
   'label : statements END'
@@ -161,18 +162,22 @@ def toDict(parsed, context=""):
   return result
 
 def main(argv=None):
+  argparser = argparse.ArgumentParser()
+  argparser.add_argument("labels", nargs="*")
+  args = argparser.parse_args()
+
   if argv is None:
     argv = sys.argv
   
   result = []
-  for filepath in argv[1:]:
+  for filepath in args.labels:
     with open(filepath) as f:
       data = f.read()
       parsed = parser.parse(data)
       parsed_dict = toDict(parsed)
       parsed_dict['meta.filepath'] = filepath
       result.append(parsed_dict)
-  print(result)
+  #print(result)
   headers = set(itertools.chain.from_iterable([x.keys() for x in result]))
   with (open('out.csv', 'w')) as outfile:
     csvout = csv.DictWriter(outfile, headers)
