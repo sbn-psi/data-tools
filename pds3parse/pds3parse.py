@@ -1,3 +1,5 @@
+#! /usr/bin/env python3
+
 import ply.yacc as yacc
 
 from pds3tokens import tokens
