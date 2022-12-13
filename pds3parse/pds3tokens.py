@@ -39,8 +39,8 @@ t_L_ANGLE = r'\<'
 t_R_ANGLE = r'\>'
 t_L_PAREN = r'\('
 t_R_PAREN = r'\)'
-t_L_BRACE = r'\['
-t_R_BRACE = r'\]'
+t_L_BRACE = r'\{'
+t_R_BRACE = r'\}'
 t_EXPONENT = r'\*\*'
 t_POINTER = r'\^'
 
@@ -49,36 +49,36 @@ unsigned_integer = '\d+'
 
 extended_digit = '[A-Za-z0-9]'
 radix = unsigned_integer
-based_int = radix + r'\#' + sign + extended_digit + r'\#'
+based_int = f'{radix}\\#{sign}{extended_digit}\\#'
 
-unscaled_real = '((' + unsigned_integer + r'\.(' + unsigned_integer + ')?' + ')|(' + r'\.' + unsigned_integer + '))'
-integer = sign + '?' + unsigned_integer
-exponent = '((E' + integer + ')|(e' + integer + '))'
+unscaled_real = f'(({unsigned_integer}\\.({unsigned_integer})?)|(\\.{unsigned_integer}))'
+integer = f'{sign}?{unsigned_integer}'
+exponent = f'((E{integer})|(e{integer}))'
 scaled_real = unscaled_real + exponent
-real = '((' + sign + '?' + scaled_real + ')|(' + sign + '?' + unscaled_real + '))'
+real = f'(({sign}?{scaled_real})|({sign}?{unscaled_real}))'
 
 year = unsigned_integer
 month = unsigned_integer
 day = unsigned_integer
 doy = unsigned_integer
 
-year_doy = year + '-' + doy
-year_month_day = year + '-' + month + '-' + day
+year_doy = f'{year}-{doy}'
+year_month_day = f'{year}-{month}-{day}'
 
-date = '((' + year_month_day + ')|(' + year_doy + '))'
+date = f'(({year_month_day})|({year_doy}))'
 
-second = '((' + unscaled_real + ')|(' + unsigned_integer + '))'
+second = f'(({unscaled_real})|({unsigned_integer}))'
 minute = unsigned_integer
 hour = unsigned_integer
-zone_offset = sign + hour + '(:' + minute + ')?'
-hour_min_sec = hour + ':' + minute + '(:' + second + ')?'
-zoned_time = hour_min_sec + zone_offset
-utc_time = hour_min_sec + 'Z'
+zone_offset = f'{sign}{hour}(:{minute})?'
+hour_min_sec = f'{hour}:{minute}(:{second})?'
+zoned_time = f'{hour_min_sec}{zone_offset}'
+utc_time = f'{hour_min_sec}Z'
 local_time = hour_min_sec
-time = '((' + utc_time + ')|(' + zoned_time + ')|(' + local_time + '))'
+time = f'(({utc_time})|({zoned_time})|({local_time}))'
 
-date_time = date + 'T' + time
-date_time_val = '((' + date_time + ')|(' + date + ')|(' + time + '))'
+date_time = f'{date}T{time}'
+date_time_val = f'(({date_time})|({date})|({time}))'
 
 
 quoted_text = r'"[^"]*"'
@@ -87,7 +87,7 @@ quoted_symbol = r"\'[^']+\'"
 
 letter = '[A-Za-z]'
 digit = '[0-9]'
-identifier = letter + '((' + letter + ')|(' + digit + ')|(_' + letter + ')|(_' + digit + '))*'
+identifier = f'{letter}(({letter})|({digit})|(_{letter})|(_{digit}))*'
 
 t_INTEGER = integer
 t_BASED_INT = based_int
