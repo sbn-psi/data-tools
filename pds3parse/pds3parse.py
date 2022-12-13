@@ -161,14 +161,11 @@ def toDict(parsed, context=""):
       
   return result
 
-def main(argv=None):
+def main():
   argparser = argparse.ArgumentParser()
   argparser.add_argument("labels", nargs="*")
   args = argparser.parse_args()
 
-  if argv is None:
-    argv = sys.argv
-  
   result = []
   for filepath in args.labels:
     with open(filepath) as f:
