@@ -135,6 +135,7 @@ def p_sequence_1ds(p):
   
 def p_set_value(p):
   'set_value : L_BRACE scalar_values R_BRACE'
+  p[0] = {'set': p[2]}
   
 def p_error(p):
   print('syntax_error: %s' % p.lineno)
@@ -149,6 +150,8 @@ def toDict(parsed, context=""):
       values = entry['value']
       if isinstance(values, dict) and 'scalar' in values:
         result[context + entry['name']] = values['scalar'].strip()
+      elif isinstance(values, dict) and 'set' in values:
+        result[context + entry['name']] = ';'.join(sub["scalar"].strip() for sub in values['set'] if "scalar" in sub)
       elif isinstance(values, list):
         result[context + entry['name']] = ';'.join([x['scalar'].strip() for x in values])
       else:
