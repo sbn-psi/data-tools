@@ -163,6 +163,7 @@ def toDict(parsed, context=""):
 
 def main():
   argparser = argparse.ArgumentParser()
+  argparser.add_argument("--output-file", default="out.csv")
   argparser.add_argument("labels", nargs="*")
   args = argparser.parse_args()
 
@@ -176,7 +177,7 @@ def main():
       result.append(parsed_dict)
   #print(result)
   headers = set(itertools.chain.from_iterable([x.keys() for x in result]))
-  with (open('out.csv', 'w')) as outfile:
+  with (open(args.output_file, 'w')) as outfile:
     csvout = csv.DictWriter(outfile, headers)
     csvout.writeheader()
     csvout.writerows(result)
