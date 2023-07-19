@@ -9,20 +9,26 @@ import sys
 
 def to_dict(parsed, context=""):
     result = {}
+    print (parsed)
+    names = [e['value']['scalar'] for e in parsed if e['name'] == 'NAME']
+    objname = names[0] if names else None
+    prefix = context + objname + '.' if objname else context
+
     for entry in parsed:
+        key = prefix + entry['name']
         if entry['type'] in ('attribute', 'pointer'):
             values = entry['value']
             if isinstance(values, dict) and 'scalar' in values:
-                result[context + entry['name']] = values['scalar'].strip()
+                result[key] = values['scalar'].strip()
             elif isinstance(values, dict) and 'set' in values:
-                result[context + entry['name']] = ';'.join(
+                result[key] = ';'.join(
                     sub["scalar"].strip() for sub in values['set'] if "scalar" in sub)
             elif isinstance(values, list):
-                result[context + entry['name']] = ';'.join([x['scalar'].strip() for x in values])
+                result[key] = ';'.join([x['scalar'].strip() for x in values])
             else:
                 print(entry)
         elif entry['type'] == 'object':
-            subresult = to_dict(entry['value'], context + entry['name'] + ".")
+            subresult = to_dict(entry['value'], key + ".")
             result.update(subresult)
         else:
             print(entry)
