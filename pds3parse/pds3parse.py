@@ -3,6 +3,7 @@ import ply.yacc as yacc
 import pds3tokens
 import pds3lex
 
+
 def p_label(p):
     """label : statements END"""
     p[0] = p[1]
@@ -64,7 +65,7 @@ def p_numeric_value(p):
     """numeric_value : INTEGER optional_units_expression
                      | BASED_INT optional_units_expression
                      | REAL optional_units_expression"""
-    if (p[2]):
+    if p[2]:
         p[0] = {"scalar": p[1], "unit": p[2]}
     else:
         p[0] = {"scalar": p[1]}
@@ -73,14 +74,14 @@ def p_numeric_value(p):
 def p_optional_units_expression(p):
     """optional_units_expression :
                                  | units_expression"""
-    if (len(p) > 1):
+    if len(p) > 1:
         p[0] = p[1]
 
 
 def p_units_expression(p):
     """units_expression : L_ANGLE units_factor R_ANGLE
                         | L_ANGLE units_factor mult_op units_factor R_ANGLE """
-    if (len(p) > 6):
+    if len(p) > 6:
         p[0] = p[2] + p[3] + p[4]
     else:
         p[0] = p[2]
@@ -89,7 +90,7 @@ def p_units_expression(p):
 def p_units_factor(p):
     """units_factor : IDENT
                     | IDENT EXPONENT INTEGER"""
-    if (len(p) > 3):
+    if len(p) > 3:
         p[0] = p[1] + [2] + p[3]
     else:
         p[0] = p[1]
@@ -131,7 +132,7 @@ def p_sequence_1d(p):
 def p_scalar_values(p):
     """scalar_values : scalar_value
                      | scalar_values SEPARATOR scalar_value"""
-    if (len(p) > 3):
+    if len(p) > 3:
         p[0] = p[1] + [p[3]]
     else:
         p[0] = [p[1]]
