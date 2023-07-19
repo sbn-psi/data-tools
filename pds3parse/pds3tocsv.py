@@ -30,6 +30,15 @@ def to_dict(parsed, context=""):
     return result
 
 
+def file_to_dict(parser, filepath):
+    with open(filepath) as f:
+        data = f.read()
+        parsed = parser.parse(data)
+        parsed_dict = to_dict(parsed)
+        parsed_dict['meta.filepath'] = filepath
+        return parsed_dict
+
+
 def main():
     argparser = argparse.ArgumentParser()
     argparser.add_argument("--output-file", default="out.csv")
@@ -38,14 +47,8 @@ def main():
 
     parser = pds3parse.parser
 
-    result = []
-    for filepath in args.labels:
-        with open(filepath) as f:
-            data = f.read()
-            parsed = parser.parse(data)
-            parsed_dict = to_dict(parsed)
-            parsed_dict['meta.filepath'] = filepath
-            result.append(parsed_dict)
+    result = [file_to_dict(parser, filepath) for filepath in args.labels]
+
     # print(result)
     headers = set(itertools.chain.from_iterable([x.keys() for x in result]))
     with (open(args.output_file, 'w')) as outfile:
