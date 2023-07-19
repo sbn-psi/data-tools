@@ -2,8 +2,6 @@ import ply.yacc as yacc
 
 from pds3tokens import tokens
 import pds3lex
-import json
-
 
 def p_label(p):
     """label : statements END"""
