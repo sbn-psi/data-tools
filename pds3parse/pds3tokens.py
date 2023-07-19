@@ -1,5 +1,5 @@
 # module: pds3tokens.py
-import ply.lex as lex
+
 from ply.lex import TOKEN
 import re
 
