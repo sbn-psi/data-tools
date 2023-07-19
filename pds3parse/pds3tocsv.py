@@ -6,7 +6,8 @@ import csv
 import itertools
 import sys
 
-def toDict(parsed, context=""):
+
+def to_dict(parsed, context=""):
     result = {}
     for entry in parsed:
         if entry['type'] in ('attribute', 'pointer'):
@@ -21,7 +22,7 @@ def toDict(parsed, context=""):
             else:
                 print(entry)
         elif entry['type'] == 'object':
-            subresult = toDict(entry['value'], context + entry['name'] + ".")
+            subresult = to_dict(entry['value'], context + entry['name'] + ".")
             result.update(subresult)
         else:
             print(entry)
@@ -42,7 +43,7 @@ def main():
         with open(filepath) as f:
             data = f.read()
             parsed = parser.parse(data)
-            parsed_dict = toDict(parsed)
+            parsed_dict = to_dict(parsed)
             parsed_dict['meta.filepath'] = filepath
             result.append(parsed_dict)
     # print(result)
