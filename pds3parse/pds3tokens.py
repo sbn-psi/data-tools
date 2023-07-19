@@ -1,35 +1,35 @@
-#module: pds3tokens.py
-import ply.lex as lex
+#!/usr/bin/env python3
+# module: pds3tokens.py
+
 from ply.lex import TOKEN
 import re
 
 tokens = (
-  'EQUALS',
-  'SEPARATOR',
-  'MULTIPLY',
-  'DIVIDE',
-  'L_ANGLE',
-  'R_ANGLE',
-  'L_PAREN',
-  'R_PAREN',
-  'L_BRACE',
-  'R_BRACE',
-  'POINTER',
-  'EXPONENT',
-  'INTEGER',
-  'BASED_INT',
-  'REAL',
-  'DATE_TIME_VAL',
-  'IDENT',
-  'STRING',
-  'SYMBOL',
-  'END',
-  'OBJECT',
-  'END_OBJECT',
-  'GROUP',
-  'END_GROUP'
+    'EQUALS',
+    'SEPARATOR',
+    'MULTIPLY',
+    'DIVIDE',
+    'L_ANGLE',
+    'R_ANGLE',
+    'L_PAREN',
+    'R_PAREN',
+    'L_BRACE',
+    'R_BRACE',
+    'POINTER',
+    'EXPONENT',
+    'INTEGER',
+    'BASED_INT',
+    'REAL',
+    'DATE_TIME_VAL',
+    'IDENT',
+    'STRING',
+    'SYMBOL',
+    'END',
+    'OBJECT',
+    'END_OBJECT',
+    'GROUP',
+    'END_GROUP'
 )
-
 
 t_EQUALS = r'='
 t_SEPARATOR = r','
@@ -80,7 +80,6 @@ time = f'(({utc_time})|({zoned_time})|({local_time}))'
 date_time = f'{date}T{time}'
 date_time_val = f'(({date_time})|({date})|({time}))'
 
-
 quoted_text = r'"[^"]*"'
 
 quoted_symbol = r"\'[^']+\'"
@@ -94,31 +93,36 @@ t_BASED_INT = based_int
 t_REAL = real
 t_DATE_TIME_VAL = date_time_val
 
-lookup = {'END':'END', 'OBJECT':'OBJECT', 'END_OBJECT':'END_OBJECT', 'GROUP':'GROUP', 'END_GROUP':'END_GROUP'}
+lookup = {'END': 'END', 'OBJECT': 'OBJECT', 'END_OBJECT': 'END_OBJECT', 'GROUP': 'GROUP', 'END_GROUP': 'END_GROUP'}
+
 
 @TOKEN(identifier)
 def t_IDENT(t):
-  t.type = lookup.get(t.value, t.type)
-    
-  return t
+    t.type = lookup.get(t.value, t.type)
+
+    return t
+
 
 @TOKEN(quoted_text)
 def t_STRING(t):
-  t.value = re.sub('[" \n]+', ' ', t.value)
-  return t
-  
+    t.value = re.sub('[" \n]+', ' ', t.value)
+    return t
+
+
 t_SYMBOL = quoted_symbol
 
-t_ignore = ' ' 
+t_ignore = ' '
+
+
 def t_newline(t):
-  r'\n+'
-  t.lexer.lineno += len(t.value)
-  
+    r'\n+'
+    t.lexer.lineno += len(t.value)
+
+
 def t_comment(t):
-  r'\/\*.*\*\/'
-  
+    r'\/\*.*\*\/'
+
 
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
-    
