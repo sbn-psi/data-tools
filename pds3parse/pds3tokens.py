@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # module: pds3tokens.py
 
 from ply.lex import TOKEN

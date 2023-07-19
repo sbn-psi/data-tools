@@ -1,14 +1,19 @@
+#!/usr/bin/env python3
+
 import ply.lex as lex
 import pds3tokens
 import sys
 
-lexer = lex.lex(module=pds3tokens)
+
+def build_lexer():
+    return lex.lex(module=pds3tokens)
 
 
 def main(argv=None):
     if argv is None:
         argv = sys.argv
 
+    lexer = build_lexer()
     with open(argv[1]) as f:
         data = f.read()
         lexer.input(data)

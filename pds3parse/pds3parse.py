@@ -1,6 +1,6 @@
 import ply.yacc as yacc
 
-from pds3tokens import tokens
+import pds3tokens
 import pds3lex
 
 def p_label(p):
@@ -156,4 +156,6 @@ def p_error(p):
     print(p)
 
 
+tokens = pds3tokens.tokens
+lexer = pds3lex.build_lexer()
 parser = yacc.yacc()
