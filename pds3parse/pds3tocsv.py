@@ -47,7 +47,9 @@ def file_to_dict(parser, filepath):
 
 def main():
     argparser = argparse.ArgumentParser()
-    argparser.add_argument("--output-file", default="out.csv")
+    argparser.add_argument("--output-file",
+                           default="out.csv",
+                           help='The name of the csv file to write to. Defaults to out.csv')
     argparser.add_argument("labels", nargs="*")
     args = argparser.parse_args()
 

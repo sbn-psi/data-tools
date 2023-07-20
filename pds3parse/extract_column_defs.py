@@ -33,10 +33,14 @@ def extract_columndefs(prefix, filename):
 
 def main():
     argparser = argparse.ArgumentParser()
-    argparser.add_argument("--input-file", default="out.csv")
-    argparser.add_argument("--output-file", default="columns.csv")
-    argparser.add_argument("--object-name", default="TABLE")
-    argparser.add_argument("--columns-name", default="COLUMN")
+    argparser.add_argument("--input-file", default="out.csv",
+                           help="The input file. This should be the output of `pds3tocsv.py`. Defaults to `out.csv`.")
+    argparser.add_argument("--output-file", default="columns.csv",
+                           help="The table of column definitions to write to. Defaults to `columns.csv`.")
+    argparser.add_argument("--object-name", default="TABLE",
+                           help="The name of the data object to traverse. Defaults to `TABLE`.")
+    argparser.add_argument("--columns-name", default="COLUMN",
+                           help="The type of object underneath the data object to traverse. Defaults to `COLUMNS`.")
     args = argparser.parse_args()
 
     prefix = f'{args.object_name}.{args.columns_name}.'
