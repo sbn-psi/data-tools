@@ -9,7 +9,7 @@ import sys
 
 def to_dict(parsed, context=""):
     result = {}
-    print (parsed)
+    #print (parsed)
     names = [e['value']['scalar'] for e in parsed if e['name'] == 'NAME']
     objname = names[0] if names else None
     prefix = context + objname + '.' if objname else context
@@ -37,6 +37,7 @@ def to_dict(parsed, context=""):
 
 
 def file_to_dict(parser, filepath):
+    print(f"Processing {filepath}...")
     with open(filepath) as f:
         data = f.read()
         parsed = parser.parse(data)
