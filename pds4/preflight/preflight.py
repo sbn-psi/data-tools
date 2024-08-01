@@ -31,9 +31,19 @@ def preflight(candidate: product.Product) -> list[str]:
     return list(
         itertools.chain(
             check_date_presence(candidate),
+            check_date_order(candidate),
             check_observation_area(candidate)
         )
     )
+
+
+def check_date_order(candidate: product.Product) -> Iterable[str]:
+    if candidate.start_date() is not None and candidate.stop_date() is not None:
+        if not len(candidate.stop_date()) == len(candidate.start_date()):
+            yield 'Start date and stop date are not the same precision'
+        else:
+            if candidate.stop_date() < candidate.start_date():
+                yield 'Stop date occurs after start date'
 
 
 def check_date_presence(candidate: product.Product) -> Iterable[str]:
