@@ -5,6 +5,7 @@ import sys
 import preflight
 import product
 
+
 def main():
     files = sys.argv[1:]
     products = (product.Product(f) for f in files)
