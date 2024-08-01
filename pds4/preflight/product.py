@@ -41,30 +41,21 @@ def extract_keywords(infile: IO, filepath: str = '') -> ProductLabel:
         raise RuntimeError(f"Not a valid xml document: {filepath}")
 
 
-@dataclass(frozen=True)
-class ObsNight:
-    inst: str
-    year: str
-    date: str
-
-
 class Product:
     """
     Represents the product itself.
     """
 
-    def __init__(self, datadir: str, filepath: str, night: ObsNight) -> None:
+    def __init__(self, filepath: str) -> None:
         """
         Parses a label file into a Product
         """
         logging.debug(f"Creating product for: {filepath}")
         with open(filepath) as infile:
             self.keywords = extract_keywords(infile, filepath)
-            self.night = night
             self.labelfilename = os.path.basename(filepath)
             self.labeldir = os.path.dirname(filepath)
             self.labelpath = filepath
-            self.datadir = datadir
 
     def lidvid(self) -> str:
         return self.keywords.identification_area.lidvid
