@@ -10,31 +10,32 @@ from typing import Iterable
 IMAGE_EXTENSIONS = ['.fits', '.calb', '.pass1', '.csub', '.avgs', '.avgr', '.arch']
 
 
-def preflight_products(products: Iterable[product.Product]) -> Iterable[product.Product]:
+class PreflightStatus:
+    def __init__(self, candidate: product.Product, messages: list[str]):
+        self.candidate = candidate
+        self.messages = messages
+
+
+def preflight_products(products: Iterable[product.Product]) -> Iterable[PreflightStatus]:
     """
     Filters out products that are either technically valid, or would produce a disproportionate number of errors
     in the validator. These errors are written to the log instead.
     """
-    for candidate in products:
-        errors = preflight(candidate)
-        if len(errors) > 0:
-            message = "\n\t" + "\n\t".join(errors)
-            logging.warning(f'Product {candidate.labelfilename} failed preflight: {message}')
-        else:
-            yield candidate
+    return (preflight(candidate) for candidate in products)
 
 
-def preflight(candidate: product.Product) -> list[str]:
+def preflight(candidate: product.Product) -> PreflightStatus:
     """
     Performs a series of checks against each product.
     """
-    return list(
+    messages = list(
         itertools.chain(
             check_date_presence(candidate),
             check_date_order(candidate),
             check_observation_area(candidate)
         )
     )
+    return PreflightStatus(candidate, messages)
 
 
 def check_date_order(candidate: product.Product) -> Iterable[str]:
