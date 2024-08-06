@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
 
 import sys
+import os
+import os.path
+import itertools
+from typing import Iterable
 
 import preflight
 import product
 
 
 def main():
-    files = sys.argv[1:]
+    params = sys.argv[1:]
+    files = build_file_list(params)
     products = (product.Product(f) for f in files)
     preflights = preflight.preflight_products(products)
     has_warnings = False
@@ -25,6 +30,23 @@ def main():
     else:
         print("All OK")
         return 0
+
+
+def build_file_list(params: Iterable[str]) -> Iterable[str]:
+    result = []
+    for f in params:
+        if os.path.isfile(f) and f.endswith('.xml'):
+            result.append(f)
+        elif os.path.isdir(f):
+            result.extend(
+                itertools.chain.from_iterable(
+                    (os.path.join(dirpath, filename) for filename in filenames if filename.endswith('.xml'))
+                        for dirpath, _, filenames in os.walk(f)
+                )
+            )
+        else:
+            raise Exception(f"Invalid parameter: {p}")
+    return result
 
 
 if __name__ == "__main__":
