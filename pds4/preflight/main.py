@@ -40,13 +40,17 @@ def build_file_list(params: Iterable[str]) -> Iterable[str]:
         elif os.path.isdir(f):
             result.extend(
                 itertools.chain.from_iterable(
-                    (os.path.join(dirpath, filename) for filename in filenames if filename.endswith('.xml'))
+                    (os.path.join(dirpath, filename) for filename in filenames if is_product_label(filename))
                         for dirpath, _, filenames in os.walk(f)
                 )
             )
         else:
             raise Exception(f"Invalid parameter: {f}")
     return result
+
+
+def is_product_label(filename):
+    return filename.endswith('.xml') and 'collection' not in filename and 'bundle' not in filename
 
 
 if __name__ == "__main__":

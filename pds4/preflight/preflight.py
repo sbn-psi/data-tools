@@ -1,7 +1,5 @@
 import itertools
-import logging
 import os.path
-import re
 
 import product
 from typing import Iterable
