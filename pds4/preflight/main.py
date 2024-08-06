@@ -45,7 +45,7 @@ def build_file_list(params: Iterable[str]) -> Iterable[str]:
                 )
             )
         else:
-            raise Exception(f"Invalid parameter: {p}")
+            raise Exception(f"Invalid parameter: {f}")
     return result
 
 
