@@ -24,9 +24,8 @@ def do_insert_text(xmldoc, nsmap, path, name, value, nsid=None):
     elements = xmldoc.xpath(path, namespaces=nsmap)
 
     for e in elements:
-        n = etree.SubElement(e, element_name(name, nsmap, nsid))
-        if value:
-            n.text = value
+        n = element(name, nsmap, value, nsid)
+        e.append(n)
 
 
 def insert_after(xmldoc, nsmap, args):
@@ -37,12 +36,17 @@ def do_insert_after(xmldoc, nsmap, path, name, value, nsid=None):
     elements = xmldoc.xpath(path, namespaces=nsmap)
 
     for e in elements:
-        n = etree.Element(element_name(name, nsmap, nsid))
-        if value:
-            n.text = value
         parent = e.find("..")
         idx = parent.index(e)
+        n = element(name, nsmap, value, nsid)
         parent.insert(idx+1, n)
+
+
+def element(name, nsmap, value=None, nsid=None):
+    n = etree.Element(element_name(name, nsmap, nsid))
+    if value:
+        n.text = value
+    return n
 
 
 def element_name(name, nsmap, nsid=None):
