@@ -25,7 +25,8 @@ def do_insert_text(xmldoc, nsmap, path, name, value, nsid=None):
 
     for e in elements:
         n = etree.SubElement(e, element_name(name, nsmap, nsid))
-        n.text = value
+        if value:
+            n.text = value
 
 
 def insert_after(xmldoc, nsmap, args):
@@ -37,7 +38,8 @@ def do_insert_after(xmldoc, nsmap, path, name, value, nsid=None):
 
     for e in elements:
         n = etree.Element(element_name(name, nsmap, nsid))
-        n.text = value
+        if value:
+            n.text = value
         parent = e.find("..")
         idx = parent.index(e)
         parent.insert(idx+1, n)
