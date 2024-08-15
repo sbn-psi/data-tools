@@ -40,7 +40,7 @@ def ns(nsid, mission=False, version=1):
         return nsid, f'http://pds.nasa.gov/pds4/{nsid}/v{version}'
 
 
-FUNCS={"replace": replace, "insert_text": insert_text}
+FUNCS = dict((x.__name__, x) for x in [replace, insert_text])
 
 
 def main():
