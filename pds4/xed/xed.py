@@ -3,7 +3,12 @@ import sys
 import argparse
 from lxml import etree
 
-DICTIONARIES=("pds", "cart", "disp", "ebt", "geom", "img", "img_surface", "ml", "msn", "msn_surface", "msss_cam_nh", "multi", "nucspace", "particle", "proc", "radar", "rings", "sb", "speclib", "sp", "survey")
+DICTIONARIES=("pds", "cart", "disp", "ebt", "geom", "img", "img_surface", "ml", "msn", "msn_surface", "msss_cam_nh",
+              "multi", "nucspace", "particle", "proc", "radar", "rings", "sb", "speclib", "sp", "survey")
+
+MISSION_DICTIONARIES=("apollo", "cassini", "chan1", "clementine", "clipper", "clps", "dawn", "hyb2", "hst", "insignt",
+                      "juno", "kplo", "ladee", "lro", "mgn", "mars20202", "mvn", "mer", "mess", "mro", "msl", "near",
+                      "nh", "ody", "orex", "vikinglander", "vg1", "vg2", "vgr")
 
 
 def replace(xmldoc, nsmap, args):
@@ -93,7 +98,7 @@ def main():
     parser.add_argument("filename")
 
     args = parser.parse_args()
-    nsmap = dict([ns(n) for n in DICTIONARIES])
+    nsmap = dict([ns(n) for n in DICTIONARIES] + [ns(n, mission=True) for n in MISSION_DICTIONARIES])
 
     xmldoc: etree = etree.parse(args.filename)
     f = FUNCS[args.command]
