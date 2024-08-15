@@ -22,18 +22,25 @@ def insert_text(xmldoc, nsmap, args):
 
 def do_insert_text(xmldoc, nsmap, path, name, value, nsid=None):
     elements = xmldoc.xpath(path, namespaces=nsmap)
-    n = "{" + (nsmap[nsid] if nsid is not None else nsmap["pds"]) + "}"
 
     for e in elements:
-        n = etree.SubElement(e, f'{n}{name}')
+        n = etree.SubElement(e, element_name(name, nsmap, nsid))
         n.text = value
 
 
-def ns(nsid, version=1, mission=False):
+def element_name(name, nsmap, nsid=None):
+    _ns = "{" + (nsmap[nsid] if nsid is not None else nsmap["pds"]) + "}"
+    return f'{_ns}{name}'
+
+
+def ns(nsid, mission=False, version=1):
     if mission:
         return nsid, f'http://pds.nasa.gov/pds4/mission/{nsid}/v{version}'
     else:
         return nsid, f'http://pds.nasa.gov/pds4/{nsid}/v{version}'
+
+
+FUNCS={"replace": replace, "insert_text": insert_text}
 
 
 def main():
@@ -50,11 +57,8 @@ def main():
     print(nsmap, file=sys.stderr)
 
     xmldoc: etree = etree.parse(args.filename)
-    if args.command == "replace":
-        replace(xmldoc, nsmap, args)
-    elif args.command == "insert_text":
-        insert_text(xmldoc, nsmap, args)
-
+    f = FUNCS[args.command]
+    f(xmldoc, nsmap, args)
     print(etree.tostring(xmldoc, method="xml", encoding="unicode"))
 
 
