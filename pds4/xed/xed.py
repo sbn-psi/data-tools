@@ -42,6 +42,16 @@ def do_insert_after(xmldoc, nsmap, path, name, value, nsid=None):
         parent.insert(idx+1, n)
 
 
+def delete(xmldoc, nsmap, args):
+    do_delete(xmldoc, nsmap, args.path)
+
+
+def do_delete(xmldoc, nsmap, path):
+    elements = xmldoc.xpath(path, namespaces=nsmap)
+    for e in elements:
+        e.find("..").remove(e)
+
+
 def element(name, nsmap, value=None, nsid=None):
     n = etree.Element(element_name(name, nsmap, nsid))
     if value:
@@ -59,7 +69,7 @@ def ns(nsid, mission=False, version=1):
     return nsid, f'http://pds.nasa.gov/pds4/{mission_interfix}{nsid}/v{version}'
 
 
-FUNCS = dict((x.__name__, x) for x in [replace, insert_text, insert_after])
+FUNCS = dict((x.__name__, x) for x in [replace, insert_text, insert_after, delete])
 
 
 def main():
