@@ -34,10 +34,8 @@ def element_name(name, nsmap, nsid=None):
 
 
 def ns(nsid, mission=False, version=1):
-    if mission:
-        return nsid, f'http://pds.nasa.gov/pds4/mission/{nsid}/v{version}'
-    else:
-        return nsid, f'http://pds.nasa.gov/pds4/{nsid}/v{version}'
+    mission_interfix = "mission/" if mission else ""
+    return nsid, f'http://pds.nasa.gov/pds4/{mission_interfix}{nsid}/v{version}'
 
 
 FUNCS = dict((x.__name__, x) for x in [replace, insert_text])
