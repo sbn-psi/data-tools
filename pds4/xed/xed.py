@@ -3,6 +3,8 @@ import sys
 import argparse
 from lxml import etree
 
+DICTIONARIES=("pds", "cart", "disp", "ebt", "geom", "img", "img_surface", "ml", "msn", "msn_surface", "msss_cam_nh", "multi", "nucspace", "particle", "proc", "radar", "rings", "sb", "speclib", "sp", "survey")
+
 
 def replace(xmldoc, nsmap, args):
     do_replace(xmldoc, nsmap, args.path, args.value)
@@ -71,7 +73,6 @@ def ns(nsid, mission=False, version=1):
 
 FUNCS = dict((x.__name__, x) for x in [replace, insert_text, insert_after, delete])
 
-
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--command", required=True)
@@ -81,7 +82,7 @@ def main():
     parser.add_argument("filename")
 
     args = parser.parse_args()
-    nsmap = dict([ns(n) for n in ["pds"]])
+    nsmap = dict([ns(n) for n in DICTIONARIES])
 
     print(nsmap, file=sys.stderr)
 
