@@ -95,8 +95,6 @@ def main():
     args = parser.parse_args()
     nsmap = dict([ns(n) for n in DICTIONARIES])
 
-    print(nsmap, file=sys.stderr)
-
     xmldoc: etree = etree.parse(args.filename)
     f = FUNCS[args.command]
     f(xmldoc, nsmap, args)
