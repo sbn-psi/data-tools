@@ -7,50 +7,36 @@ import json
 from lxml import etree
 
 
-DICTIONARIES=("pds", "cart", "disp", "ebt", "geom", "img", "img_surface", "ml", "msn", "msn_surface", "msss_cam_nh",
-              "multi", "nucspace", "particle", "proc", "radar", "rings", "sb", "speclib", "sp", "survey")
-
-MISSION_DICTIONARIES=("apollo", "cassini", "chan1", "clementine", "clipper", "clps", "dawn", "hyb2", "hst", "insignt",
-                      "juno", "kplo", "ladee", "lro", "mgn", "mars20202", "mvn", "mer", "mess", "mro", "msl", "near",
-                      "nh", "ody", "orex", "vikinglander", "vg1", "vg2", "vgr")
-
-
-def replace(xmldoc, nsmap, args):
-    require(args, "path")
-    elements = xmldoc.xpath(args["path"], namespaces=nsmap)
+def replace(elements, args):
     for e in elements:
         e.text = args["value"]
 
 
-def insert_text(xmldoc, nsmap, args):
-    require(args, "path", "name", "value")
-    elements = xmldoc.xpath(args["path"], namespaces=nsmap)
+def insert_text(elements, args, nsid=None):
+    require(args, "name", "value")
     for e in elements:
-        n = text_element(args["name"], nsmap, args["value"], None)
+        n = text_element(args["name"], args["value"], nsid)
         e.append(n)
 
 
-def insert_xml(xmldoc, nsmap, args):
-    require(args, "path", "value")
-    elements = xmldoc.xpath(args["path"], namespaces=nsmap)
+def insert_xml(elements, args):
+    require(args, "value")
     for e in elements:
         n = xml_element(args["value"])
         e.append(n)
 
 
-def insert_text_after(xmldoc, nsmap, args):
-    require(args, "path", "name", "value")
-    elements = xmldoc.xpath(args["path"], namespaces=nsmap)
+def insert_text_after(elements, args, nsid=None):
+    require(args, "name", "value")
     for e in elements:
         parent = e.find("..")
         idx = parent.index(e)
-        n = text_element(args["name"], nsmap, args["value"], None)
+        n = text_element(args["name"], args["value"], nsid)
         parent.insert(idx + 1, n)
 
 
-def insert_xml_after(xmldoc, nsmap, args):
-    require(args, "path", "value")
-    elements = xmldoc.xpath(args["path"], namespaces=nsmap)
+def insert_xml_after(elements, args):
+    require(args, "value")
     for e in elements:
         parent = e.find("..")
         idx = parent.index(e)
@@ -58,23 +44,19 @@ def insert_xml_after(xmldoc, nsmap, args):
         parent.insert(idx + 1, n)
 
 
-def delete(xmldoc, nsmap, args):
-    require(args, "path")
-    elements = xmldoc.xpath(args["path"], namespaces=nsmap)
+def delete(elements, _):
     for e in elements:
         e.find("..").remove(e)
 
 
-def empty(xmldoc, nsmap, args):
-    require(args, "path")
-    elements = xmldoc.xpath(args["path"], namespaces=nsmap)
+def empty(elements, _):
     for e in elements:
         for s in e:
             e.remove(s)
 
 
-def text_element(name, nsmap, value=None, nsid=None):
-    n = etree.Element(element_name(name, nsmap, nsid))
+def text_element(name, value=None, nsid=None):
+    n = etree.Element(element_name(name, nsid))
     if value:
         n.text = value
     return n
@@ -85,8 +67,8 @@ def xml_element(value=None):
     return n
 
 
-def element_name(name, nsmap, nsid=None):
-    _ns = "{" + (nsmap[nsid] if nsid is not None else nsmap["pds"]) + "}"
+def element_name(name, nsid=None):
+    _ns = "{" + (NSMAP[nsid] if nsid is not None else NSMAP["pds"]) + "}"
     return f'{_ns}{name}'
 
 
@@ -101,20 +83,33 @@ def require(args, *params):
             raise Exception(f"Missing parameter: {param}")
 
 
-FUNCS = dict((x.__name__, x) for x in [replace, insert_xml, insert_text, insert_text_after, insert_xml_after,
-                                       delete, empty])
+def process_command(xmldoc, args):
+    require(args, "command", "path")
 
-
-def process_command(xmldoc, nsmap, args):
     f = FUNCS[args["command"]]
-    f(xmldoc, nsmap, args)
+    elements = xmldoc.xpath(args["path"], namespaces=NSMAP)
+
+    f(elements, args)
 
 
-def process_json(xmldoc, nsmap, jsonfile):
+def process_json(xmldoc, jsonfile):
     with open(jsonfile) as jsoninput:
         cmds = json.load(jsoninput)
         for cmd in cmds:
-            process_command(xmldoc, nsmap, cmd)
+            process_command(xmldoc, cmd)
+
+
+DICTIONARIES=("pds", "cart", "disp", "ebt", "geom", "img", "img_surface", "ml", "msn", "msn_surface", "msss_cam_nh",
+              "multi", "nucspace", "particle", "proc", "radar", "rings", "sb", "speclib", "sp", "survey")
+
+MISSION_DICTIONARIES=("apollo", "cassini", "chan1", "clementine", "clipper", "clps", "dawn", "hyb2", "hst", "insignt",
+                      "juno", "kplo", "ladee", "lro", "mgn", "mars20202", "mvn", "mer", "mess", "mro", "msl", "near",
+                      "nh", "ody", "orex", "vikinglander", "vg1", "vg2", "vgr")
+
+FUNCS = dict((x.__name__, x) for x in [replace, insert_xml, insert_text, insert_text_after, insert_xml_after,
+                                       delete, empty])
+
+NSMAP = dict([ns(n) for n in DICTIONARIES] + [ns(n, mission=True) for n in MISSION_DICTIONARIES])
 
 
 def main():
@@ -128,7 +123,6 @@ def main():
     parser.add_argument("filename", nargs='*')
 
     args = parser.parse_args()
-    nsmap = dict([ns(n) for n in DICTIONARIES] + [ns(n, mission=True) for n in MISSION_DICTIONARIES])
 
     filenames = args.filename if args.filename else ['-']
 
@@ -136,9 +130,9 @@ def main():
         xmldoc: etree = etree.parse(filename)
 
         if args.command:
-            process_command(xmldoc, nsmap, vars(args))
+            process_command(xmldoc, vars(args))
         if args.json:
-            process_json(xmldoc, nsmap, args.json)
+            process_json(xmldoc, args.json)
 
         if args.inplace and not filename == "-":
             bakfile = filename + ".bak"
