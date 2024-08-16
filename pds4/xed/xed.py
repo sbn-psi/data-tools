@@ -16,19 +16,22 @@ MISSION_DICTIONARIES=("apollo", "cassini", "chan1", "clementine", "clipper", "cl
 
 
 def replace(xmldoc, nsmap, args):
+    require(args, "path")
     elements = xmldoc.xpath(args["path"], namespaces=nsmap)
     for e in elements:
         e.text = args["value"]
 
 
 def insert_text(xmldoc, nsmap, args):
+    require(args, "path", "name", "value")
     elements = xmldoc.xpath(args["path"], namespaces=nsmap)
     for e in elements:
         n = element(args["name"], nsmap, args["value"], None)
         e.append(n)
 
 
-def insert_after(xmldoc, nsmap, args):
+def insert_text_after(xmldoc, nsmap, args):
+    require(args, "path", "name", "value")
     elements = xmldoc.xpath(args["path"], namespaces=nsmap)
     for e in elements:
         parent = e.find("..")
@@ -38,12 +41,14 @@ def insert_after(xmldoc, nsmap, args):
 
 
 def delete(xmldoc, nsmap, args):
+    require(args, "path")
     elements = xmldoc.xpath(args["path"], namespaces=nsmap)
     for e in elements:
         e.find("..").remove(e)
 
 
 def empty(xmldoc, nsmap, args):
+    require(args, "path")
     elements = xmldoc.xpath(args["path"], namespaces=nsmap)
     for e in elements:
         for s in e:
@@ -67,7 +72,13 @@ def ns(nsid, mission=False, version=1):
     return nsid, f'http://pds.nasa.gov/pds4/{mission_interfix}{nsid}/v{version}'
 
 
-FUNCS = dict((x.__name__, x) for x in [replace, insert_text, insert_after, delete, empty])
+def require(args, *params):
+    for param in params:
+        if not param in args:
+            raise Exception(f"Missing parameter: {param}")
+
+
+FUNCS = dict((x.__name__, x) for x in [replace, insert_text, insert_text_after, delete, empty])
 
 
 def process_command(xmldoc, nsmap, args):
