@@ -2,6 +2,7 @@
 import sys
 import argparse
 import shutil
+import json
 
 from lxml import etree
 
@@ -92,22 +93,42 @@ def ns(nsid, mission=False, version=1):
 
 FUNCS = dict((x.__name__, x) for x in [replace, insert_text, insert_after, delete, empty])
 
+
+def process_command(xmldoc, nsmap, args):
+    f = FUNCS[args["command"]]
+    f(xmldoc, nsmap, args)
+
+
+def process_json(xmldoc, nsmap, jsonfile):
+    with open(jsonfile) as jsoninput:
+        cmds = json.load(jsoninput)
+        for cmd in cmds:
+            process_command(xmldoc, nsmap, cmd)
+
+
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--command", required=True)
+    parser.add_argument("--command")
     parser.add_argument("--path")
     parser.add_argument("--name")
     parser.add_argument("--value")
+    parser.add_argument("--json")
     parser.add_argument("--inplace", action="store_true")
-    parser.add_argument("filename", nargs='+')
+    parser.add_argument("filename", nargs='*')
 
     args = parser.parse_args()
     nsmap = dict([ns(n) for n in DICTIONARIES] + [ns(n, mission=True) for n in MISSION_DICTIONARIES])
 
-    for filename in args.filename:
+    filenames = args.filename if args.filename else ['-']
+
+    for filename in filenames:
         xmldoc: etree = etree.parse(filename)
-        f = FUNCS[args.command]
-        f(xmldoc, nsmap, vars(args))
+
+        if args.command:
+            process_command(xmldoc, nsmap, vars(args))
+        if args.json:
+            process_json(xmldoc, nsmap, args.json)
+
         if args.inplace and not filename == "-":
             bakfile = filename + ".bak"
             shutil.copy(filename, bakfile)
