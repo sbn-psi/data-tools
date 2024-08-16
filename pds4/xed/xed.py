@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 import sys
 import argparse
+import shutil
+
 from lxml import etree
+
 
 DICTIONARIES=("pds", "cart", "disp", "ebt", "geom", "img", "img_surface", "ml", "msn", "msn_surface", "msss_cam_nh",
               "multi", "nucspace", "particle", "proc", "radar", "rings", "sb", "speclib", "sp", "survey")
@@ -105,7 +108,13 @@ def main():
         xmldoc: etree = etree.parse(filename)
         f = FUNCS[args.command]
         f(xmldoc, nsmap, args)
-        print(etree.tostring(xmldoc, method="xml", encoding="unicode"))
+        if args.inplace and not filename == "-":
+            bakfile = filename + ".bak"
+            shutil.copy(filename, bakfile)
+            with open(filename, "w") as outfile:
+                outfile.write(etree.tostring(xmldoc, method="xml", encoding="unicode"))
+        else:
+            print(etree.tostring(xmldoc, method="xml", encoding="unicode"))
 
 
 if __name__ == "__main__":
