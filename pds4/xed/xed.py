@@ -95,15 +95,17 @@ def main():
     parser.add_argument("--path")
     parser.add_argument("--name")
     parser.add_argument("--value")
-    parser.add_argument("filename")
+    parser.add_argument("--inplace", action="store_true")
+    parser.add_argument("filename", nargs='+')
 
     args = parser.parse_args()
     nsmap = dict([ns(n) for n in DICTIONARIES] + [ns(n, mission=True) for n in MISSION_DICTIONARIES])
 
-    xmldoc: etree = etree.parse(args.filename)
-    f = FUNCS[args.command]
-    f(xmldoc, nsmap, args)
-    print(etree.tostring(xmldoc, method="xml", encoding="unicode"))
+    for filename in args.filename:
+        xmldoc: etree = etree.parse(filename)
+        f = FUNCS[args.command]
+        f(xmldoc, nsmap, args)
+        print(etree.tostring(xmldoc, method="xml", encoding="unicode"))
 
 
 if __name__ == "__main__":
