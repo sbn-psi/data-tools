@@ -26,7 +26,15 @@ def insert_text(xmldoc, nsmap, args):
     require(args, "path", "name", "value")
     elements = xmldoc.xpath(args["path"], namespaces=nsmap)
     for e in elements:
-        n = element(args["name"], nsmap, args["value"], None)
+        n = text_element(args["name"], nsmap, args["value"], None)
+        e.append(n)
+
+
+def insert_xml(xmldoc, nsmap, args):
+    require(args, "path", "value")
+    elements = xmldoc.xpath(args["path"], namespaces=nsmap)
+    for e in elements:
+        n = xml_element(args["value"])
         e.append(n)
 
 
@@ -36,7 +44,7 @@ def insert_text_after(xmldoc, nsmap, args):
     for e in elements:
         parent = e.find("..")
         idx = parent.index(e)
-        n = element(args["name"], nsmap, args["value"], None)
+        n = text_element(args["name"], nsmap, args["value"], None)
         parent.insert(idx + 1, n)
 
 
@@ -55,10 +63,15 @@ def empty(xmldoc, nsmap, args):
             e.remove(s)
 
 
-def element(name, nsmap, value=None, nsid=None):
+def text_element(name, nsmap, value=None, nsid=None):
     n = etree.Element(element_name(name, nsmap, nsid))
     if value:
         n.text = value
+    return n
+
+
+def xml_element(value=None):
+    n = etree.XML(value)
     return n
 
 
@@ -78,7 +91,7 @@ def require(args, *params):
             raise Exception(f"Missing parameter: {param}")
 
 
-FUNCS = dict((x.__name__, x) for x in [replace, insert_text, insert_text_after, delete, empty])
+FUNCS = dict((x.__name__, x) for x in [replace, insert_xml, insert_text, insert_text_after, delete, empty])
 
 
 def process_command(xmldoc, nsmap, args):
