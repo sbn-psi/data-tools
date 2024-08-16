@@ -15,7 +15,7 @@ MISSION_DICTIONARIES=("apollo", "cassini", "chan1", "clementine", "clipper", "cl
 
 
 def replace(xmldoc, nsmap, args):
-    do_replace(xmldoc, nsmap, args.path, args.value)
+    do_replace(xmldoc, nsmap, args["path"], args["value"])
 
 
 def do_replace(xmldoc: etree, nsmap, path, value):
@@ -27,7 +27,7 @@ def do_replace(xmldoc: etree, nsmap, path, value):
 
 
 def insert_text(xmldoc, nsmap, args):
-    do_insert_text(xmldoc, nsmap, args.path, args.name, args.value)
+    do_insert_text(xmldoc, nsmap, args["path"], args["name"], args["value"])
 
 
 def do_insert_text(xmldoc, nsmap, path, name, value, nsid=None):
@@ -39,7 +39,7 @@ def do_insert_text(xmldoc, nsmap, path, name, value, nsid=None):
 
 
 def insert_after(xmldoc, nsmap, args):
-    do_insert_after(xmldoc, nsmap, args.path, args.name, args.value)
+    do_insert_after(xmldoc, nsmap, args["path"], args["name"], args["value"])
 
 
 def do_insert_after(xmldoc, nsmap, path, name, value, nsid=None):
@@ -53,7 +53,7 @@ def do_insert_after(xmldoc, nsmap, path, name, value, nsid=None):
 
 
 def delete(xmldoc, nsmap, args):
-    do_delete(xmldoc, nsmap, args.path)
+    do_delete(xmldoc, nsmap, args["path"])
 
 
 def do_delete(xmldoc, nsmap, path):
@@ -63,7 +63,7 @@ def do_delete(xmldoc, nsmap, path):
 
 
 def empty(xmldoc, nsmap, args):
-    do_empty(xmldoc, nsmap, args.path)
+    do_empty(xmldoc, nsmap, args["path"])
 
 
 def do_empty(xmldoc, nsmap, path):
@@ -107,7 +107,7 @@ def main():
     for filename in args.filename:
         xmldoc: etree = etree.parse(filename)
         f = FUNCS[args.command]
-        f(xmldoc, nsmap, args)
+        f(xmldoc, nsmap, vars(args))
         if args.inplace and not filename == "-":
             bakfile = filename + ".bak"
             shutil.copy(filename, bakfile)
