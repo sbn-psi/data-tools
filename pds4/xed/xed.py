@@ -48,6 +48,16 @@ def insert_text_after(xmldoc, nsmap, args):
         parent.insert(idx + 1, n)
 
 
+def insert_xml_after(xmldoc, nsmap, args):
+    require(args, "path", "value")
+    elements = xmldoc.xpath(args["path"], namespaces=nsmap)
+    for e in elements:
+        parent = e.find("..")
+        idx = parent.index(e)
+        n = xml_element(args["value"])
+        parent.insert(idx + 1, n)
+
+
 def delete(xmldoc, nsmap, args):
     require(args, "path")
     elements = xmldoc.xpath(args["path"], namespaces=nsmap)
@@ -91,7 +101,8 @@ def require(args, *params):
             raise Exception(f"Missing parameter: {param}")
 
 
-FUNCS = dict((x.__name__, x) for x in [replace, insert_xml, insert_text, insert_text_after, delete, empty])
+FUNCS = dict((x.__name__, x) for x in [replace, insert_xml, insert_text, insert_text_after, insert_xml_after,
+                                       delete, empty])
 
 
 def process_command(xmldoc, nsmap, args):
