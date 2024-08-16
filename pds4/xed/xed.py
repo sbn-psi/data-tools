@@ -16,59 +16,35 @@ MISSION_DICTIONARIES=("apollo", "cassini", "chan1", "clementine", "clipper", "cl
 
 
 def replace(xmldoc, nsmap, args):
-    do_replace(xmldoc, nsmap, args["path"], args["value"])
-
-
-def do_replace(xmldoc: etree, nsmap, path, value):
-    print("replace", path, value, file=sys.stderr)
-    elements = xmldoc.xpath(path, namespaces=nsmap)
-
+    elements = xmldoc.xpath(args["path"], namespaces=nsmap)
     for e in elements:
-        e.text = value
+        e.text = args["value"]
 
 
 def insert_text(xmldoc, nsmap, args):
-    do_insert_text(xmldoc, nsmap, args["path"], args["name"], args["value"])
-
-
-def do_insert_text(xmldoc, nsmap, path, name, value, nsid=None):
-    elements = xmldoc.xpath(path, namespaces=nsmap)
-
+    elements = xmldoc.xpath(args["path"], namespaces=nsmap)
     for e in elements:
-        n = element(name, nsmap, value, nsid)
+        n = element(args["name"], nsmap, args["value"], None)
         e.append(n)
 
 
 def insert_after(xmldoc, nsmap, args):
-    do_insert_after(xmldoc, nsmap, args["path"], args["name"], args["value"])
-
-
-def do_insert_after(xmldoc, nsmap, path, name, value, nsid=None):
-    elements = xmldoc.xpath(path, namespaces=nsmap)
-
+    elements = xmldoc.xpath(args["path"], namespaces=nsmap)
     for e in elements:
         parent = e.find("..")
         idx = parent.index(e)
-        n = element(name, nsmap, value, nsid)
-        parent.insert(idx+1, n)
+        n = element(args["name"], nsmap, args["value"], None)
+        parent.insert(idx + 1, n)
 
 
 def delete(xmldoc, nsmap, args):
-    do_delete(xmldoc, nsmap, args["path"])
-
-
-def do_delete(xmldoc, nsmap, path):
-    elements = xmldoc.xpath(path, namespaces=nsmap)
+    elements = xmldoc.xpath(args["path"], namespaces=nsmap)
     for e in elements:
         e.find("..").remove(e)
 
 
 def empty(xmldoc, nsmap, args):
-    do_empty(xmldoc, nsmap, args["path"])
-
-
-def do_empty(xmldoc, nsmap, path):
-    elements = xmldoc.xpath(path, namespaces=nsmap)
+    elements = xmldoc.xpath(args["path"], namespaces=nsmap)
     for e in elements:
         for s in e:
             e.remove(s)
