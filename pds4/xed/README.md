@@ -2,7 +2,7 @@
 
 ## About the name
 
-xed is like sed, but for xml. It aims to perform small edits to xml files from the command line with a  great degree of control.
+`xed` is like `sed`, but for xml. Specifically, it's for PDS4 labels. It might work for other files, but I haven't tested this and wouldn't recommend it. It aims to perform small edits to xml files from the command line with a great degree of control.
 
 ## Modes of operation
 
@@ -13,12 +13,14 @@ xed is like sed, but for xml. It aims to perform small edits to xml files from t
 Ad-hoc mode runs a single operation on a batch of files. It can be performed entirely from the command line, Unlike sed, only a single command can be run from the command line at a time. This makes the commands easier to read than sed.
 
 Example:
-`./xed.py --command <command> --path <path> --name <name> --value <value> <files>`
+```bash
+./xed.py --command <command> --path <path> --name <name> --value <value> <files>
+````
 
-* Command is the command that you want to run on the file. A list of commands is below.
-* Path is the XPATH expression that points to the element you wnat to operate on. If your path points to multiple elements, it will operate on all of them.
-* Name is usually the name of the element you want to create. It depends on the command
-* Value is usually the content of the element that you want to add. This also depends on the command.
+* *Command* is the command that you want to run on the file. A list of commands is below.
+* *Path* is the XPATH expression that points to the element you want to operate on. If your path points to multiple elements, it will operate on all of them.
+* *Name* is usually the name of the element you want to create. It depends on the command
+* *Value* is usually the content of the element that you want to add. This also depends on the command.
 
 
 *command* and *path* are always required. Whether *name* and *value* are required depends on the command. See the command reference below.
@@ -58,7 +60,6 @@ Insert a text element, with a name of NAME and a text value of VALUE, under PATH
 ### insert_text_after
 
 Insert a text element, with a name of NAME and a text value of VALUE, after PATH
-
 
 ### insert_xml_after
 
