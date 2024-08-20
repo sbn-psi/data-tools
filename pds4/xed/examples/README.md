@@ -1,33 +1,39 @@
 # xed examples
 
+## json Mode
+
+### Replace the old style editor list with a new one
+
+path/to/xed.py --json rebuild_editor_list.json albedos.xml
+
 ##  Ad-hoc mode
 
 ### replace command: Rename an investigation
 
-../xed.py --command replace --path "//pds:Investigation_Area/pds:name" --value "No Specific Investigation" albedos.xml
+path/to/xed.py --command replace --path "//pds:Investigation_Area/pds:name" --value "No Specific Investigation" albedos.xml
 
 ## insert_text command: Add a DOI to the citation information
 
-../xed.py --command insert_text --path "//pds:Citation_Information" --name "doi" --value "doi placeholder" albedos.xml
+path/to/xed.py --command insert_text --path "//pds:Citation_Information" --name "doi" --value "doi placeholder" albedos.xml
 
 ## insert_text_after command: Add a checksum to the file
 
-../xed.py --command insert_text_after --path "//pds:File/pds:file_size" --name "md5_checksum" --value "checksum placeholder" albedos.xml
+path/to/xed.py --command insert_text_after --path "//pds:File/pds:file_size" --name "md5_checksum" --value "checksum placeholder" albedos.xml
 
 ## delete command: Remove reference from the reference list
 
-../xed.py --command delete --path "//pds:Reference_List/pds:External_Reference[pds:reference_text='MORRISON&ZELLNER1979']"  albedos.xml
+path/to/xed.py --command delete --path "//pds:Reference_List/pds:External_Reference[pds:reference_text='MORRISON&ZELLNER1979']"  albedos.xml
 
 ## insert_xml command: Add another modification history
 
-../xed.py --command insert_xml --path "//pds:Modification_History" --value "<Modification_Detail><modification_date>2024-08-20</modification_date><version_id>1.1</version_id><description>Added another modification history entry</description></Modification_Detail>"  albedos.xml
+path/to/xed.py --command insert_xml --path "//pds:Modification_History" --value "<Modification_Detail><modification_date>2024-08-20</modification_date><version_id>1.1</version_id><description>Added another modification history entry</description></Modification_Detail>"  albedos.xml
 
 ## insert_xml command: Add another internal reference
 
-../xed.py --command insert_xml_after --path "//pds:Reference_List/pds:Internal_Reference[position()=1]" --value "<Internal_Reference><lid_reference>lid placeholder</lid_reference><reference_type>data_to_document</reference_type></Internal_Reference>"  albedos.xml
+path/to/xed.py --command insert_xml_after --path "//pds:Reference_List/pds:Internal_Reference[position()=1]" --value "<Internal_Reference><lid_reference>lid placeholder</lid_reference><reference_type>data_to_document</reference_type></Internal_Reference>"  albedos.xml
 
 ## empty command: Remove all observing system components
 
 **NOTE:** this will leave an empty xml element, which is usually not what you want. This is normally only used to prepare an element for something else.
 
-../xed.py --command empty --path "//pds:Observing_System" albedos.xml
+path/to/xed.py --command empty --path "//pds:Observing_System" albedos.xml
