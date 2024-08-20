@@ -72,3 +72,7 @@ Delete the node located at PATH
 ### empty
 
 Delete all of the nodes under PATH
+
+## Caveats
+
+The xml output isn't well formatted. You'll want to run it back through a formatter such as tidy or xmllint.
