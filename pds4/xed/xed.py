@@ -13,9 +13,9 @@ def replace(elements, args):
 
 
 def insert_text(elements, args, nsid=None):
-    require(args, "name", "value")
+    require(args, "name")
     for e in elements:
-        n = text_element(args["name"], args["value"], nsid)
+        n = text_element(args["name"], args.get("value"), nsid)
         e.append(n)
 
 
