@@ -39,7 +39,7 @@ path/to/xed.py --command delete --path "//pds:Reference_List/pds:External_Refere
 path/to/xed.py --command insert_xml --path "//pds:Modification_History" --value "<Modification_Detail><modification_date>2024-08-20</modification_date><version_id>1.1</version_id><description>Added another modification history entry</description></Modification_Detail>"  albedos.xml
 ```
 
-### insert_xml command: Add another internal reference
+### insert_xml_after command: Add another internal reference
 
 ```bash
 path/to/xed.py --command insert_xml_after --path "//pds:Reference_List/pds:Internal_Reference[position()=1]" --value "<Internal_Reference><lid_reference>lid placeholder</lid_reference><reference_type>data_to_document</reference_type></Internal_Reference>"  albedos.xml
