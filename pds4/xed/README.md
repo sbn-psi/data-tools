@@ -53,11 +53,11 @@ Replace the content of a text element at PATH with VALUE.
 
 Insert a complex element, defined by VALUE, under PATH
 
-### insert_text
+### insert_element
 
 Insert a text element, with a name of NAME and a text value of VALUE, under PATH
 
-### insert_text_after
+### insert_element_after
 
 Insert a text element, with a name of NAME and a text value of VALUE, after PATH
 

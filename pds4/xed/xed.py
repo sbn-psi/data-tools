@@ -12,7 +12,7 @@ def replace(elements, args):
         e.text = args["value"]
 
 
-def insert_text(elements, args, nsid=None):
+def insert_element(elements, args, nsid=None):
     require(args, "name")
     for e in elements:
         n = text_element(args["name"], args.get("value"), nsid)
@@ -26,7 +26,7 @@ def insert_xml(elements, args):
         e.append(n)
 
 
-def insert_text_after(elements, args, nsid=None):
+def insert_element_after(elements, args, nsid=None):
     require(args, "name", "value")
     for e in elements:
         parent = e.find("..")
@@ -106,7 +106,7 @@ MISSION_DICTIONARIES=("apollo", "cassini", "chan1", "clementine", "clipper", "cl
                       "juno", "kplo", "ladee", "lro", "mgn", "mars20202", "mvn", "mer", "mess", "mro", "msl", "near",
                       "nh", "ody", "orex", "vikinglander", "vg1", "vg2", "vgr")
 
-FUNCS = dict((x.__name__, x) for x in [replace, insert_xml, insert_text, insert_text_after, insert_xml_after,
+FUNCS = dict((x.__name__, x) for x in [replace, insert_xml, insert_element, insert_element_after, insert_xml_after,
                                        delete, empty])
 
 NSMAP = dict([ns(n) for n in DICTIONARIES] + [ns(n, mission=True) for n in MISSION_DICTIONARIES])

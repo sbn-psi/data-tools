@@ -4,43 +4,42 @@
     "path": "//pds:Citation_Information/pds:editor_list"
   },
   {
-    "command": "insert_text",
+    "command": "insert_element",
     "path": "//pds:Citation_Information",
     "name": "List_Editor"
   },
   {
-    "command": "insert_text",
+    "command": "insert_element",
     "path": "//pds:Citation_Information/pds:List_Editor",
     "name": "Person"
   },
   {
-    "command": "insert_text",
+    "command": "insert_element",
     "path": "//pds:Citation_Information/pds:List_Editor/pds:Person",
     "name": "family_name",
     "value": "Davis"
   },
   {
-    "command": "insert_text",
+    "command": "insert_element",
     "path": "//pds:Citation_Information/pds:List_Editor/pds:Person",
     "name": "given_name",
     "value": "Don"
   },
   {
-    "command": "insert_text",
+    "command": "insert_element",
     "path": "//pds:Citation_Information/pds:List_Editor",
     "name": "Person"
   },
   {
-    "command": "insert_text",
+    "command": "insert_element",
     "path": "//pds:Citation_Information/pds:List_Editor/pds:Person[position()=2]",
     "name": "family_name",
     "value": "Neese"
   },
   {
-    "command": "insert_text",
+    "command": "insert_element",
     "path": "//pds:Citation_Information/pds:List_Editor/pds:Person[position()=2]",
     "name": "given_name",
     "value": "Carol"
   }
-
 ]

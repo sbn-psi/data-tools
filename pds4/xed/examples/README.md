@@ -18,13 +18,13 @@ path/to/xed.py --command replace --path "//pds:Investigation_Area/pds:name" --va
 ### insert_text command: Add a DOI to the citation information
 
 ```bash
-path/to/xed.py --command insert_text --path "//pds:Citation_Information" --name "doi" --value "doi placeholder" albedos.xml
+path/to/xed.py --command insert_element --path "//pds:Citation_Information" --name "doi" --value "doi placeholder" albedos.xml
 ```
 
 ### insert_text_after command: Add a checksum to the file
 
 ```bash
-path/to/xed.py --command insert_text_after --path "//pds:File/pds:file_size" --name "md5_checksum" --value "checksum placeholder" albedos.xml
+path/to/xed.py --command insert_element_after --path "//pds:File/pds:file_size" --name "md5_checksum" --value "checksum placeholder" albedos.xml
 ```
 
 ### delete command: Remove reference from the reference list
