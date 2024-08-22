@@ -21,9 +21,10 @@ Example:
 * *Path* is the XPATH expression that points to the element you want to operate on. If your path points to multiple elements, it will operate on all of them.
 * *Name* is usually the name of the element you want to create. It depends on the command
 * *Value* is usually the content of the element that you want to add. This also depends on the command.
+* *Search* is usually a substring that you want to replace.
 
 
-*command* and *path* are always required. Whether *name* and *value* are required depends on the command. See the command reference below.
+*command* and *path* are always required. Whether *name*, *value*, and *search* are required depends on the command. See the command reference below.
 
 ### JSON mode
 
@@ -48,6 +49,11 @@ This is very similar to the ad-hoc usage.
 ### replace
 
 Replace the content of a text element at PATH with VALUE.
+
+### substitute
+
+Replace the instances of SEARCH inside  of a text element at PATH with VALUE.
+
 
 ### insert_xml
 

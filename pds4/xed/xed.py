@@ -8,8 +8,15 @@ from lxml import etree
 
 
 def replace(elements, args):
+    require(args, "value")
     for e in elements:
         e.text = args["value"]
+
+
+def substitute(elements, args):
+    require(args, "search", "value")
+    for e in elements:
+        e.text = str(e.text).replace(args["search"], args["value"])
 
 
 def insert_element(elements, args, nsid=None):
@@ -106,8 +113,8 @@ MISSION_DICTIONARIES=("apollo", "cassini", "chan1", "clementine", "clipper", "cl
                       "juno", "kplo", "ladee", "lro", "mgn", "mars20202", "mvn", "mer", "mess", "mro", "msl", "near",
                       "nh", "ody", "orex", "vikinglander", "vg1", "vg2", "vgr")
 
-FUNCS = dict((x.__name__, x) for x in [replace, insert_xml, insert_element, insert_element_after, insert_xml_after,
-                                       delete, empty])
+FUNCS = dict((x.__name__, x) for x in [replace, substitute, insert_xml, insert_element, insert_element_after,
+                                       insert_xml_after, delete, empty])
 
 NSMAP = dict([ns(n) for n in DICTIONARIES] + [ns(n, mission=True) for n in MISSION_DICTIONARIES])
 
@@ -118,6 +125,7 @@ def main():
     parser.add_argument("--path")
     parser.add_argument("--name")
     parser.add_argument("--value")
+    parser.add_argument("--search")
     parser.add_argument("--json")
     parser.add_argument("--inplace", action="store_true")
     parser.add_argument("filename", nargs='*')

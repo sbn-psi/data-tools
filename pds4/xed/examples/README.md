@@ -15,6 +15,13 @@ path/to/xed.py --json rebuild_editor_list.json albedos.xml
 path/to/xed.py --command replace --path "//pds:Investigation_Area/pds:name" --value "No Specific Investigation" albedos.xml
 ```
 
+### substitute command: Change the collection of the product
+
+```bash
+path/to/xed.py --command substitute --path "//pds:Identification_Area/pds:logical_identifier" --search ":data:" --value ":data_derived:" albedos.xml
+```
+
+
 ### insert_text command: Add a DOI to the citation information
 
 ```bash
