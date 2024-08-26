@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A00.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:compil.ast.albedos:data:albedos_tab</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>COLLECTED ASTEROID ALBEDOS</title>
+    <information_model_version>1.10.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Citation_Information>
+      <editor_list>Davis, D.R.;Neese, C.</editor_list>
+      <publication_year>2002</publication_year>
+      <description>This file comprises a compilation of    
+        asteroid albedos.  Sources include the radiometry albedos published in
+        'Asteroids' Morrison and Zellner (1979) [MORRISON&amp;ZELLNER1979], the   
+        IMPS albedos archived in PDS data set IRAS-A-FPA-3-RDR-IMPS-V4.0,     
+        polarimetry albedos from PDS data set                                 
+        EAR-A-3-RDR-APD-POLARIMETRY-V4.0, and radar albedos from PDS data set 
+        EAR-A-5-DDR-RADAR-V8.0.                                               
+                                                                              
+        Albedos measured by different physical methods are not directly       
+        comparable and are collected together here for the convenience of data
+        users.</description>
+    </Citation_Information>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2020-02-28</modification_date>
+        <version_id>1.0</version_id>
+        <description>Migrated from ALBEDOS_TAB in EAR-A-5-DDR-ALBEDOS-V1.1</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>1973-01-01Z</start_date_time>
+      <stop_date_time>2001-12-31Z</stop_date_time>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Science</purpose>
+      <processing_level>Derived</processing_level>
+      <Science_Facets>
+        <discipline_name>Small Bodies</discipline_name>
+        <facet1>Physical Properties</facet1>
+      </Science_Facets>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>None</name>
+      <type>Individual Investigation</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:individual.none</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>Literature Compilation</name>
+        <type>Literature Search</type>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>Multiple Asteroids</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+  </Observation_Area>
+  <Reference_List>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:compil.ast.albedos:document:bundle_description</lid_reference>
+      <reference_type>data_to_document</reference_type>
+    </Internal_Reference>
+    <External_Reference>
+      <reference_text>LUPISHKO&amp;MOHAMED1996</reference_text>
+      <description>Lupishko, D.F., and R.A. Mohamed, A New Calibration 
+        of the Polarimetric Albedo Scale of Asteroids, Icarus 119, 209-213,   
+        1996.</description>
+    </External_Reference>
+    <External_Reference>
+      <reference_text>MORRISON&amp;ZELLNER1979</reference_text>
+      <description>Morrison, D., and B. Zellner, Polarimetry and       
+        radiometry of the asteroids, In Asteroids (T. Gehrels, Ed.,           
+        University of Arizona Press) pp. 1090-1097, 1979.</description>
+    </External_Reference>
+  </Reference_List>
+  <File_Area_Observational>
+    <File>
+      <file_name>albedos.tab</file_name>
+      <local_identifier>ALBEDOS_TAB</local_identifier>
+      <creation_date_time>2005-01-11</creation_date_time>
+      <file_size unit="byte">211120</file_size>
+      <records>2030</records>
+    </File>
+    <Table_Character>
+      <local_identifier>table</local_identifier>
+      <offset unit="byte">0</offset>
+      <records>2030</records>
+      <description>This file comprises a compilation of    
+        asteroid albedos.  Sources include the radiometry albedos published in
+        'Asteroids' Morrison and Zellner (1979) [MORRISON&amp;ZELLNER1979], the   
+        IMPS albedos archived in PDS data set IRAS-A-FPA-3-RDR-IMPS-V4.0,     
+        polarimetry albedos from PDS data set                                 
+        EAR-A-3-RDR-APD-POLARIMETRY-V4.0, and radar albedos from PDS data set 
+        EAR-A-5-DDR-RADAR-V8.0.                                               
+                                                                              
+        Albedos measured by different physical methods are not directly       
+        comparable and are collected together here for the convenience of data
+        users.</description>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <Record_Character>
+        <fields>15</fields>
+        <groups>0</groups>
+        <record_length unit="byte">104</record_length>
+        <Field_Character>
+          <name>AST_NUMBER</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>ASCII_Integer</data_type>
+          <field_length unit="byte">6</field_length>
+          <field_format>%6d</field_format>
+          <description>Asteroid catalog number</description>
+          <Special_Constants>
+            <missing_constant>-99999</missing_constant>
+          </Special_Constants>
+        </Field_Character>
+        <Field_Character>
+          <name>AST_NAME</name>
+          <field_number>2</field_number>
+          <field_location unit="byte">8</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">17</field_length>
+          <field_format>%-17s</field_format>
+          <description>Asteroid name</description>
+          <Special_Constants>
+            <missing_constant>---</missing_constant>
+          </Special_Constants>
+        </Field_Character>
+        <Field_Character>
+          <name>PROV_ID</name>
+          <field_number>3</field_number>
+          <field_location unit="byte">26</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">10</field_length>
+          <field_format>%-10s</field_format>
+          <description>Asteroid provisional designation</description>
+          <Special_Constants>
+            <missing_constant>---</missing_constant>
+          </Special_Constants>
+        </Field_Character>
+        <Field_Character>
+          <name>TRIAD_ALBEDO</name>
+          <field_number>4</field_number>
+          <field_location unit="byte">37</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">5</field_length>
+          <field_format>%5.3f</field_format>
+          <description>Radiometric albedo taken from the TRIAD 
+        data compilation published in Morrison and Zellner (1979)             
+        [MORRISON&amp;ZELLNER1979].</description>
+          <Special_Constants>
+            <missing_constant>-.999</missing_constant>
+          </Special_Constants>
+        </Field_Character>
+        <Field_Character>
+          <name>TRIAD_QUALITY_CODE</name>
+          <field_number>5</field_number>
+          <field_location unit="byte">43</field_location>
+          <data_type>ASCII_Integer</data_type>
+          <field_length unit="byte">1</field_length>
+          <field_format>%1d</field_format>
+          <description>Code for the quality of the radiometric 
+        data used to derive the TRIAD albedo.  The values for this code are   
+        given in Morrison and Zellner (1979) [MORRISON&amp;ZELLNER1979] as        
+        follows:  'Quality code 1 means fragmentary data, e.g. a single       
+        observation or a result predating the high quality surveys of recent  
+        years. Quality 2 applies to reliable, confirmed observations, and     
+        quality 3 is used for results that could hardly be improved.'  The    
+        quality code is given as 9 if no radiometric albedo is tabulated.</description>
+          <Special_Constants>
+            <missing_constant>9</missing_constant>
+          </Special_Constants>
+        </Field_Character>
+        <Field_Character>
+          <name>IMPS_ALBEDO</name>
+          <field_number>6</field_number>
+          <field_location unit="byte">46</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">6</field_length>
+          <field_format>%6.4f</field_format>
+          <description>The average of geometric albedos derived
+        from assumed values of H and G and each IRAS observation (scaled to   
+        zero phase), as presented in the IRAS Minor Planet Survey</description>
+          <Special_Constants>
+            <missing_constant>-.9999</missing_constant>
+          </Special_Constants>
+        </Field_Character>
+        <Field_Character>
+          <name>IMPS_UNCERTAINTY</name>
+          <field_number>7</field_number>
+          <field_location unit="byte">53</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">5</field_length>
+          <field_format>%5.3f</field_format>
+          <description>One-sigma uncertainty of IMPS_ALBEDO</description>
+          <Special_Constants>
+            <missing_constant>-.999</missing_constant>
+          </Special_Constants>
+        </Field_Character>
+        <Field_Character>
+          <name>IMPS_QUALITY_CODE</name>
+          <field_number>8</field_number>
+          <field_location unit="byte">59</field_location>
+          <data_type>ASCII_Integer</data_type>
+          <field_length unit="byte">1</field_length>
+          <field_format>%1d</field_format>
+          <description>Quality code 1 means the albedo data    
+        were taken from the IMPS derived diameters and albedos file archived  
+        in the PDS data set IRAS-A-FPA-3-RDR-IMPS-V4.0.  This file includes   
+        IMPS results for asteroids with at least two valid band observations. 
+        Quality code 2 means the albedo data were taken from the IMPS         
+        singleton file of the same PDS data set, including asteroids for which
+        there is an accepted sighting, but in one band only.  The quality code
+        is given as zero if no IMPS albedo is tabulated.</description>
+          <Special_Constants>
+            <missing_constant>0</missing_constant>
+          </Special_Constants>
+        </Field_Character>
+        <Field_Character>
+          <name>POL_PMIN_ALBEDO</name>
+          <field_number>9</field_number>
+          <field_location unit="byte">62</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">6</field_length>
+          <field_format>%6.4f</field_format>
+          <description>Polarimetry Pmin albedo.  That is,      
+        albedo as determined from the empirical formula: log pv(Pmin) = -1.22 
+        log Pmin - 0.92 where Pmin is the minimum value of the polarization.  
+        See PDS data set EAR-A-3-RDR-APD-POLARIMETRY-V4.0 for information on  
+        the basic data.</description>
+          <Special_Constants>
+            <missing_constant>-.9999</missing_constant>
+          </Special_Constants>
+        </Field_Character>
+        <Field_Character>
+          <name>POL_H_ALBEDO</name>
+          <field_number>10</field_number>
+          <field_location unit="byte">69</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">6</field_length>
+          <field_format>%6.4f</field_format>
+          <description>Polarimetry H albedo - albedo as        
+        determined from the empirical formula: log pv(h) = -0.98 log h - 1.73 
+        where h is the slope of the ascending branch of the polarization curve
+        measured at the inversion angle (tabulated in this table). See PDS    
+        data set EAR-A-3-RDR-APD-POLARIMETRY-V4.0 for information on the basic
+        data.</description>
+          <Special_Constants>
+            <missing_constant>-.9999</missing_constant>
+          </Special_Constants>
+        </Field_Character>
+        <Field_Character>
+          <name>POLARIZATION_ALBEDO</name>
+          <field_number>11</field_number>
+          <field_location unit="byte">76</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">6</field_length>
+          <field_format>%6.4f</field_format>
+          <description>Albedo as determined by a weighted      
+        average of pv(Pmin) and pv(h) (tabulated in the previous two columns).
+        The albedos determined from Pmin and h were given weights of 1 and 2  
+        respectively in determining this value.</description>
+          <Special_Constants>
+            <missing_constant>-.9999</missing_constant>
+          </Special_Constants>
+        </Field_Character>
+        <Field_Character>
+          <name>POL_QUALITY_CODE</name>
+          <field_number>12</field_number>
+          <field_location unit="byte">84</field_location>
+          <data_type>ASCII_Integer</data_type>
+          <field_length unit="byte">2</field_length>
+          <field_format>%2d</field_format>
+          <description>A single-digit albedo quality code for  
+        the POL_PMIN_ALBEDO, POL_H_ALBEDO, and POLARIZATION_ALBEDO fields. The
+        quality code was described in Lupishko and Mohamed (1996)             
+        [LUPISHKO&amp;MOHAMED1996] as follows:  'Quality code 1 means fragmentary 
+        data, 2 applies to reliable, confirmed observations, and 3 is used for
+        results that could hardly be improved.'  The quality code is listed as
+        -9  if no polarization albedo is tabulated.</description>
+          <Special_Constants>
+            <missing_constant>-9</missing_constant>
+          </Special_Constants>
+        </Field_Character>
+        <Field_Character>
+          <name>RADAR_ALBEDO</name>
+          <field_number>13</field_number>
+          <field_location unit="byte">88</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">5</field_length>
+          <field_format>%5.2f</field_format>
+          <description>Radar albedo taken from the PDS data set
+        EAR-A-5-DDR-RADAR-V8.0.  For asteroids with multiple albedo values the
+        mean value is quoted.</description>
+          <Special_Constants>
+            <missing_constant>-9.99</missing_constant>
+          </Special_Constants>
+        </Field_Character>
+        <Field_Character>
+          <name>RADAR_UNCERTAINTY</name>
+          <field_number>14</field_number>
+          <field_location unit="byte">94</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">5</field_length>
+          <field_format>%5.2f</field_format>
+          <description>One-sigma uncertainty in the radar      
+        albedo, taken from PDS data set EAR-A-5-DDR-RADAR-V8.0.  For asteroids
+        with multiple albedo values the root mean square of the uncertainties 
+        is quoted.</description>
+          <Special_Constants>
+            <missing_constant>-9.99</missing_constant>
+          </Special_Constants>
+        </Field_Character>
+        <Field_Character>
+          <name>RADAR_NUM_OBS</name>
+          <field_number>15</field_number>
+          <field_location unit="byte">100</field_location>
+          <data_type>ASCII_Integer</data_type>
+          <field_length unit="byte">2</field_length>
+          <field_format>%2d</field_format>
+          <description>Number of radar observations averaged in
+        the radar albedo</description>
+          <Special_Constants>
+            <missing_constant>-9</missing_constant>
+          </Special_Constants>
+        </Field_Character>
+      </Record_Character>
+    </Table_Character>
+  </File_Area_Observational>
+</Product_Observational>
+
