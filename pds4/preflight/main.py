@@ -18,11 +18,11 @@ def main():
     has_warnings = False
     for status in preflights:
         if status.messages:
-            print(f"{status.candidate.labelfilename}: WARNING")
+            print(f"{status.candidate.labelpath}/{status.candidate.labelfilename}: WARNING")
             print("\n".join(f"- {m}" for m in status.messages))
             has_warnings = True
         else:
-            print(f"{status.candidate.labelfilename}: OK")
+            print(f"{status.candidate.labelpath}/{status.candidate.labelfilename}: OK")
 
     if has_warnings:
         print("WARNINGs encountered")
