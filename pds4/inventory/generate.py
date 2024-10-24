@@ -17,7 +17,7 @@ def main(argv=None):
 
 def build_inventory(dirname, outfilename):
     filenames = inventory.get_product_filenames(dirname)
-    lidvids = sorted([inventory.iter_extract_lidvid(filename) for filename in filenames])
+    lidvids = sorted(inventory.iter_extract_lidvid(filename) for filename in filenames)
     records = ("P," + lidvid for lidvid in lidvids)
 
     with open(outfilename,"w") as f:
