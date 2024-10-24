@@ -22,11 +22,14 @@ def main(argv=None):
         filename=args.logfile if args.logfile else None
     )
 
-    build_inventory(args.dirname, args.outfilepath, args.deep_product_check, args.processes)
+    func = partial(build_inventory, args.dirname, args.outfilepath, args.deep_product_check)
+    p = pool.Pool(processes=args.processes) if args.processes > 1 else None
+    func(p)
 
-def build_inventory(dirname, outfilename, deep, processes):
-    filenames = get_filenames(dirname, processes, deep)
-    lidvids = sorted(get_lidvids(filenames, processes))
+
+def build_inventory(dirname, outfilename, deep, pool):
+    filenames = get_filenames(dirname, pool, deep)
+    lidvids = sorted(get_lidvids(filenames, pool))
     records = ("P," + lidvid for lidvid in lidvids)
 
     with open(outfilename,"w") as f:
@@ -46,19 +49,18 @@ def squelch_collections(filename, deep):
     return None
 
 
-def get_lidvids(filenames, processes):
-    sink = logging.info if processes == 1 else print
+def get_lidvids(filenames, pool):
+    sink = logging.info if pool is None else print
     func = partial(inventory.iter_extract_lidvid, sink=sink)
-    return do_map(func, filenames, processes)
+    return do_map(func, filenames, pool)
 
 
-def do_map(func, items, processes):
-    if processes == 1:
+def do_map(func, items, pool):
+    if pool is None:
         return (func(x) for x in items)
     else:
         logging.warning("Logging will go to stdout during multiprocessing phase")
-        with pool.Pool(processes=processes) as p:
-            return p.map(func, items)
+        return pool.imap_unordered(func, items, 1024)
 
 
 if __name__ == '__main__':
