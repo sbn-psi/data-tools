@@ -13,9 +13,6 @@ def get_all_product_filenames(dirname):
 
 
 def get_product_filenames(dirname, deep):
-    files = itertools.chain.from_iterable(
-        (os.path.join(path, filename) for filename in filenames) for (path,_,filenames) in os.walk(dirname) if not 'SUPERSEDED' in path
-    )
     return (x for x in get_all_product_filenames(dirname) if is_product(x, deep))
 
 
