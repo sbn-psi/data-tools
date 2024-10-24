@@ -16,9 +16,12 @@ def _is_product(filename):
 
 
 def extract_product_type(filename):
-    for (_, elem) in xml.etree.ElementTree.iterparse(filename):
-        if elem.tag.startswith("{http://pds.nasa.gov/pds4/pds/v1}Product"):
-            return elem.tag.replace("{http://pds.nasa.gov/pds4/pds/v1}","")
+    try:
+        for (_, elem) in xml.etree.ElementTree.iterparse(filename):
+            if elem.tag.startswith("{http://pds.nasa.gov/pds4/pds/v1}Product"):
+                return elem.tag.replace("{http://pds.nasa.gov/pds4/pds/v1}","")
+    except Exception as e:
+        raise Exception(f"Could determine product type for: {filename}") from e
 
 
 def iter_extract_lidvid(filename):
