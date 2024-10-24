@@ -7,6 +7,7 @@ except ImportError:
     import xml.etree.ElementTree as etree
 
 NON_PRODUCT_FRAGMENTS=('bundle', 'collection')
+NON_PRODUCT_ELEMENTS=('Product_Collection', 'Product_Bundle')
 
 
 def get_all_product_filenames(dirname):
@@ -21,7 +22,7 @@ def get_product_filenames(dirname, deep):
 
 def is_product(filename, deep=False):
     if deep:
-        return filename.endswith('.xml') and not extract_product_type(filename) in ('Product_Collection','Product_Bundle')
+        return filename.endswith('.xml') and not extract_product_type(filename) in NON_PRODUCT_ELEMENTS
     return filename.endswith('.xml') and not any(x in filename for x in NON_PRODUCT_FRAGMENTS)
 
 
@@ -39,7 +40,6 @@ def extract_product_type(filename):
 def iter_extract_lidvid(filename):
     lid=""
     for (_, elem) in etree.iterparse(filename):
-        #print (elem.text)
         if elem.tag=="{http://pds.nasa.gov/pds4/pds/v1}logical_identifier":
             lid=elem.text
         elif elem.tag=="{http://pds.nasa.gov/pds4/pds/v1}version_id":
