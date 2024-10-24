@@ -36,12 +36,8 @@ def build_inventory(dirname, outfilename, deep, processes):
 
 def get_filenames(dirname, processes, deep):
     filenames = inventory.get_all_product_filenames(dirname)
-    if processes == 1:
-        return (x for x in filenames if inventory.is_product(x, deep=deep))
-    else:
-        with pool.Pool(processes=processes) as p:
-            f = partial(squelch_collections, deep=deep)
-            return (x for x in p.map(f, filenames) if x is not None)
+    func = partial(squelch_collections, deep=deep)
+    return (x for x in do_map(func, filenames, processes) if x is not None)
 
 
 def squelch_collections(filename, deep):
@@ -51,12 +47,19 @@ def squelch_collections(filename, deep):
 
 
 def get_lidvids(filenames, processes):
+    sink = logging.info if processes == 1 else print
+    func = partial(inventory.iter_extract_lidvid, sink=sink)
+    return do_map(func, filenames, processes)
+
+
+def do_map(func, items, processes):
     if processes == 1:
-        return (inventory.iter_extract_lidvid(filename, sink=logging.info) for filename in filenames)
+        return (func(x) for x in items)
     else:
         logging.warning("Logging will go to stdout during multiprocessing phase")
         with pool.Pool(processes=processes) as p:
-            return p.map(inventory.iter_extract_lidvid, filenames)
+            return p.map(func, items)
+
 
 if __name__ == '__main__':
     main()
