@@ -34,9 +34,9 @@ def build_inventory(dirname, outfilename, deep, processes):
 
 def get_lidvids(filenames, processes):
     if processes == 1:
-        return (inventory.iter_extract_lidvid(filename) for filename in filenames)
+        return (inventory.iter_extract_lidvid(filename, sink=logging.info) for filename in filenames)
     else:
-        logging.warning("Logging suppressed during multiprocessing phase")
+        logging.warning("Logging will go to stdout during multiprocessing phase")
         with pool.Pool(processes=processes) as p:
             return p.map(inventory.iter_extract_lidvid,filenames)
 
