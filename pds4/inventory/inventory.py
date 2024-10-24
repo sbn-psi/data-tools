@@ -3,17 +3,20 @@ import os
 import xml.etree.ElementTree
 import logging
 
+NON_PRODUCT_FRAGMENTS=('bundle', 'collection')
 
-def get_product_filenames(dirname):
+
+def get_product_filenames(dirname, deep):
     files = itertools.chain.from_iterable(
         (os.path.join(path, filename) for filename in filenames) for (path,_,filenames) in os.walk(dirname) if not 'SUPERSEDED' in path
     )
-    files = (x for x in files if _is_product(x))
+    files = (x for x in files if _is_product(x, deep))
     return files
 
-def _is_product(filename):
-    basename = os.path.basename(filename)
-    return filename.endswith('.xml') and not extract_product_type(filename) in ('Product_Collection','Product_Bundle')
+def _is_product(filename, deep=False):
+    if deep:
+        return filename.endswith('.xml') and not extract_product_type(filename) in ('Product_Collection','Product_Bundle')
+    return filename.endswith('.xml') and not any(x in filename for x in NON_PRODUCT_FRAGMENTS)
 
 
 def extract_product_type(filename):
