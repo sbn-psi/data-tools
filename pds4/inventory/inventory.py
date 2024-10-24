@@ -30,7 +30,7 @@ def extract_product_type(filename):
 
 def iter_extract_lidvid(filename):
     lid=""
-    for (event, elem) in xml.etree.ElementTree.iterparse(filename):
+    for (_, elem) in xml.etree.ElementTree.iterparse(filename):
         #print (elem.text)
         if elem.tag=="{http://pds.nasa.gov/pds4/pds/v1}logical_identifier":
             lid=elem.text
@@ -38,6 +38,8 @@ def iter_extract_lidvid(filename):
             lidvid = lid + "::" + elem.text
             logging.info(f'filename: {filename}, lidvid:{lidvid}')
             return lidvid
+        if elem.tag=="{http://pds.nasa.gov/pds4/pds/v1}Identification_Area":
+            raise Exception(f"Missing LID or VID for: {filename}")
 
 
 def inventory_to_dict(inventory):
