@@ -1,6 +1,7 @@
 import itertools
 import os
 import xml.etree.ElementTree
+import logging
 
 
 def get_product_filenames(dirname):
@@ -31,7 +32,9 @@ def iter_extract_lidvid(filename):
         if elem.tag=="{http://pds.nasa.gov/pds4/pds/v1}logical_identifier":
             lid=elem.text
         if elem.tag=="{http://pds.nasa.gov/pds4/pds/v1}version_id":
-            return lid + "::" + elem.text
+            lidvid = lid + "::" + elem.text
+            logging.info(f'filename: {filename}, lidvid:{lidvid}')
+            return lidvid
 
 
 def inventory_to_dict(inventory):

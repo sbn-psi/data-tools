@@ -3,12 +3,15 @@
 import sys
 import inventory
 import argparse
+import logging
 
 def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument("outfilepath")
     parser.add_argument("dirname")
     args = parser.parse_args()
+
+    logging.basicConfig(level=logging.INFO)
 
     build_inventory(args.dirname, args.outfilepath)
 
