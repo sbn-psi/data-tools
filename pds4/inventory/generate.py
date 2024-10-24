@@ -29,11 +29,11 @@ def main(argv=None):
 
 def build_inventory(dirname, outfilename, deep, pool):
     filenames = get_filenames(dirname, pool, deep)
-    lidvids = sorted(get_lidvids(filenames, pool))
+    lidvids = get_lidvids(filenames, pool)
     records = ("P," + lidvid for lidvid in lidvids)
 
     with open(outfilename,"w") as f:
-        for r in records:
+        for r in sorted(records):
             f.write(r + "\r\n")
 
 
