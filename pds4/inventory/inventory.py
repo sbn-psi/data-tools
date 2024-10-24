@@ -31,7 +31,7 @@ def extract_product_type(filename):
         raise Exception(f"Could determine product type for: {filename}") from e
 
 
-def iter_extract_lidvid(filename, sink=print):
+def iter_extract_lidvid(filename):
     lid=""
     for (_, elem) in xml.etree.ElementTree.iterparse(filename):
         #print (elem.text)
@@ -39,7 +39,6 @@ def iter_extract_lidvid(filename, sink=print):
             lid=elem.text
         if elem.tag=="{http://pds.nasa.gov/pds4/pds/v1}version_id":
             lidvid = lid + "::" + elem.text
-            sink(f'filename: {filename}, lidvid:{lidvid}')
             return lidvid
         if elem.tag=="{http://pds.nasa.gov/pds4/pds/v1}Identification_Area":
             raise Exception(f"Missing LID or VID for: {filename}")

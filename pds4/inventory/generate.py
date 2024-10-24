@@ -7,18 +7,22 @@ import logging
 from multiprocessing import pool
 from functools import partial
 
+logger = logging.getLogger(__name__)
+
 def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument("outfilepath")
     parser.add_argument("dirname")
     parser.add_argument("--deep-product-check", action='store_true')
     parser.add_argument("--logfile")
+    parser.add_argument("--debug", action='store_true')
+    parser.add_argument("--quiet", action='store_true')
     parser.add_argument("--processes", type=int, default=1)
 
     args = parser.parse_args()
 
     logging.basicConfig(
-        level=logging.INFO,
+        level=logging.WARNING if args.quiet else logging.DEBUG if args.debug else logging.INFO,
         filename=args.logfile if args.logfile else None
     )
 
@@ -28,8 +32,8 @@ def main(argv=None):
 
 
 def build_inventory(dirname, outfilename, deep, pool):
-    filenames = get_filenames(dirname, pool, deep)
-    lidvids = get_lidvids(filenames, pool)
+    filenames = peeks(get_filenames(dirname, pool, deep), logging.DEBUG)
+    lidvids = peeks(get_lidvids(filenames, pool), logging.INFO)
     records = ("P," + lidvid for lidvid in lidvids)
 
     with open(outfilename,"w") as f:
@@ -50,8 +54,7 @@ def squelch_collections(filename, deep):
 
 
 def get_lidvids(filenames, pool):
-    sink = logging.info if pool is None else print
-    func = partial(inventory.iter_extract_lidvid, sink=sink)
+    func = partial(inventory.iter_extract_lidvid)
     return do_map(func, filenames, pool)
 
 
@@ -59,8 +62,16 @@ def do_map(func, items, pool):
     if pool is None:
         return (func(x) for x in items)
     else:
-        logging.warning("Logging will go to stdout during multiprocessing phase")
         return pool.imap_unordered(func, items, 1024)
+
+
+def peeks(items, level):
+    return (peek(x, level) for x in items)
+
+
+def peek(x, level):
+    logging.log(level, x)
+    return x
 
 
 if __name__ == '__main__':
