@@ -1,7 +1,10 @@
 import itertools
 import os
-import xml.etree.ElementTree
-import logging
+
+try:
+    from lxml import etree
+except ImportError:
+    import xml.etree.ElementTree as etree
 
 NON_PRODUCT_FRAGMENTS=('bundle', 'collection')
 
@@ -24,7 +27,7 @@ def is_product(filename, deep=False):
 
 def extract_product_type(filename):
     try:
-        for (_, elem) in xml.etree.ElementTree.iterparse(filename, events=['start']):
+        for (_, elem) in etree.iterparse(filename, events=['start']):
             tag = elem.tag
             if tag.startswith("{http://pds.nasa.gov/pds4/pds/v1}Product"):
                 return tag.replace("{http://pds.nasa.gov/pds4/pds/v1}","")
@@ -35,14 +38,14 @@ def extract_product_type(filename):
 
 def iter_extract_lidvid(filename):
     lid=""
-    for (_, elem) in xml.etree.ElementTree.iterparse(filename):
+    for (_, elem) in etree.iterparse(filename):
         #print (elem.text)
         if elem.tag=="{http://pds.nasa.gov/pds4/pds/v1}logical_identifier":
             lid=elem.text
-        if elem.tag=="{http://pds.nasa.gov/pds4/pds/v1}version_id":
+        elif elem.tag=="{http://pds.nasa.gov/pds4/pds/v1}version_id":
             lidvid = lid + "::" + elem.text
             return lidvid
-        if elem.tag=="{http://pds.nasa.gov/pds4/pds/v1}Identification_Area":
+        elif elem.tag=="{http://pds.nasa.gov/pds4/pds/v1}Identification_Area":
             raise Exception(f"Missing LID or VID for: {filename}")
 
 
