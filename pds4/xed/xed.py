@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os.path
 import sys
 import argparse
 import shutil
@@ -132,9 +133,12 @@ def main():
 
     args = parser.parse_args()
 
-    filenames = args.filename if args.filename else ['-']
+    filenames = (x.strip() for x in args.filename) if args.filename else ['-']
 
     for filename in filenames:
+        if not os.path.exists(filename):
+            raise Exception(f'File not found: {filename}')
+
         xmldoc: etree = etree.parse(filename)
 
         if args.command:
