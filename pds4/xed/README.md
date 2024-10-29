@@ -4,10 +4,6 @@
 
 `xed` is like `sed`, but for xml. Specifically, it's for PDS4 labels. It might work for other files, but I haven't tested this and wouldn't recommend it. It aims to perform small edits to xml files from the command line with a great degree of control.
 
-## In-place vs. stdout
-
-By default, xed will send its output to stdout. You can modify a file in place by adding the --inplace option. This will backup the file to filename.bak.
-
 ## Modes of operation
 
 `xed` supports two modes of operation: ad-hoc and json mode.
@@ -83,6 +79,11 @@ Delete the node located at PATH
 
 Delete all of the nodes under PATH
 
+## In-place vs. stdout
+
+By default, xed will send its output to stdout. You can modify a file in place by adding the `--inplace` option. This will backup the file to filename.bak unless you suppress the backup with `--nobackup`. Be very sure that you know what you know what you are doing before using `--nobackup`.
+
 ## Caveats
 
 The xml output isn't well formatted. You'll want to run it back through a formatter such as tidy or xmllint.
+

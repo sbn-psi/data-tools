@@ -129,6 +129,7 @@ def main():
     parser.add_argument("--search")
     parser.add_argument("--json")
     parser.add_argument("--inplace", action="store_true")
+    parser.add_argument("--nobackup", action="store_true")
     parser.add_argument("filename", nargs='*')
 
     args = parser.parse_args()
@@ -147,8 +148,9 @@ def main():
             process_json(xmldoc, args.json)
 
         if args.inplace and not filename == "-":
-            bakfile = filename + ".bak"
-            shutil.copy(filename, bakfile)
+            if not args.nobackup:
+                bakfile = filename + ".bak"
+                shutil.copy(filename, bakfile)
             with open(filename, "w") as outfile:
                 outfile.write(etree.tostring(xmldoc, method="xml", encoding="unicode"))
         else:
