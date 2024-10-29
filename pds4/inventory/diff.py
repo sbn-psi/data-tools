@@ -16,7 +16,7 @@ def main(argv=None):
     for x in inventory1 - inventory2:
         print(x)
 
-    print("Extras in: " + filename2):
+    print("Extras in: " + filename2)
     for x in inventory2 - inventory1:
         print(X)
 

@@ -1,34 +1,52 @@
 import itertools
 import os
-import xml.etree.ElementTree
+
+try:
+    from lxml import etree
+except ImportError:
+    import xml.etree.ElementTree as etree
+
+NON_PRODUCT_FRAGMENTS=('bundle', 'collection')
+NON_PRODUCT_ELEMENTS=('Product_Collection', 'Product_Bundle')
 
 
-def get_product_filenames(dirname):
-    files = itertools.chain.from_iterable(
+def get_all_product_filenames(dirname):
+    return itertools.chain.from_iterable(
         (os.path.join(path, filename) for filename in filenames) for (path,_,filenames) in os.walk(dirname) if not 'SUPERSEDED' in path
     )
-    files = (x for x in files if _is_product(x))
-    return files
 
-def _is_product(filename):
-    basename = os.path.basename(filename)
-    return filename.endswith('.xml') and not extract_product_type(filename) in ('Product_Collection','Product_Bundle')
+
+def get_product_filenames(dirname, deep):
+    return (x for x in get_all_product_filenames(dirname) if is_product(x, deep))
+
+
+def is_product(filename, deep=False):
+    if deep:
+        return filename.endswith('.xml') and not extract_product_type(filename) in NON_PRODUCT_ELEMENTS
+    return filename.endswith('.xml') and not any(x in filename for x in NON_PRODUCT_FRAGMENTS)
 
 
 def extract_product_type(filename):
-    for (_, elem) in xml.etree.ElementTree.iterparse(filename):
-        if elem.tag.startswith("{http://pds.nasa.gov/pds4/pds/v1}Product"):
-            return elem.tag.replace("{http://pds.nasa.gov/pds4/pds/v1}","")
+    try:
+        for (_, elem) in etree.iterparse(filename, events=['start']):
+            tag = elem.tag
+            if tag.startswith("{http://pds.nasa.gov/pds4/pds/v1}Product"):
+                return tag.replace("{http://pds.nasa.gov/pds4/pds/v1}","")
+        raise Exception(f"Could not find product type for: {filename}")
+    except Exception as e:
+        raise Exception(f"Could not parse product: {filename}") from e
 
 
 def iter_extract_lidvid(filename):
     lid=""
-    for (event, elem) in xml.etree.ElementTree.iterparse(filename):
-        #print (elem.text)
+    for (_, elem) in etree.iterparse(filename):
         if elem.tag=="{http://pds.nasa.gov/pds4/pds/v1}logical_identifier":
             lid=elem.text
-        if elem.tag=="{http://pds.nasa.gov/pds4/pds/v1}version_id":
-            return lid + "::" + elem.text
+        elif elem.tag=="{http://pds.nasa.gov/pds4/pds/v1}version_id":
+            lidvid = lid + "::" + elem.text
+            return lidvid
+        elif elem.tag=="{http://pds.nasa.gov/pds4/pds/v1}Identification_Area":
+            raise Exception(f"Missing LID or VID for: {filename}")
 
 
 def inventory_to_dict(inventory):
