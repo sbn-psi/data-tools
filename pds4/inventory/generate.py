@@ -23,7 +23,7 @@ def main(argv=None):
 
     logging.basicConfig(
         level=logging.WARNING if args.quiet else logging.DEBUG if args.debug else logging.INFO,
-        filename=args.logfile if args.logfile else None
+        filename=args.logfile
     )
 
     func = partial(build_inventory, args.dirname, args.outfilepath, args.deep_product_check)
