@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os.path
 import sys
 import argparse
 import shutil
@@ -128,13 +129,17 @@ def main():
     parser.add_argument("--search")
     parser.add_argument("--json")
     parser.add_argument("--inplace", action="store_true")
+    parser.add_argument("--nobackup", action="store_true")
     parser.add_argument("filename", nargs='*')
 
     args = parser.parse_args()
 
-    filenames = args.filename if args.filename else ['-']
+    filenames = (x.strip() for x in args.filename) if args.filename else ['-']
 
     for filename in filenames:
+        if not os.path.exists(filename):
+            raise Exception(f'File not found: {filename}')
+
         xmldoc: etree = etree.parse(filename)
 
         if args.command:
@@ -143,8 +148,9 @@ def main():
             process_json(xmldoc, args.json)
 
         if args.inplace and not filename == "-":
-            bakfile = filename + ".bak"
-            shutil.copy(filename, bakfile)
+            if not args.nobackup:
+                bakfile = filename + ".bak"
+                shutil.copy(filename, bakfile)
             with open(filename, "w") as outfile:
                 outfile.write(etree.tostring(xmldoc, method="xml", encoding="unicode"))
         else:

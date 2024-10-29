@@ -79,6 +79,11 @@ Delete the node located at PATH
 
 Delete all of the nodes under PATH
 
+## In-place vs. stdout
+
+By default, xed will send its output to stdout. You can modify a file in place by adding the `--inplace` option. This will backup the file to filename.bak unless you suppress the backup with `--nobackup`. Be very sure that you know what you know what you are doing before using `--nobackup`.
+
 ## Caveats
 
 The xml output isn't well formatted. You'll want to run it back through a formatter such as tidy or xmllint.
+
