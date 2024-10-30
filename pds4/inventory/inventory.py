@@ -40,7 +40,7 @@ def extract_product_type(filename):
         raise Exception(f"Could not parse product: {filename}") from e
 
 
-def iter_extract_lidvid(filename):
+def iter_extract_lidvid(filename, tolerant=False):
     lid=""
     try:
         for (_, elem) in etree.iterparse(filename):
@@ -52,6 +52,9 @@ def iter_extract_lidvid(filename):
             elif elem.tag=="{http://pds.nasa.gov/pds4/pds/v1}Identification_Area":
                 raise Exception(f"Missing LID or VID for: {filename}")
     except Exception as e:
+        print(f"Could not parse {filename}: {e}")
+        if tolerant:
+            return f"***INVALID***{filename}"
         raise Exception(f"Could not parse product: {filename}") from e
 
 

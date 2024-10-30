@@ -7,8 +7,6 @@ import logging
 from multiprocessing import pool
 from functools import partial
 
-logger = logging.getLogger(__name__)
-
 def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument("outfilepath")
@@ -54,7 +52,7 @@ def squelch_collections(filename, deep):
 
 
 def get_lidvids(filenames, pool):
-    func = partial(inventory.iter_extract_lidvid)
+    func = partial(inventory.iter_extract_lidvid, tolerant=True)
     return do_map(func, filenames, pool)
 
 
