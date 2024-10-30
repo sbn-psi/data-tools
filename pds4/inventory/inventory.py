@@ -1,11 +1,14 @@
 import itertools
 import os
 
+import logging
+
 try:
     from lxml import etree
 except ImportError:
     import xml.etree.ElementTree as etree
 
+logger = logging.getLogger(__name__)
 NON_PRODUCT_FRAGMENTS=('bundle', 'collection')
 NON_PRODUCT_ELEMENTS=('Product_Collection', 'Product_Bundle')
 
@@ -37,16 +40,22 @@ def extract_product_type(filename):
         raise Exception(f"Could not parse product: {filename}") from e
 
 
-def iter_extract_lidvid(filename):
+def iter_extract_lidvid(filename, tolerant=False):
     lid=""
-    for (_, elem) in etree.iterparse(filename):
-        if elem.tag=="{http://pds.nasa.gov/pds4/pds/v1}logical_identifier":
-            lid=elem.text
-        elif elem.tag=="{http://pds.nasa.gov/pds4/pds/v1}version_id":
-            lidvid = lid + "::" + elem.text
-            return lidvid
-        elif elem.tag=="{http://pds.nasa.gov/pds4/pds/v1}Identification_Area":
-            raise Exception(f"Missing LID or VID for: {filename}")
+    try:
+        for (_, elem) in etree.iterparse(filename):
+            if elem.tag=="{http://pds.nasa.gov/pds4/pds/v1}logical_identifier":
+                lid=elem.text
+            elif elem.tag=="{http://pds.nasa.gov/pds4/pds/v1}version_id":
+                lidvid = lid + "::" + elem.text
+                return lidvid
+            elif elem.tag=="{http://pds.nasa.gov/pds4/pds/v1}Identification_Area":
+                raise Exception(f"Missing LID or VID for: {filename}")
+    except Exception as e:
+        print(f"Could not parse {filename}: {e}")
+        if tolerant:
+            return f"***INVALID***{filename}"
+        raise Exception(f"Could not parse product: {filename}") from e
 
 
 def inventory_to_dict(inventory):
