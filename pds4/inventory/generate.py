@@ -15,6 +15,7 @@ def main(argv=None):
     parser.add_argument("--logfile")
     parser.add_argument("--debug", action='store_true')
     parser.add_argument("--quiet", action='store_true')
+    parser.add_argument("--tolerant", action='store_true')
     parser.add_argument("--processes", type=int, default=1)
 
     args = parser.parse_args()
@@ -24,14 +25,14 @@ def main(argv=None):
         filename=args.logfile
     )
 
-    func = partial(build_inventory, args.dirname, args.outfilepath, args.deep_product_check)
+    func = partial(build_inventory, args.dirname, args.outfilepath, args.deep_product_check, args.tolerant)
     p = pool.Pool(processes=args.processes) if args.processes > 1 else None
     func(p)
 
 
-def build_inventory(dirname, outfilename, deep, pool):
+def build_inventory(dirname, outfilename, deep, tolerant, pool):
     filenames = peeks(get_filenames(dirname, pool, deep), logging.DEBUG)
-    lidvids = peeks(get_lidvids(filenames, pool), logging.INFO)
+    lidvids = peeks(get_lidvids(filenames, pool, tolerant), logging.INFO)
     records = ("P," + lidvid for lidvid in lidvids)
 
     with open(outfilename,"w") as f:
@@ -51,8 +52,8 @@ def squelch_collections(filename, deep):
     return None
 
 
-def get_lidvids(filenames, pool):
-    func = partial(inventory.iter_extract_lidvid, tolerant=True)
+def get_lidvids(filenames, pool, tolerant):
+    func = partial(inventory.iter_extract_lidvid, tolerant=tolerant)
     return do_map(func, filenames, pool)
 
 
