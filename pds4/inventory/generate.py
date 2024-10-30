@@ -25,9 +25,8 @@ def main(argv=None):
         filename=args.logfile
     )
 
-    func = partial(build_inventory, args.dirname, args.outfilepath, args.deep_product_check, args.tolerant)
     p = pool.Pool(processes=args.processes) if args.processes > 1 else None
-    func(p)
+    build_inventory(args.dirname, args.outfilepath, args.deep_product_check, args.tolerant, p)
 
 
 def build_inventory(dirname, outfilename, deep, tolerant, pool):
