@@ -1,14 +1,16 @@
 #! /usr/bin/env python3
 """Generate a PDS4 inventory for all of the basic products in a directory"""
+import multiprocessing
 
 import inventory
 import argparse
 import logging
+from typing import Iterable, Callable, Union
 from multiprocessing import pool
 from functools import partial
 
 
-def main():
+def main() -> None:
     parser = build_parser()
 
     args = parser.parse_args()
@@ -22,7 +24,7 @@ def main():
     build_inventory(args.dirname, args.outfilepath, args.deep_product_check, args.tolerant, args.crlf, p)
 
 
-def build_parser():
+def build_parser() -> argparse.ArgumentParser:
     """
     Create an argument parser for the program.
     """
@@ -45,7 +47,12 @@ def build_parser():
     return parser
 
 
-def build_inventory(dirname, outfilename, deep, tolerant, crlf, pool_):
+def build_inventory(dirname: str,
+                    outfilename: str,
+                    deep: bool,
+                    tolerant: bool,
+                    crlf: bool,
+                    pool_: multiprocessing.Pool) -> None:
     """
     Create an inventory for all of the basic products located in the specified directory.
     Write the output to the specifiied destination.
@@ -62,7 +69,7 @@ def build_inventory(dirname, outfilename, deep, tolerant, crlf, pool_):
         f.write(f"{sep.join(sorted(records))}{sep}")
 
 
-def get_filenames(dirname, pool_, deep):
+def get_filenames(dirname: str, pool_: multiprocessing.Pool, deep: bool) -> Iterable[str]:
     """
     Get the filenames for all of the basic products located in the given directory
     """
@@ -71,7 +78,7 @@ def get_filenames(dirname, pool_, deep):
     return (x for x in do_map(func, filenames, pool_) if x is not None)
 
 
-def squelch_collections(filename, deep):
+def squelch_collections(filename: str, deep: bool) -> Union[str, None]:
     """
     Convert the filenames for collections in the provided list to none.
     This is kind of a hack because multiprocessing doesn't directly support
@@ -82,7 +89,7 @@ def squelch_collections(filename, deep):
     return None
 
 
-def get_lidvids(filenames, pool_, tolerant):
+def get_lidvids(filenames: Iterable[str], pool_: multiprocessing.Pool, tolerant: bool) -> Iterable[str]:
     """
     Get all of the LIDVIDs declared in the list of filenames.
     """
@@ -90,7 +97,7 @@ def get_lidvids(filenames, pool_, tolerant):
     return do_map(func, filenames, pool_)
 
 
-def do_map(func, items, pool_):
+def do_map(func: Callable[[str], str], items: Iterable[str], pool_: multiprocessing.Pool) -> Iterable[str]:
     """
     This is a "multiprocessing-optional" version of unordered_map. If no multiprocessing pool is
     provided, then just do a standard generator comprehension.
@@ -101,14 +108,14 @@ def do_map(func, items, pool_):
         return pool_.imap_unordered(func, items, 1024)
 
 
-def peeks(items, level):
+def peeks(items: Iterable[str], level: int) -> Iterable[str]:
     """
     Log and return all of the values in the specified "list".
     """
     return (peek(x, level) for x in items)
 
 
-def peek(x, level):
+def peek(x: str, level: int) -> str:
     """
     Log and return a single value, at the specified log level.
     """
