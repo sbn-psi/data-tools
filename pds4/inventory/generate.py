@@ -41,10 +41,10 @@ def build_inventory(dirname, outfilename, deep, tolerant, crlf, pool_):
         f.write(f"{sep.join(sorted(records))}{sep}")
 
 
-def get_filenames(dirname, processes, deep):
+def get_filenames(dirname, pool_, deep):
     filenames = inventory.get_all_product_filenames(dirname)
     func = partial(squelch_collections, deep=deep)
-    return (x for x in do_map(func, filenames, processes) if x is not None)
+    return (x for x in do_map(func, filenames, pool_) if x is not None)
 
 
 def squelch_collections(filename, deep):
