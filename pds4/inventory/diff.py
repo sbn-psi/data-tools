@@ -9,8 +9,8 @@ def main(argv=None):
     filename1 = argv[1]
     filename2 = argv[2]
 
-    inventory1 = set(open(x.strip() for x in filename1).readlines)
-    inventory2 = set(open(x.strip() for x in filename2).readlines)
+    inventory1 = set(open(filename1.strip()).readlines())
+    inventory2 = set(open(filename2.strip()).readlines())
 
     print ("Extras in: " + filename1)
     for x in inventory1 - inventory2:
