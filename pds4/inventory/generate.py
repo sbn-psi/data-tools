@@ -16,6 +16,7 @@ def main():
     parser.add_argument("--debug", action='store_true')
     parser.add_argument("--quiet", action='store_true')
     parser.add_argument("--tolerant", action='store_true')
+    parser.add_argument("--crlf", action='store_true')
     parser.add_argument("--processes", type=int, default=1)
 
     args = parser.parse_args()
@@ -26,17 +27,17 @@ def main():
     )
 
     p = pool.Pool(processes=args.processes) if args.processes > 1 else None
-    build_inventory(args.dirname, args.outfilepath, args.deep_product_check, args.tolerant, p)
+    build_inventory(args.dirname, args.outfilepath, args.deep_product_check, args.tolerant, args.crlf, p)
 
 
-def build_inventory(dirname, outfilename, deep, tolerant, pool_):
+def build_inventory(dirname, outfilename, deep, tolerant, crlf, pool_):
     filenames = peeks(get_filenames(dirname, pool_, deep), logging.DEBUG)
     lidvids = peeks(get_lidvids(filenames, pool_, tolerant), logging.INFO)
     records = ("P," + lidvid for lidvid in lidvids)
 
     with open(outfilename, "w") as f:
         for r in sorted(records):
-            f.write(r + "\r\n")
+            f.write(r + "\r\n" if crlf else "\n")
 
 
 def get_filenames(dirname, processes, deep):
