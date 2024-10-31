@@ -1,4 +1,5 @@
 #! /usr/bin/env python3
+"""Generate a PDS4 inventory for all of the basic products in a directory"""
 
 import inventory
 import argparse
@@ -25,7 +26,8 @@ def build_parser():
     """
     Create an argument parser for the program.
     """
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        description="Generate a PDS4 inventory for all of the basic products in a directory")
     parser.add_argument("outfilepath", help="Write the inventory to the specified file.")
     parser.add_argument("dirname", help="Traverse the given directory for products.")
     parser.add_argument("--deep-product-check", action='store_true',
