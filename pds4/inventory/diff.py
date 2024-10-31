@@ -18,7 +18,7 @@ def main(argv=None):
 
     print("Extras in: " + filename2)
     for x in inventory2 - inventory1:
-        print(X)
+        print(x)
 
 if __name__ == "__main__":
     sys.exit(main())
