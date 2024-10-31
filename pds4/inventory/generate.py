@@ -48,7 +48,7 @@ def get_filenames(dirname, pool_, deep):
 
 
 def squelch_collections(filename, deep):
-    if inventory.is_product(filename, deep=deep):
+    if inventory.is_basic_product(filename, deep=deep):
         return filename
     return None
 

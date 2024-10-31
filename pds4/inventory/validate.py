@@ -17,7 +17,7 @@ def main():
     all_lidvids = set(k + "::" + provided_inventory[k][0]
                       for k in provided_inventory.keys())
 
-    filenames = inventory.get_product_filenames(args.directory, False)
+    filenames = inventory.get_basic_product_filenames(args.directory, False)
     discovered_lidvids = set(inventory.iter_extract_lidvid(filename) for filename in filenames)
 
     print("Discovered, but not in inventory:")

@@ -20,11 +20,11 @@ def get_all_product_filenames(dirname):
                                          for (path, _, filenames) in os.walk(dirname) if 'SUPERSEDED' not in path)
 
 
-def get_product_filenames(dirname, deep):
-    return (x for x in get_all_product_filenames(dirname) if is_product(x, deep))
+def get_basic_product_filenames(dirname, deep):
+    return (x for x in get_all_product_filenames(dirname) if is_basic_product(x, deep))
 
 
-def is_product(filename, deep=False):
+def is_basic_product(filename, deep=False):
     if deep:
         return filename.endswith('.xml') and not extract_product_type(filename) in NON_PRODUCT_ELEMENTS
     return filename.endswith('.xml') and not any(x in filename for x in NON_PRODUCT_FRAGMENTS)
