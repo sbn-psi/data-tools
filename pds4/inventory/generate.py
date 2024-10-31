@@ -35,9 +35,11 @@ def build_inventory(dirname, outfilename, deep, tolerant, crlf, pool_):
     lidvids = peeks(get_lidvids(filenames, pool_, tolerant), logging.INFO)
     records = ("P," + lidvid for lidvid in lidvids)
 
+    sep = "\r\n" if crlf else "\n"
+
     with open(outfilename, "w") as f:
         for r in sorted(records):
-            f.write(r + "\r\n" if crlf else "\n")
+            f.write(r + sep)
 
 
 def get_filenames(dirname, processes, deep):
