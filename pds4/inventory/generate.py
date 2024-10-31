@@ -33,7 +33,7 @@ def main():
 def build_inventory(dirname, outfilename, deep, tolerant, crlf, pool_):
     filenames = peeks(get_filenames(dirname, pool_, deep), logging.DEBUG)
     lidvids = peeks(get_lidvids(filenames, pool_, tolerant), logging.INFO)
-    records = ("P," + lidvid for lidvid in lidvids)
+    records = (f"P,{lidvid}" for lidvid in lidvids)
 
     sep = "\r\n" if crlf else "\n"
 
