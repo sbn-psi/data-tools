@@ -8,6 +8,20 @@ from functools import partial
 
 
 def main():
+    parser = build_parser()
+
+    args = parser.parse_args()
+
+    logging.basicConfig(
+        level=logging.WARNING if args.quiet else logging.DEBUG if args.debug else logging.INFO,
+        filename=args.logfile
+    )
+
+    p = pool.Pool(processes=args.processes) if args.processes > 1 else None
+    build_inventory(args.dirname, args.outfilepath, args.deep_product_check, args.tolerant, args.crlf, p)
+
+
+def build_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument("outfilepath", help="Write the inventory to the specified file.")
     parser.add_argument("dirname", help="Traverse the given directory for products.")
@@ -23,16 +37,7 @@ def main():
     parser.add_argument("--crlf", action='store_true', help="Use CRLF line terminators instead of LF.")
     parser.add_argument("--processes", type=int, default=1,
                         help="Split the task among the specified number of processes. May increase performance.")
-
-    args = parser.parse_args()
-
-    logging.basicConfig(
-        level=logging.WARNING if args.quiet else logging.DEBUG if args.debug else logging.INFO,
-        filename=args.logfile
-    )
-
-    p = pool.Pool(processes=args.processes) if args.processes > 1 else None
-    build_inventory(args.dirname, args.outfilepath, args.deep_product_check, args.tolerant, args.crlf, p)
+    return parser
 
 
 def build_inventory(dirname, outfilename, deep, tolerant, crlf, pool_):
