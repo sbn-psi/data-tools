@@ -9,15 +9,20 @@ from functools import partial
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("outfilepath")
-    parser.add_argument("dirname")
-    parser.add_argument("--deep-product-check", action='store_true')
-    parser.add_argument("--logfile")
-    parser.add_argument("--debug", action='store_true')
-    parser.add_argument("--quiet", action='store_true')
-    parser.add_argument("--tolerant", action='store_true')
-    parser.add_argument("--crlf", action='store_true')
-    parser.add_argument("--processes", type=int, default=1)
+    parser.add_argument("outfilepath", help="Write the inventory to the specified file.")
+    parser.add_argument("dirname", help="Traverse the given directory for products.")
+    parser.add_argument("--deep-product-check", action='store_true',
+                        help="Check for basic products by parsing the label instead of using the filename. "
+                             "May decrease performance.")
+    parser.add_argument("--logfile", help="Log to the specified file instead of the console.")
+    parser.add_argument("--debug", action='store_true', help="More detailed log output.")
+    parser.add_argument("--quiet", action='store_true', help="Less detailed log output, report problems only.")
+    parser.add_argument("--tolerant", action='store_true',
+                        help="Keep parsing products even if some are invalid. "
+                             "Invalid entries may appear in the inventory file.")
+    parser.add_argument("--crlf", action='store_true', help="Use CRLF line terminators instead of LF.")
+    parser.add_argument("--processes", type=int, default=1,
+                        help="Split the task among the specified number of processes. May increase performance.")
 
     args = parser.parse_args()
 
