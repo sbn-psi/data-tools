@@ -38,8 +38,7 @@ def build_inventory(dirname, outfilename, deep, tolerant, crlf, pool_):
     sep = "\r\n" if crlf else "\n"
 
     with open(outfilename, "w") as f:
-        for r in sorted(records):
-            f.write(r + sep)
+        f.write(f"{sep.join(sorted(records))}{sep}")
 
 
 def get_filenames(dirname, processes, deep):
