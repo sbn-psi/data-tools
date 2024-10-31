@@ -22,6 +22,9 @@ def main():
 
 
 def build_parser():
+    """
+    Create an argument parser for the program.
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument("outfilepath", help="Write the inventory to the specified file.")
     parser.add_argument("dirname", help="Traverse the given directory for products.")
@@ -41,6 +44,12 @@ def build_parser():
 
 
 def build_inventory(dirname, outfilename, deep, tolerant, crlf, pool_):
+    """
+    Create an inventory for all of the basic products located in the specified directory.
+    Write the output to the specifiied destination.
+
+
+    """
     filenames = peeks(get_filenames(dirname, pool_, deep), logging.DEBUG)
     lidvids = peeks(get_lidvids(filenames, pool_, tolerant), logging.INFO)
     records = (f"P,{lidvid}" for lidvid in lidvids)
@@ -52,23 +61,38 @@ def build_inventory(dirname, outfilename, deep, tolerant, crlf, pool_):
 
 
 def get_filenames(dirname, pool_, deep):
+    """
+    Get the filenames for all of the basic products located in the given directory
+    """
     filenames = inventory.get_all_product_filenames(dirname)
     func = partial(squelch_collections, deep=deep)
     return (x for x in do_map(func, filenames, pool_) if x is not None)
 
 
 def squelch_collections(filename, deep):
+    """
+    Convert the filenames for collections in the provided list to none.
+    This is kind of a hack because multiprocessing doesn't directly support
+    filtering.
+    """
     if inventory.is_basic_product(filename, deep=deep):
         return filename
     return None
 
 
 def get_lidvids(filenames, pool_, tolerant):
+    """
+    Get all of the LIDVIDs declared in the list of filenames.
+    """
     func = partial(inventory.iter_extract_lidvid, tolerant=tolerant)
     return do_map(func, filenames, pool_)
 
 
 def do_map(func, items, pool_):
+    """
+    This is a "multiprocessing-optional" version of unordered_map. If no multiprocessing pool is
+    provided, then just do a standard generator comprehension.
+    """
     if pool_ is None:
         return (func(x) for x in items)
     else:
@@ -76,10 +100,16 @@ def do_map(func, items, pool_):
 
 
 def peeks(items, level):
+    """
+    Log and return all of the values in the specified "list".
+    """
     return (peek(x, level) for x in items)
 
 
 def peek(x, level):
+    """
+    Log and return a single value, at the specified log level.
+    """
     logging.log(level, x)
     return x
 
