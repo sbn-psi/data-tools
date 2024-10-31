@@ -42,7 +42,7 @@ def extract_product_type(filename: str) -> str:
         raise Exception(f"Could not parse product: {filename}") from e
 
 
-def iter_extract_lidvid(filename: str, tolerant: bool = False) -> str:
+def extract_lidvid(filename: str, tolerant: bool = False) -> str:
     lid = ""
     try:
         for (_, elem) in etree.iterparse(filename):

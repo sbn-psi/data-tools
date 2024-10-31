@@ -93,7 +93,7 @@ def get_lidvids(filenames: Iterable[str], pool_: multiprocessing.Pool, tolerant:
     """
     Get all of the LIDVIDs declared in the list of filenames.
     """
-    func = partial(inventory.iter_extract_lidvid, tolerant=tolerant)
+    func = partial(inventory.extract_lidvid, tolerant=tolerant)
     return do_map(func, filenames, pool_)
 
 
