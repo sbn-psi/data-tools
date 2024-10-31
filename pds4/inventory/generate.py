@@ -1,13 +1,13 @@
 #! /usr/bin/env python3
 
-import sys
 import inventory
 import argparse
 import logging
 from multiprocessing import pool
 from functools import partial
 
-def main(argv=None):
+
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("outfilepath")
     parser.add_argument("dirname")
@@ -29,12 +29,12 @@ def main(argv=None):
     build_inventory(args.dirname, args.outfilepath, args.deep_product_check, args.tolerant, p)
 
 
-def build_inventory(dirname, outfilename, deep, tolerant, pool):
-    filenames = peeks(get_filenames(dirname, pool, deep), logging.DEBUG)
-    lidvids = peeks(get_lidvids(filenames, pool, tolerant), logging.INFO)
+def build_inventory(dirname, outfilename, deep, tolerant, pool_):
+    filenames = peeks(get_filenames(dirname, pool_, deep), logging.DEBUG)
+    lidvids = peeks(get_lidvids(filenames, pool_, tolerant), logging.INFO)
     records = ("P," + lidvid for lidvid in lidvids)
 
-    with open(outfilename,"w") as f:
+    with open(outfilename, "w") as f:
         for r in sorted(records):
             f.write(r + "\r\n")
 
@@ -51,16 +51,16 @@ def squelch_collections(filename, deep):
     return None
 
 
-def get_lidvids(filenames, pool, tolerant):
+def get_lidvids(filenames, pool_, tolerant):
     func = partial(inventory.iter_extract_lidvid, tolerant=tolerant)
-    return do_map(func, filenames, pool)
+    return do_map(func, filenames, pool_)
 
 
-def do_map(func, items, pool):
-    if pool is None:
+def do_map(func, items, pool_):
+    if pool_ is None:
         return (func(x) for x in items)
     else:
-        return pool.imap_unordered(func, items, 1024)
+        return pool_.imap_unordered(func, items, 1024)
 
 
 def peeks(items, level):
