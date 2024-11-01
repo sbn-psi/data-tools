@@ -17,6 +17,7 @@ def main() -> None:
 
     logging.basicConfig(
         level=logging.WARNING if args.quiet else logging.DEBUG if args.debug else logging.INFO,
+        format='%(asctime)s;%(levelname)s;%(name)s; %(message)s',
         filename=args.logfile
     )
 
