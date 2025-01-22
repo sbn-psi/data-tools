@@ -152,6 +152,7 @@ def main():
                 bakfile = filename + ".bak"
                 shutil.copy(filename, bakfile)
             with open(filename, "w") as outfile:
+                etree.indent(xmldoc, space="    ")
                 outfile.write(etree.tostring(xmldoc, method="xml", encoding="unicode"))
         else:
             print(etree.tostring(xmldoc, method="xml", encoding="unicode"))
