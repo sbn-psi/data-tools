@@ -85,5 +85,7 @@ By default, xed will send its output to stdout. You can modify a file in place b
 
 ## Caveats
 
-The xml output isn't well formatted. You'll want to run it back through a formatter such as tidy or xmllint.
+The xml output will be automatically pretty-printed on output. This will generally look OK, but it may not look exactly
+the same as the input file. This is still probably better than the previous output, which was not formatted
+at all.
 
