@@ -44,6 +44,15 @@ a json file would look like:
 
 This is very similar to the ad-hoc usage.
 
+### Oddities
+
+If you specify both an ad-hoc command and JSON, xed will run the ad-hoc command first, then the commands in the JSON
+batch. In reality, the behavior is undefined, and might change in the future. So, don't do that.
+
+If you specify neither a command or JSON, xed will output the document with no structural changes. This might be useful
+if you want to reindent your file. However, this is not the explicit purpose of xed, and I would recommend a dedicated
+pretty-printer (such as `tidy` or `xmllint`) instead.
+
 ## Command Reference
 
 ### replace
