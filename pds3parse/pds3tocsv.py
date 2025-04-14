@@ -5,6 +5,7 @@ import pds3parse
 import csv
 import itertools
 import sys
+import os.path
 
 
 def to_dict(parsed, context=""):
@@ -46,17 +47,34 @@ def file_to_dict(parser, filepath):
         return parsed_dict
 
 
+def find_labels(dirname):
+    files = itertools.chain.from_iterable(
+        (os.path.join(dirpath, filename) for filename in filenames)
+        for dirpath, _, filenames in os.walk(dirname))
+    return (x for x in files if x.lower().endswith('.lbl'))
+
+
 def main():
     argparser = argparse.ArgumentParser()
     argparser.add_argument("--output-file",
                            default="out.csv",
                            help='The name of the csv file to write to. Defaults to out.csv')
+    argparser.add_argument("--src-dir",
+                           default="out.csv",
+                           help='The name of the directory to pull label files from. '
+                                'This can supplement the list of label files or replace it. ')
+
     argparser.add_argument("labels", nargs="*")
     args = argparser.parse_args()
 
     parser = pds3parse.parser
 
-    result = [file_to_dict(parser, filepath) for filepath in args.labels]
+    if args.src_dir:
+        labels = itertools.chain.from_iterable((args.labels, find_labels(args.src_dir)))
+    else:
+        labels = args.labels
+
+    result = [file_to_dict(parser, filepath) for filepath in labels]
 
     # print(result)
     headers = set(itertools.chain.from_iterable([x.keys() for x in result]))
