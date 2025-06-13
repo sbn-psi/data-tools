@@ -18,6 +18,18 @@ def read_headers(file_name):
                 return lines
 
 
+def extract_label(filename):
+    """
+    Extract the label from an img file and save it as an lbl file.
+    """
+    base, ext = os.path.splitext(filename)
+    if ext == '.img':
+        outfile = base + ".lbl"
+        contents = read_headers(filename)
+        with open(outfile, "w") as f:
+            f.write('\r\n'.join(contents))
+
+
 def main():
     parser = argparse.ArgumentParser(description=
                                      "Extracts the attached PDS3 label from an img "
@@ -26,12 +38,7 @@ def main():
     args = parser.parse_args()
 
     for filename in args.filename:
-        base, ext = os.path.splitext(filename)
-        if ext == '.img':
-            outfile = base + ".lbl"
-            contents = read_headers(filename)
-            with open(outfile, "w") as f:
-                f.write('\r\n'.join(contents))
+        extract_label(filename)
 
 
 if __name__ == '__main__':
