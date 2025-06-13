@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import itertools
 import sys
 import os.path
 
@@ -9,13 +10,9 @@ def read_headers(file_name):
     """
     Read the entire header from an IMG file.
     """
-    lines = []
     with open(file_name, 'rb') as infile:
-        while True:
-            line = str(infile.readline(), encoding='utf-8').strip()
-            lines.append(line)
-            if line == 'END':
-                return lines
+        lines = (str(x, encoding='utf-8').strip() for x in infile)
+        return list(itertools.chain(itertools.takewhile(lambda x: x != 'END', lines), ['END']))
 
 
 def extract_label(filename):
