@@ -31,6 +31,9 @@ def to_dict(parsed, context=""):
         elif entry['type'] == 'object':
             subresult = to_dict(entry['value'], key + ".")
             result.update(subresult)
+        elif entry['type'] == 'group':
+            subresult = to_dict(entry['value'], key + ".")
+            result.update(subresult)
         else:
             print(f'Unmatched entry: {entry}')
 
