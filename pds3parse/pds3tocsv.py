@@ -45,7 +45,7 @@ def file_to_dict(parser, filepath):
     with open(filepath) as f:
         data = f.read()
         parsed = parser.parse(data)
-        parsed_dict = to_dict(parsed) if parsed is not None else []
+        parsed_dict = to_dict(parsed) if parsed is not None else {}
         parsed_dict['meta.filepath'] = filepath
         return parsed_dict
 
