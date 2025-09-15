@@ -11,11 +11,14 @@ def p_label(p):
 
 def p_statements(p):
     """statements : statements statement
-                  | statement"""
+                  | statement
+                  | """
     if len(p) > 2:
         p[0] = p[1] + [p[2]]
-    else:
+    elif len(p) > 1:
         p[0] = [p[1]]
+    else:
+        p[0] = []
 
 
 def p_statement(p):
