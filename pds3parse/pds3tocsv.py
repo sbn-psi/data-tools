@@ -27,12 +27,12 @@ def to_dict(parsed, context=""):
             elif isinstance(values, list):
                 result[key] = ';'.join([x['scalar'].strip() for x in values])
             else:
-                print(entry)
+                print(f'Unmatched entry: {entry}')
         elif entry['type'] == 'object':
             subresult = to_dict(entry['value'], key + ".")
             result.update(subresult)
         else:
-            print(entry)
+            print(f'Unmatched entry: {entry}')
 
     return result
 
